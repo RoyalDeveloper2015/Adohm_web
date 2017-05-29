@@ -1,7 +1,7 @@
 <template>
   <!--<div id="app">
     <img src="./assets/logo.png">
-    <router-view></router-view>
+
     <hello></hello>
   </div>-->
   <div>
@@ -16,7 +16,8 @@
         <left-side-bar></left-side-bar>
         <!-- /.left-sidebar -->
 
-        <main-page></main-page>
+        <router-view></router-view>
+        <!--<main-page></main-page>-->
         <!-- /.main-page -->
 
         <right-side-bar></right-side-bar>
