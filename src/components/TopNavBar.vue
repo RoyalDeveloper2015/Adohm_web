@@ -2,11 +2,10 @@
   <nav class="navbar top-navbar bg-white box-shadow">
     <div class="container-fluid">
       <div class="row">
-        <div class="navbar-header no-padding">
+        <div class="navbar-header no-padding" style="background: #1f1f1f">
           <a class="navbar-brand" href="index.html">
-            <img src="static/images/logo-dark.svg" alt="Options - Admin Template" class="logo">
+            <img src="static/images/logo.png" alt="Adohm" class="logo">
           </a>
-          <span class="small-nav-handle hidden-sm hidden-xs"><i class="fa fa-outdent"></i></span>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                   data-target="#navbar-collapse-1"
                   aria-expanded="false">
@@ -21,7 +20,8 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-            <li class="hidden-sm hidden-xs"><a href="#" class="user-info-handle"><i class="fa fa-user"></i></a></li>
+            <li class="hidden-sm hidden-xs"><a href="#" class="user-info-handle">
+              <i class="fa fa-user"></i></a></li>
             <li class="hidden-sm hidden-xs"><a href="#" class="full-screen-handle"><i
               class="fa fa-arrows-alt"></i></a>
             </li>
