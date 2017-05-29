@@ -20,14 +20,8 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-            <li class="hidden-sm hidden-xs"><a href="#" class="user-info-handle">
-              <i class="fa fa-user"></i></a></li>
-            <li class="hidden-sm hidden-xs"><a href="#" class="full-screen-handle"><i
-              class="fa fa-arrows-alt"></i></a>
-            </li>
-            <li class="hidden-sm hidden-xs"><a href="#"><i class="fa fa-search"></i></a></li>
-            <li class="hidden-xs hidden-xs"><!-- <a href="#">My Tasks</a> --></li>
-            <li class=""><a href="#" class="color-primary"><i class="fa fa-diamond"></i> Upgrade</a></li>
+            <!--<li class="hidden-sm hidden-xs"><a href="#" class="user-info-handle">
+              <i class="fa fa-user"></i></a></li>-->
           </ul>
           <!-- /.nav navbar-nav -->
 
@@ -36,20 +30,11 @@
               <a href="#" class="dropdown-toggle bg-primary" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false"><i class="fa fa-plus-circle"></i> Add New <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-plus-square-o"></i> Customer</a></li>
-                <li><a href="#"><i class="fa fa-plus-square-o"></i> Employee</a></li>
-                <li><a href="#"><i class="fa fa-plus-square-o"></i> Estimate</a></li>
-                <li><a href="#"><i class="fa fa-plus-square-o"></i> Task</a></li>
-                <li><a href="#"><i class="fa fa-plus-square-o"></i> Team Member</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Create Order</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Generate Report</a></li>
+                <li><a href="#"><i class="fa fa-plus-square-o"></i>Campaign</a></li>
               </ul>
             </li>
             <!-- /.dropdown -->
             <li><a href="#" class=""><i class="fa fa-bell"></i></a></li>
-            <li><a href="#" class=""><i class="fa fa-comments"></i></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false">John Doe <span class="caret"></span></a>
