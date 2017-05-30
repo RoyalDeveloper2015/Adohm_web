@@ -30,7 +30,7 @@
               <a href="#" class="dropdown-toggle bg-primary" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false"><i class="fa fa-plus-circle"></i> Add New <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-plus-square-o"></i>Campaign</a></li>
+                <li><a href="#/campaign/add"><i class="fa fa-plus-square-o"></i>Campaign</a></li>
               </ul>
             </li>
             <!-- /.dropdown -->

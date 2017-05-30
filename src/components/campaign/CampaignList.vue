@@ -87,8 +87,7 @@
       'campaigns'
     ]),
     mounted: function () {
-      console.log('in mounted')
-      this.$store.dispatch('LOAD_PROJECT_LIST')
+      this.$store.dispatch('LOAD_CAMPAIGN_LIST')
     }
   }
 </script>

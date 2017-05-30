@@ -6,13 +6,21 @@ Vue.use(Vuex)
 const baseUrl = 'http://localhost:3030'
 const store = new Vuex.Store({
   state: {
-    campaigns: []
+    campaigns: [],
+    newCampaign: {}
   },
   actions: {
-    LOAD_PROJECT_LIST: function ({commit}) {
-      axios.get(`${baseUrl}/api/v1/campaign`).then((response) => {
-        console.log(response.data)
-        commit('SET_CAMPAIGN_LIST', {list: response.data})
+    LOAD_CAMPAIGN_LIST: function ({commit}) {
+      axios.get(`${baseUrl}/api/v1/campaign`).then((response) => (commit('SET_CAMPAIGN_LIST', {list: response.data}))
+        , (err) => {
+          console.log(err)
+        })
+    },
+    ADD_NEW_CAMPAIGN: function ({commit}, x) {
+      console.log('new campaign is ')
+      console.log(x)
+      axios.post(`${baseUrl}/api/v1/campaign`).then((response) => {
+        commit('ADD_CAMPAIGN', {newCampaign: response.data})
       }, (err) => {
         console.log(err)
       })
@@ -21,12 +29,16 @@ const store = new Vuex.Store({
   mutations: {
     SET_CAMPAIGN_LIST: (state, {list}) => {
       state.campaigns = list
+    },
+    ADD_CAMPAIGN: (state, {newCampaign}) => {
+      state.campaigns.push(newCampaign)
+      state.newCampaign = {}
     }
-  },
-  getters: {
-    openCampaigns: state => {
-      return state.campaigns.filter(campaign => !campaign.completed)
-    }
-  }
+  }/*,
+   getters: {
+   campaigns: state => {
+   return state.campaigns
+   }
+   } */
 })
 export default store
