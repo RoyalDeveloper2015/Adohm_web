@@ -37,24 +37,34 @@
               <div class="panel-heading">
               </div>
               <div class="panel-body p-20">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Created At</th>
-                    <th>UpdatedAt</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="campaign in campaigns">
-                    <td>{{campaign.dcId}}</td>
-                    <td>{{campaign.name}}</td>
-                    <td>{{campaign.createdAt}}</td>
-                    <td>{{campaign.updatedAt}}</td>
-                  </tr>
-                  </tbody>
-                </table>
+                <div style="overflow-y: scroll">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Name</th>
+                      <th>Active</th>
+                      <th>Advertiser</th>
+                      <th>Advertiser group</th>
+                      <th>Start date</th>
+                      <th>End date</th>
+                      <th>Sub account</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="campaign in campaigns">
+                      <td>{{campaign.dcId}}</td>
+                      <td>{{campaign.name}}</td>
+                      <td>{{campaign.status}}</td>
+                      <td>{{campaign.advertiserName}}</td>
+                      <td>{{campaign.advertiserGroupName}}</td>
+                      <td>{{campaign.startDate}}</td>
+                      <td>{{campaign.endDate}}</td>
+                      <td>{{campaign.subAccountName}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
