@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 Vue.use(Vuex)
 
-const baseUrl = 'http://localhost:3030'
+const baseUrl = 'http://13.228.2.2:4040'
 const store = new Vuex.Store({
   state: {
     campaigns: [],
