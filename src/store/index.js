@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   state: {
     campaigns: [],
     advertisers: [],
-    newCampaign: {}
+    newCampaign: {subaccount: '1151202'}
   },
   actions: {
     // campaign actions
