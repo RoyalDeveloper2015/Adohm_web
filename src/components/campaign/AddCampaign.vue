@@ -73,9 +73,16 @@
                   <div class="form-group">
                     <label for="text1" class="col-sm-2 control-label">Advertiser</label>
                     <div class="col-sm-10">
-                      <input type="text" v-model="newCampaign.advertiser" class="form-control" id="advertiser"
+                      <!--<input type="text" v-model="newCampaign.advertiser" class="form-control" id="advertiser"
                              name="advertiser"
-                             placeholder="advertiser">
+                             placeholder="advertiser">-->
+                      <select v-model="newCampaign.advertiser" class="form-control" id="advertiser"
+                              name="advertiser">
+                        <option v-for="advertiser in advertisers" v-bind:value="advertiser.dcId">
+                          {{ advertiser.name }}
+                        </option>
+                      </select>
+                      <span>Selected: {{ newCampaign.advertiser }}</span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -135,15 +142,22 @@
 
   export default {
     name: 'addCampaign',
+    mounted: function () {
+      // this.$store.dispatch('LOAD_ADVERTISER_LIST')
+      this.loadAdvertisers()
+    },
     computed: mapState([
-      'newCampaign'
+      'newCampaign',
+      'advertisers'
     ]),
     methods: {
       ...mapActions({
-        add: 'ADD_NEW_CAMPAIGN' // map `this.add()` to `this.$store.dispatch('increment')`
+        add: 'ADD_NEW_CAMPAIGN', // map `this.add()` to `this.$store.dispatch('increment')`
+        loadAdvertisers: 'LOAD_ADVERTISER_LIST'
       }),
       onSubmit () {
-        this.add(this.$store.state.newCampaign)
+        console.log('in submit')
+        console.log(this.newCampaign)
       }
     }
   }
