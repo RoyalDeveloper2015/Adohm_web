@@ -39,75 +39,104 @@
               </div>
               <div class="panel-body p-20">
                 <form class="form-horizontal" @submit.prevent="onSubmit()">
-                  <div v-if="step =='one'">
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label">Name</label>
-                      <div class="col-sm-10">
-                        <input type="text" v-model="newCampaign.name" class="form-control" id="name" name="name"
-                               placeholder="Name">
+                  <form-wizard title="" subtitle="">
+                    <tab-content title="General info" >
+                      <div class="form-group">
+                        <label for="text1" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" v-model="newCampaign.name" class="form-control" id="name" name="name"
+                                 placeholder="Name">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label">Landing page url</label>
-                      <div class="col-sm-10">
-                        <input type="text" v-model="newCampaign.landingPageName" class="form-control"
-                               id="landingPageUrl"
-                               name="landingPageUrl"
-                               placeholder="Landing page url">
+                      <div class="form-group">
+                        <label for="text1" class="col-sm-2 control-label">Landing page url</label>
+                        <div class="col-sm-10">
+                          <input type="text" v-model="newCampaign.landingPageName" class="form-control"
+                                 id="landingPageUrl"
+                                 name="landingPageUrl"
+                                 placeholder="Landing page url">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label">Advertiser</label>
-                      <div class="col-sm-10">
-                        <!--<input type="text" v-model="newCampaign.advertiser" class="form-control" id="advertiser"
-                               name="advertiser"
-                               placeholder="advertiser">-->
-                        <select v-model="newCampaign.advertiser" class="form-control" id="advertiser"
-                                name="advertiser">
-                          <option v-for="advertiser in advertisers" v-bind:value="advertiser.dcId">
-                            {{ advertiser.name }}
-                          </option>
-                        </select>
+                      <div class="form-group">
+                        <label for="text1" class="col-sm-2 control-label">Advertiser</label>
+                        <div class="col-sm-10">
+                          <!--<input type="text" v-model="newCampaign.advertiser" class="form-control" id="advertiser"
+                                 name="advertiser"
+                                 placeholder="advertiser">-->
+                          <select v-model="newCampaign.advertiser" class="form-control" id="advertiser"
+                                  name="advertiser">
+                            <option v-for="advertiser in advertisers" v-bind:value="advertiser.dcId">
+                              {{ advertiser.name }}
+                            </option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label">Start date</label>
-                      <div class="col-sm-10">
-                        <input type="date" v-model="newCampaign.startDate" class="form-control" id="startDate"
-                               name="startDate"
-                               placeholder="Start date">
+                      <div class="form-group">
+                        <label for="text1" class="col-sm-2 control-label">Start date</label>
+                        <div class="col-sm-10">
+                          <input type="date" v-model="newCampaign.startDate" class="form-control" id="startDate"
+                                 name="startDate"
+                                 placeholder="Start date">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label">End date</label>
-                      <div class="col-sm-10">
-                        <input type="date" v-model="newCampaign.endDate" class="form-control" id="endDate"
-                               name="endDate"
-                               placeholder="End date">
+                      <div class="form-group">
+                        <label for="text1" class="col-sm-2 control-label">End date</label>
+                        <div class="col-sm-10">
+                          <input type="date" v-model="newCampaign.endDate" class="form-control" id="endDate"
+                                 name="endDate"
+                                 placeholder="End date">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label">Sub account</label>
-                      <div class="col-sm-10">
-                        <select v-model="newCampaign.subaccount" class="form-control" id="subaccount"
-                                name="subaccount">
-                          <option v-bind:value="1151202">
-                            BidManager_Subnetwork_DO_NOT_EDIT
-                          </option>
-                        </select>
+                      <div class="form-group">
+                        <label for="text1" class="col-sm-2 control-label">Sub account</label>
+                        <div class="col-sm-10">
+                          <select v-model="newCampaign.subaccount" class="form-control" id="subaccount"
+                                  name="subaccount">
+                            <option v-bind:value="1151202">
+                              BidManager_Subnetwork_DO_NOT_EDIT
+                            </option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="text1" class="col-sm-2 control-label"></label>
-                      <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Next</button>
+                    </tab-content>
+                    <tab-content title="Targeting Template">
+                      <div class="form-group">
+                        <label for="targetingTemplateName" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control"
+                                 id="targetingTemplateName"
+                                 name="targetingTemplateName"
+                                 placeholder="name">
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div v-if="step =='two'">
-                    <h1>step {{step}}</h1>
-                    <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" placeholder="Pick some"></multiselect>
-                  </div>
+                      <div class="form-group">
+                        <label for="country" class="col-sm-2 control-label">Country</label>
+                        <div class="col-sm-10">
+                          <multiselect class="" v-model="newCampaign.country" :options="countries" label="name"
+                                       track-by="dcId"
+                                       :multiple="true" :close-on-select="false"
+                                       :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                       @input="countrySelected"
+                                       placeholder="Pick some"></multiselect>
+
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="region" class="col-sm-2 control-label">Region</label>
+                        <div class="col-sm-10">
+                          <multiselect class="" v-model="newCampaign.region" :options="regions" label="name"
+                                       track-by="dcId"
+                                       :multiple="true" :close-on-select="false"
+                                       :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                       placeholder="Pick some"></multiselect>
+
+                        </div>
+                      </div>
+                    </tab-content>
+                    <tab-content title="Last step">
+                      Yuhuuu! This seems pretty damn simple
+                    </tab-content>
+                  </form-wizard>
                 </form>
               </div>
             </div>
@@ -122,11 +151,10 @@
 
   </div>
 </template>
-
 <script>
   import {mapState, mapActions} from 'vuex'
-
   import Multiselect from 'vue-multiselect'
+  import {FormWizard, TabContent} from 'vue-form-wizard'
 
   export default {
     name: 'addCampaign',
@@ -134,33 +162,36 @@
       this.step = 'one'
     },
     mounted: function () {
-      // this.$store.dispatch('LOAD_ADVERTISER_LIST')
       this.loadAdvertisers()
+      this.loadCountries()
+      this.loadRegions()
     },
     components: {
-      Multiselect
-    },
-    data: () => {
-      return {
-        step: 'one',
-        value: null,
-        options: ['list', 'of', 'options']
-      }
+      Multiselect,
+      FormWizard,
+      TabContent
     },
     computed: mapState([
       'newCampaign',
-      'advertisers'
+      'advertisers',
+      'countries',
+      'regions'
     ]),
     methods: {
       ...mapActions({
         add: 'ADD_NEW_CAMPAIGN', // map `this.add()` to `this.$store.dispatch('increment')`
-        loadAdvertisers: 'LOAD_ADVERTISER_LIST'
+        loadAdvertisers: 'LOAD_ADVERTISER_LIST',
+        loadCountries: 'LOAD_COUNTRY_LIST',
+        loadRegions: 'LOAD_REGION_LIST'
       }),
+      countrySelected () {
+        console.log('in country selected')
+      },
       onSubmit () {
-        this.step = 'two'
         console.log(this.data)
       }
     }
   }
 </script>
+<style src="vue-form-wizard/dist/vue-form-wizard.min.css"></style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
