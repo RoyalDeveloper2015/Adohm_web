@@ -106,7 +106,7 @@
                   </div>
                   <div v-if="step =='two'">
                     <h1>step {{step}}</h1>
-
+                    <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" placeholder="Pick some"></multiselect>
                   </div>
                 </form>
               </div>
@@ -126,6 +126,8 @@
 <script>
   import {mapState, mapActions} from 'vuex'
 
+  import Multiselect from 'vue-multiselect'
+
   export default {
     name: 'addCampaign',
     beforeMount: function () {
@@ -135,9 +137,14 @@
       // this.$store.dispatch('LOAD_ADVERTISER_LIST')
       this.loadAdvertisers()
     },
+    components: {
+      Multiselect
+    },
     data: () => {
       return {
-        step: 'one'
+        step: 'one',
+        value: null,
+        options: ['list', 'of', 'options']
       }
     },
     computed: mapState([
@@ -156,3 +163,4 @@
     }
   }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

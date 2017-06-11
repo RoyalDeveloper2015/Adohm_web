@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-Vue.use(Vuex)
+import campaignActions from './actions/campaignActions'
+import advertiserActions from './actions/advertiserActions'
 
-const baseUrl = 'http://localhost:3030' // 'http://13.228.2.2:4040'
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
@@ -13,27 +13,10 @@ const store = new Vuex.Store({
   },
   actions: {
     // campaign actions
-    LOAD_CAMPAIGN_LIST: function ({commit}) {
-      axios.get(`${baseUrl}/api/v1/campaign`).then((response) => (commit('SET_CAMPAIGN_LIST', {list: response.data}))
-        , (err) => {
-          console.log(err)
-        })
-    },
-    ADD_NEW_CAMPAIGN: function ({commit}, x) {
-      axios.post(`${baseUrl}/api/v1/campaign`).then((response) => {
-        commit('ADD_CAMPAIGN', {newCampaign: response.data})
-      }, (err) => {
-        console.log(err)
-      })
-    },
+    LOAD_CAMPAIGN_LIST: campaignActions.getAll,
+    ADD_NEW_CAMPAIGN: campaignActions.add,
     // advertiser actions
-    LOAD_ADVERTISER_LIST: function ({commit}) {
-      console.log('load advertiser list')
-      axios.get(`${baseUrl}/api/v1/advertiser`).then((response) => (commit('SET_ADVERTISER_LIST', {list: response.data}))
-        , (err) => {
-          console.log(err)
-        })
-    }
+    LOAD_ADVERTISER_LIST: advertiserActions.getAll
   },
   mutations: {
     // campaigns
