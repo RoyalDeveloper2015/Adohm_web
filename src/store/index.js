@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import campaignActions from './actions/campaignActions'
 import advertiserActions from './actions/advertiserActions'
 import countryActions from './actions/countriesActions'
-import regionActions from './actions/regionsActions'
+import regionActions from './actions/regionActions'
 
 Vue.use(Vuex)
 
