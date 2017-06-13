@@ -4,6 +4,7 @@ import campaignActions from './actions/campaignActions'
 import advertiserActions from './actions/advertiserActions'
 import countryActions from './actions/countriesActions'
 import regionActions from './actions/regionActions'
+import cityActions from './actions/cityActions'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
     newCampaign: {subaccount: '1151202'},
     advertisers: [],
     countries: [],
-    regions: []
+    regions: [],
+    cities: []
   },
   actions: {
     // campaign actions
@@ -24,7 +26,9 @@ const store = new Vuex.Store({
     // country actions
     LOAD_COUNTRY_LIST: countryActions.getAll,
     // region actions
-    LOAD_REGION_LIST: regionActions.getAll
+    LOAD_REGION_LIST: regionActions.getAll,
+    // city actions
+    LOAD_CITY_LIST: cityActions.getAll
   },
   mutations: {
     // campaigns
@@ -46,6 +50,10 @@ const store = new Vuex.Store({
     // region
     SET_REGION_LIST: (state, {list}) => {
       state.regions = list
+    },
+    // city
+    SET_CITY_LIST: (state, {list}) => {
+      state.cities = list
     }
   }/*,
    getters: {
