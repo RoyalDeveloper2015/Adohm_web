@@ -167,9 +167,38 @@
                           Language
                         </h5>
                         <div class="form-group">
-                          <label for="country" class="col-sm-2 control-label">Country</label>
+                          <label for="language" class="col-sm-2 control-label">Language</label>
                           <div class="col-sm-10">
                             <multiselect class="" v-model="newCampaign.language" :options="languages" label="name"
+                                         track-by="dcId"
+                                         :multiple="true" :close-on-select="false"
+                                         :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                         placeholder="Pick some"></multiselect>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h5>
+                          Technology
+                        </h5>
+                        <div class="form-group">
+                          <label for="connectionType" class="col-sm-2 control-label">Connection type</label>
+                          <div class="col-sm-10">
+                            <multiselect class="" v-model="newCampaign.connectionType" :options="connectionTypes"
+                                         label="name"
+                                         track-by="dcId"
+                                         :multiple="true" :close-on-select="false"
+                                         :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                         placeholder="Pick some"></multiselect>
+
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="mobileCarrier" class="col-sm-2 control-label">Mobile carrier</label>
+                          <div class="col-sm-10">
+                            <multiselect class="" v-model="newCampaign.mobileCarrier" :options="mobileCarriers"
+                                         label="name"
                                          track-by="dcId"
                                          :multiple="true" :close-on-select="false"
                                          :clear-on-select="false" :hide-selected="true" :option-height="10"
@@ -212,6 +241,7 @@
       this.loadCountries()
       this.loadRegions()
       this.loadLanguages()
+      this.loadConnectionTypes()
     },
     components: {
       Multiselect,
@@ -224,7 +254,9 @@
       'countries',
       'regions',
       'cities',
-      'languages'
+      'languages',
+      'connectionTypes',
+      'mobileCarriers'
     ]),
     methods: {
       ...mapActions({
@@ -233,7 +265,9 @@
         loadCountries: 'LOAD_COUNTRY_LIST',
         loadRegions: 'LOAD_REGION_LIST',
         loadCities: 'LOAD_CITY_LIST',
-        loadLanguages: 'LOAD_LANGUAGE_LIST'
+        loadLanguages: 'LOAD_LANGUAGE_LIST',
+        loadConnectionTypes: 'LOAD_CONNECTION_TYPE_LIST',
+        loadMobileCarriers: 'LOAD_MOBILE_CARRIER_LIST'
       }),
       countrySelected () {
         const dcIds = []
@@ -241,6 +275,7 @@
           dcIds.push(country.dcId)
         }
         this.loadCities(dcIds)
+        this.loadMobileCarriers(dcIds)
       },
       onSubmit () {
         console.log(this.data)

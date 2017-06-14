@@ -6,6 +6,8 @@ import countryActions from './actions/countriesActions'
 import regionActions from './actions/regionActions'
 import cityActions from './actions/cityActions'
 import languageActions from './actions/languagesActions'
+import connectionTypeActions from './actions/connectionTypesActions'
+import mobileCarrierActions from './actions/mobileCarriersActions'
 
 Vue.use(Vuex)
 
@@ -17,7 +19,9 @@ const store = new Vuex.Store({
     countries: [],
     regions: [],
     cities: [],
-    languages: []
+    languages: [],
+    connectionTypes: [],
+    mobileCarriers: []
   },
   actions: {
     // campaign actions
@@ -32,7 +36,11 @@ const store = new Vuex.Store({
     // city actions
     LOAD_CITY_LIST: cityActions.getAll,
     // city actions
-    LOAD_LANGUAGE_LIST: languageActions.getAll
+    LOAD_LANGUAGE_LIST: languageActions.getAll,
+    // connection type actions
+    LOAD_CONNECTION_TYPE_LIST: connectionTypeActions.getAll,
+    // mobile carrier actions
+    LOAD_MOBILE_CARRIER_LIST: mobileCarrierActions.getAll
   },
   mutations: {
     // campaigns
@@ -62,6 +70,14 @@ const store = new Vuex.Store({
     // languages
     SET_LANGUAGE_LIST: (state, {list}) => {
       state.languages = list
+    },
+    // connectionTypes
+    SET_CONNECTION_TYPE_LIST: (state, {list}) => {
+      state.connectionTypes = list
+    },
+    // mobileCarriers
+    SET_MOBILE_CARRIER_LIST: (state, {list}) => {
+      state.mobileCarriers = list
     }
   }/*,
    getters: {
