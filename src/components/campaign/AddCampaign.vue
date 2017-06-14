@@ -230,6 +230,60 @@
 
                           </div>
                         </div>
+                        <div class="form-group">
+                          <label for="browser" class="col-sm-2 control-label">Browser</label>
+                          <div class="col-sm-10">
+                            <multiselect class="" v-model="newCampaign.browser" :options="browsers"
+                                         label="name"
+                                         track-by="dcId"
+                                         :multiple="true" :close-on-select="false"
+                                         :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                         placeholder="Pick some"></multiselect>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h5>
+                          Keywords
+                        </h5>
+                        <div class="form-group">
+                          <label for="targetingTemplateName" class="col-sm-2 control-label">Keywords</label>
+                          <div class="col-sm-10">
+                            <textarea class="form-control"
+                                      id="keywords"
+                                      name="targetingTemplateName"
+                                      v-model="newCampaign.keywords"
+                                      placeholder="name"></textarea>
+                            <p>
+                              Enter one or more keywords or keyword expressions, each separated by a comma. E.g., cat, dog, fish and (pet, water).</p>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h5>
+                          Time and day
+                        </h5>
+                        <div class="form-group">
+                          <label for="targetingTemplateName" class="col-sm-2 control-label">Time zone</label>
+                          <div class="col-sm-10">
+                            <input type="radio" name="timeZone" value="male"> User's local<br>
+                            <input type="radio" name="timeZone" value="female"> New York -05:00 / -04:00 GMT<br>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="targetingTemplateName" class="col-sm-2 control-label">Day</label>
+                          <div class="col-sm-10">
+                            <input type="checkbox" name="timeZone" value="male"> Sunday
+                            <input type="checkbox" name="timeZone" value="female"> Monday
+                            <input type="checkbox" name="timeZone" value="female"> Tuesday
+                            <input type="checkbox" name="timeZone" value="female"> Wednesday
+                            <input type="checkbox" name="timeZone" value="female"> Thursday
+                            <input type="checkbox" name="timeZone" value="female"> Friday
+                            <input type="checkbox" name="timeZone" value="female"> Saturday
+                          </div>
+                        </div>
                       </div>
                     </tab-content>
                     <tab-content title="Last step">
@@ -268,6 +322,7 @@
       this.loadConnectionTypes()
       this.loadPlatformTypes()
       this.loadOperatingSystems()
+      this.loadBrowsers()
     },
     components: {
       Multiselect,
@@ -284,7 +339,8 @@
       'connectionTypes',
       'mobileCarriers',
       'platformTypes',
-      'operatingSystems'
+      'operatingSystems',
+      'browsers'
     ]),
     methods: {
       ...mapActions({
@@ -297,7 +353,8 @@
         loadConnectionTypes: 'LOAD_CONNECTION_TYPE_LIST',
         loadMobileCarriers: 'LOAD_MOBILE_CARRIER_LIST',
         loadPlatformTypes: 'LOAD_PLATFORM_TYPE_LIST',
-        loadOperatingSystems: 'LOAD_OPERATING_SYSTEM_LIST'
+        loadOperatingSystems: 'LOAD_OPERATING_SYSTEM_LIST',
+        loadBrowsers: 'LOAD_BROWSER_LIST'
       }),
       countrySelected () {
         const dcIds = []
