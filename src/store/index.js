@@ -27,7 +27,33 @@ const store = new Vuex.Store({
     mobileCarriers: [],
     platformTypes: [],
     operatingSystems: [],
-    browsers: []
+    browsers: [],
+    hours: [
+      {id: 0, name: '12:00 AM - 12:59 AM'},
+      {id: 1, name: '1:00 AM - 1:59 AM'},
+      {id: 2, name: '2:00 AM - 2:59 AM'},
+      {id: 3, name: '3:00 AM - 3:59 AM'},
+      {id: 4, name: '4:00 AM - 4:59 AM'},
+      {id: 5, name: '5:00 AM - 5:59 AM'},
+      {id: 6, name: '6:00 AM - 6:59 AM'},
+      {id: 7, name: '7:00 AM - 7:59 AM'},
+      {id: 8, name: '8:00 AM - 8:59 AM'},
+      {id: 9, name: '9:00 AM - 9:59 AM'},
+      {id: 10, name: '10:00 AM - 10:59 AM'},
+      {id: 11, name: '11:00 AM - 11:59 AM'},
+      {id: 12, name: '12:00 PM - 12:59 PM'},
+      {id: 13, name: '1:00 PM - 1:59 PM'},
+      {id: 14, name: '2:00 PM - 2:59 PM'},
+      {id: 15, name: '3:00 PM - 3:59 PM'},
+      {id: 16, name: '4:00 PM - 4:59 PM'},
+      {id: 17, name: '5:00 PM - 5:59 PM'},
+      {id: 18, name: '6:00 PM - 6:59 PM'},
+      {id: 19, name: '7:00 PM - 7:59 PM'},
+      {id: 20, name: '8:00 PM - 8:59 PM'},
+      {id: 21, name: '9:00 PM - 9:59 PM'},
+      {id: 22, name: '10:00 PM - 10:59 PM'},
+      {id: 23, name: '11:00 PM - 11:59 PM'}
+    ]
   },
   actions: {
     // campaign actions
