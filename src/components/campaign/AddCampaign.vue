@@ -218,6 +218,18 @@
 
                           </div>
                         </div>
+                        <div class="form-group">
+                          <label for="platformType" class="col-sm-2 control-label">Operating system</label>
+                          <div class="col-sm-10">
+                            <multiselect class="" v-model="newCampaign.operatingSystem" :options="operatingSystems"
+                                         label="name"
+                                         track-by="dcId"
+                                         :multiple="true" :close-on-select="false"
+                                         :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                         placeholder="Pick some"></multiselect>
+
+                          </div>
+                        </div>
                       </div>
                     </tab-content>
                     <tab-content title="Last step">
@@ -255,6 +267,7 @@
       this.loadLanguages()
       this.loadConnectionTypes()
       this.loadPlatformTypes()
+      this.loadOperatingSystems()
     },
     components: {
       Multiselect,
@@ -270,7 +283,8 @@
       'languages',
       'connectionTypes',
       'mobileCarriers',
-      'platformTypes'
+      'platformTypes',
+      'operatingSystems'
     ]),
     methods: {
       ...mapActions({
@@ -282,7 +296,8 @@
         loadLanguages: 'LOAD_LANGUAGE_LIST',
         loadConnectionTypes: 'LOAD_CONNECTION_TYPE_LIST',
         loadMobileCarriers: 'LOAD_MOBILE_CARRIER_LIST',
-        loadPlatformTypes: 'LOAD_PLATFORM_TYPE_LIST'
+        loadPlatformTypes: 'LOAD_PLATFORM_TYPE_LIST',
+        loadOperatingSystems: 'LOAD_OPERATING_SYSTEM_LIST'
       }),
       countrySelected () {
         const dcIds = []

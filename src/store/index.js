@@ -9,6 +9,7 @@ import languageActions from './actions/languagesActions'
 import connectionTypeActions from './actions/connectionTypesActions'
 import mobileCarrierActions from './actions/mobileCarriersActions'
 import platformTypeActions from './actions/platformTypeActions'
+import operatingSystemActions from './actions/operatingSystemActions'
 
 Vue.use(Vuex)
 
@@ -23,7 +24,8 @@ const store = new Vuex.Store({
     languages: [],
     connectionTypes: [],
     mobileCarriers: [],
-    platformTypes: []
+    platformTypes: [],
+    operatingSystems: []
   },
   actions: {
     // campaign actions
@@ -44,7 +46,9 @@ const store = new Vuex.Store({
     // mobile carrier actions
     LOAD_MOBILE_CARRIER_LIST: mobileCarrierActions.getAll,
     // platform type actions
-    LOAD_PLATFORM_TYPE_LIST: platformTypeActions.getAll
+    LOAD_PLATFORM_TYPE_LIST: platformTypeActions.getAll,
+    // operating system actions
+    LOAD_OPERATING_SYSTEM_LIST: operatingSystemActions.getAll
   },
   mutations: {
     // campaigns
@@ -86,6 +90,10 @@ const store = new Vuex.Store({
     // platform types
     SET_PLATFORM_TYPE_LIST: (state, {list}) => {
       state.platformTypes = list
+    },
+    // operating systems
+    SET_OPERATING_SYSTEM_LIST: (state, {list}) => {
+      state.operatingSystems = list
     }
   }/*,
    getters: {
