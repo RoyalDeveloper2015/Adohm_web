@@ -8,6 +8,7 @@ import cityActions from './actions/cityActions'
 import languageActions from './actions/languagesActions'
 import connectionTypeActions from './actions/connectionTypesActions'
 import mobileCarrierActions from './actions/mobileCarriersActions'
+import platformTypeActions from './actions/platformTypeActions'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ const store = new Vuex.Store({
     cities: [],
     languages: [],
     connectionTypes: [],
-    mobileCarriers: []
+    mobileCarriers: [],
+    platformTypes: []
   },
   actions: {
     // campaign actions
@@ -40,7 +42,9 @@ const store = new Vuex.Store({
     // connection type actions
     LOAD_CONNECTION_TYPE_LIST: connectionTypeActions.getAll,
     // mobile carrier actions
-    LOAD_MOBILE_CARRIER_LIST: mobileCarrierActions.getAll
+    LOAD_MOBILE_CARRIER_LIST: mobileCarrierActions.getAll,
+    // platform type actions
+    LOAD_PLATFORM_TYPE_LIST: platformTypeActions.getAll
   },
   mutations: {
     // campaigns
@@ -78,6 +82,10 @@ const store = new Vuex.Store({
     // mobileCarriers
     SET_MOBILE_CARRIER_LIST: (state, {list}) => {
       state.mobileCarriers = list
+    },
+    // platform types
+    SET_PLATFORM_TYPE_LIST: (state, {list}) => {
+      state.platformTypes = list
     }
   }/*,
    getters: {

@@ -206,6 +206,18 @@
 
                           </div>
                         </div>
+                        <div class="form-group">
+                          <label for="platformType" class="col-sm-2 control-label">Platform type</label>
+                          <div class="col-sm-10">
+                            <multiselect class="" v-model="newCampaign.platformType" :options="platformTypes"
+                                         label="name"
+                                         track-by="dcId"
+                                         :multiple="true" :close-on-select="false"
+                                         :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                         placeholder="Pick some"></multiselect>
+
+                          </div>
+                        </div>
                       </div>
                     </tab-content>
                     <tab-content title="Last step">
@@ -242,6 +254,7 @@
       this.loadRegions()
       this.loadLanguages()
       this.loadConnectionTypes()
+      this.loadPlatformTypes()
     },
     components: {
       Multiselect,
@@ -256,7 +269,8 @@
       'cities',
       'languages',
       'connectionTypes',
-      'mobileCarriers'
+      'mobileCarriers',
+      'platformTypes'
     ]),
     methods: {
       ...mapActions({
@@ -267,7 +281,8 @@
         loadCities: 'LOAD_CITY_LIST',
         loadLanguages: 'LOAD_LANGUAGE_LIST',
         loadConnectionTypes: 'LOAD_CONNECTION_TYPE_LIST',
-        loadMobileCarriers: 'LOAD_MOBILE_CARRIER_LIST'
+        loadMobileCarriers: 'LOAD_MOBILE_CARRIER_LIST',
+        loadPlatformTypes: 'LOAD_PLATFORM_TYPE_LIST'
       }),
       countrySelected () {
         const dcIds = []
