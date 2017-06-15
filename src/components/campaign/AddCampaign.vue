@@ -258,8 +258,10 @@
                         <div class="form-group">
                           <label for="targetingTemplateName" class="col-sm-2 control-label">Time zone</label>
                           <div class="col-sm-10">
-                            <label><input type="radio" name="timeZone" value="User's local" v-model="newCampaign.timeZone"> User's local</label><br>
-                            <label><input type="radio" name="timeZone" value="New York -05:00 / -04:00 GMT" v-model="newCampaign.timeZone">
+                            <label><input type="radio" name="timeZone" value="User's local"
+                                          v-model="newCampaign.timeZone"> User's local</label><br>
+                            <label><input type="radio" name="timeZone" value="New York -05:00 / -04:00 GMT"
+                                          v-model="newCampaign.timeZone">
                               New York -05:00 / -04:00 GMT</label><br>
                           </div>
                         </div>
@@ -330,9 +332,20 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import VueToastr from '@deveodk/vue-toastr'
+  // You need a specific loader for CSS files like https://github.com/webpack/css-loader
+  // If you would like custom styling of the toastr the css file can be replaced
+  import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
+
   import {mapState, mapActions} from 'vuex'
   import Multiselect from 'vue-multiselect'
   import {FormWizard, TabContent} from 'vue-form-wizard'
+
+  Vue.use(VueToastr, {
+    defaultPosition: 'toast-top-center',
+    defaultType: 'info'
+  })
 
   export default {
     name: 'addCampaign',
@@ -395,8 +408,11 @@
         this.loadMobileCarriers(dcIds)
       },
       onSubmit () {
-        console.log('in submit')
-        console.log(this.newCampaign)
+        this.add(this.newCampaign).then(() => {
+          this.$toastr('success', 'campaign saved successfully')
+        }).catch((err) => {
+          this.$toastr('error', err.response.data.error)
+        })
       }
     }
   }
