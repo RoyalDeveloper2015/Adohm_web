@@ -11,13 +11,14 @@ import mobileCarrierActions from './actions/mobileCarriersActions'
 import platformTypeActions from './actions/platformTypeActions'
 import operatingSystemActions from './actions/operatingSystemActions'
 import browserActions from './actions/browserActions'
+import adActions from './actions/adActions'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
     campaigns: [],
-    newCampaign: {subaccount: '1151202'},
+    newCampaign: {subaccountId: 1151202},
     advertisers: [],
     countries: [],
     regions: [],
@@ -53,7 +54,17 @@ const store = new Vuex.Store({
       {id: 21, name: '9:00 PM - 9:59 PM'},
       {id: 22, name: '10:00 PM - 10:59 PM'},
       {id: 23, name: '11:00 PM - 11:59 PM'}
-    ]
+    ],
+    days: [
+      {id: 'Sunday', name: 'Sunday'},
+      {id: 'Monday', name: 'Monday'},
+      {id: 'Tuesday', name: 'Tuesday'},
+      {id: 'Wednesday', name: 'Wednesday'},
+      {id: 'Thursday', name: 'Thursday'},
+      {id: 'Friday', name: 'Friday'},
+      {id: 'Saturday', name: 'Saturday'}
+    ],
+    ads: []
   },
   actions: {
     // campaign actions
@@ -78,7 +89,9 @@ const store = new Vuex.Store({
     // operating system actions
     LOAD_OPERATING_SYSTEM_LIST: operatingSystemActions.getAll,
     // browser actions
-    LOAD_BROWSER_LIST: browserActions.getAll
+    LOAD_BROWSER_LIST: browserActions.getAll,
+    // ad actions
+    LOAD_AD_LIST: adActions.getAll
   },
   mutations: {
     // campaigns
@@ -128,6 +141,10 @@ const store = new Vuex.Store({
     // browsers
     SET_BROWSER_LIST: (state, {list}) => {
       state.browsers = list
+    },
+    // ads
+    SET_AD_LIST: (state, {list}) => {
+      state.ads = list
     }
   }/*,
    getters: {
