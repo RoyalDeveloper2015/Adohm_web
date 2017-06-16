@@ -14,6 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "@deveodk/vue-toastr": "^1.0.4",
     "axios": "^0.16.1",
     "vue": "^2.3.3",
     "vue-form-wizard": "^0.4.2",
