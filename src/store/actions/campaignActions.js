@@ -9,14 +9,8 @@ const getAll = ({commit}) => {
 }
 
 const add = ({commit}, campaign) => {
-  return new Promise((resolve, reject) => {
-    axios.post(`${baseUrl}/api/v1/campaign`, campaign).then((response) => {
-      console.log('before commit')
-      commit('ADD_CAMPAIGN', {newCampaign: response.data})
-      resolve(response)
-    }).catch((err, h) => {
-      reject(err)
-    })
+  return axios.post(`${baseUrl}/api/v1/campaign`, campaign).then((response) => {
+    commit('ADD_CAMPAIGN', {newCampaign: response.data})
   })
 }
 

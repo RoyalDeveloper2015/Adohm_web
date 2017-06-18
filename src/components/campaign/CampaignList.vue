@@ -55,7 +55,7 @@
                     <tr v-for="campaign in campaigns">
                       <td>{{campaign.dcId}}</td>
                       <td>{{campaign.name}}</td>
-                      <td>{{campaign.status}}</td>
+                      <td>{{campaign.archived}}</td>
                       <td>{{campaign.advertiserName}}</td>
                       <td>{{campaign.advertiserGroupName}}</td>
                       <td>{{campaign.startDate}}</td>

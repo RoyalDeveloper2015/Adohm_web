@@ -1,28 +1,29 @@
 <template>
   <!--<div id="app">
       <img src="./assets/logo.png">
-  
+
       <hello></hello>
     </div>-->
   <div>
     <!-- ========== TOP NAVBAR ========== -->
     <top-nav-bar></top-nav-bar>
-  
+
     <!-- ========== WRAPPER FOR BOTH SIDEBARS & MAIN CONTENT ========== -->
     <div class="content-wrapper">
       <div class="content-container">
-  
+
         <!-- ========== LEFT SIDEBAR ========== -->
         <left-side-bar></left-side-bar>
         <!-- /.left-sidebar -->
-  
+
         <router-view></router-view>
         <!--<main-page></main-page>-->
         <!-- /.main-page -->
-  
-        <right-side-bar></right-side-bar>
+
+        <!--<right-side-bar></right-side-bar>-->
+
         <!-- /.right-sidebar -->
-  
+
       </div>
       <!-- /.content-container -->
     </div>

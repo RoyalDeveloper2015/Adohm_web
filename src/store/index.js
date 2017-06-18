@@ -18,7 +18,29 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     campaigns: [],
-    newCampaign: {subaccountId: 1151202},
+    newCampaign: {
+      name: '',
+      landingPageUrl: '',
+      advertiserId: '',
+      startDate: '',
+      endDate: '',
+      subaccountId: 1151202,
+      targetName: '',
+      country: [],
+      region: [],
+      city: [],
+      postalCode: [],
+      language: [],
+      connectionType: [],
+      mobileCarrier: [],
+      platformType: [],
+      browser: [],
+      keywords: '',
+      timeZone: '',
+      days: [],
+      hours: [],
+      adId: ''
+    },
     advertisers: [],
     countries: [],
     regions: [],
@@ -100,7 +122,29 @@ const store = new Vuex.Store({
     },
     ADD_CAMPAIGN: (state, {newCampaign}) => {
       state.campaigns.push(newCampaign)
-      state.newCampaign = {}
+      state.newCampaign = {
+        name: '',
+        landingPageUrl: '',
+        advertiserId: '',
+        startDate: '',
+        endDate: '',
+        subaccountId: 1151202,
+        targetName: '',
+        country: [],
+        region: [],
+        city: [],
+        postalCode: [],
+        language: [],
+        connectionType: [],
+        mobileCarrier: [],
+        platformType: [],
+        browser: [],
+        keywords: '',
+        timeZone: '',
+        days: [],
+        hours: [],
+        adId: ''
+      }
     },
     // advertisers
     SET_ADVERTISER_LIST: (state, {list}) => {

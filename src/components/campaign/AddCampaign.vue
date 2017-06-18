@@ -131,7 +131,7 @@
 
                           </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                           <label for="region" class="col-sm-2 control-label">Region</label>
                           <div class="col-sm-10">
                             <multiselect class="" v-model="newCampaign.region" :options="regions" label="name"
@@ -162,7 +162,7 @@
                                    v-model="newCampaign.postalCode"
                                    placeholder="Postal code">
                           </div>
-                        </div>
+                        </div>-->
                       </div>
                       <div>
                         <h5>
@@ -356,6 +356,8 @@
       this.loadAdvertisers()
       this.loadCountries()
       this.loadRegions()
+      this.loadCities([])
+      this.loadMobileCarriers([])
       this.loadLanguages()
       this.loadConnectionTypes()
       this.loadPlatformTypes()
@@ -368,22 +370,24 @@
       FormWizard,
       TabContent
     },
-    computed: mapState([
-      'newCampaign',
-      'advertisers',
-      'countries',
-      'regions',
-      'cities',
-      'languages',
-      'connectionTypes',
-      'mobileCarriers',
-      'platformTypes',
-      'operatingSystems',
-      'browsers',
-      'hours',
-      'days',
-      'ads'
-    ]),
+    computed: {
+      ...mapState([
+        'newCampaign',
+        'advertisers',
+        'countries',
+        'regions',
+        'cities',
+        'languages',
+        'connectionTypes',
+        'mobileCarriers',
+        'platformTypes',
+        'operatingSystems',
+        'browsers',
+        'hours',
+        'days',
+        'ads'
+      ])
+    },
     methods: {
       ...mapActions({
         add: 'ADD_NEW_CAMPAIGN', // map `this.add()` to `this.$store.dispatch('increment')`

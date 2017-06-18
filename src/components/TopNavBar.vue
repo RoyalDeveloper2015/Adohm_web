@@ -56,7 +56,7 @@
               </ul>
             </li>
             <!-- /.dropdown -->
-            <li><a href="#" class="hidden-xs hidden-sm open-right-sidebar"><i class="fa fa-ellipsis-v"></i></a></li>
+            <!--<li><a href="#" class="hidden-xs hidden-sm open-right-sidebar"><i class="fa fa-ellipsis-v"></i></a></li>-->
           </ul>
           <!-- /.nav navbar-nav navbar-right -->
         </div>
