@@ -148,7 +148,7 @@
                                            track-by="dcId"
                                            :multiple="true" :close-on-select="false"
                                            :clear-on-select="false" :hide-selected="true" :option-height="10"
-                                           placeholder="Pick region"></multiselect>
+                                           placeholder="Pick some"></multiselect>
                             </div>
                           </div>
                         </div>
@@ -186,8 +186,8 @@
                                            placeholder="Pick country"></multiselect>
                             </div>
                             <div class="col-sm-6">
-                              <multiselect class="" v-model="newCampaign.postalCode" :options="postalCodes" label="name"
-                                           track-by="dcId"
+                              <multiselect class="" v-model="newCampaign.postalCode" :options="postalCodes" label="code"
+                                           track-by="id"
                                            :multiple="true" :close-on-select="false"
                                            :clear-on-select="false" :hide-selected="true"
                                            placeholder="Pick some"></multiselect>
