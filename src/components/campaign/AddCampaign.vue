@@ -131,38 +131,69 @@
 
                           </div>
                         </div>
-                        <!--<div class="form-group">
+                        <div class="form-group">
                           <label for="region" class="col-sm-2 control-label">Region</label>
                           <div class="col-sm-10">
-                            <multiselect class="" v-model="newCampaign.region" :options="regions" label="name"
-                                         track-by="dcId"
-                                         :multiple="true" :close-on-select="false"
-                                         :clear-on-select="false" :hide-selected="true" :option-height="10"
-                                         placeholder="Pick some"></multiselect>
+                            <div class="col-sm-6">
+                              <multiselect class="" v-model="newCampaign.regionCountry" :options="countries"
+                                           label="name"
+                                           track-by="dcId"
+                                           :multiple="true" :close-on-select="false"
+                                           :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                           @input="regionCountrySelected"
+                                           placeholder="Pick country"></multiselect>
+                            </div>
+                            <div class="col-sm-6">
+                              <multiselect class="" v-model="newCampaign.region" :options="regions" label="name"
+                                           track-by="dcId"
+                                           :multiple="true" :close-on-select="false"
+                                           :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                           placeholder="Pick region"></multiselect>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="city" class="col-sm-2 control-label">City</label>
+                          <div class="col-sm-10">
+                            <div class="col-sm-6">
+                              <multiselect class="" v-model="newCampaign.cityCountry" :options="countries" label="name"
+                                           track-by="dcId"
+                                           :multiple="true" :close-on-select="false"
+                                           :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                           @input="cityCountrySelected"
+                                           placeholder="Pick country"></multiselect>
+                            </div>
+                            <div class="col-sm-6">
+                              <multiselect class="" v-model="newCampaign.city" :options="cities" label="name"
+                                           track-by="dcId"
+                                           :multiple="true" :close-on-select="false"
+                                           :clear-on-select="false" :hide-selected="true"
+                                           placeholder="Pick some"></multiselect>
+                            </div>
 
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="region" class="col-sm-2 control-label">City</label>
+                          <label for="postalCode" class="col-sm-2 control-label">Postal code</label>
                           <div class="col-sm-10">
-                            <multiselect class="" v-model="newCampaign.city" :options="cities" label="name"
-                                         track-by="dcId"
-                                         :multiple="true" :close-on-select="false"
-                                         :clear-on-select="false" :hide-selected="true"
-                                         placeholder="Pick some"></multiselect>
-
+                            <div class="col-sm-6">
+                              <multiselect class="" v-model="newCampaign.postalCodeCountry" :options="countries"
+                                           label="name"
+                                           track-by="dcId"
+                                           :multiple="true" :close-on-select="false"
+                                           :clear-on-select="false" :hide-selected="true" :option-height="10"
+                                           @input="postalCodeCountrySelected"
+                                           placeholder="Pick country"></multiselect>
+                            </div>
+                            <div class="col-sm-6">
+                              <multiselect class="" v-model="newCampaign.postalCode" :options="postalCodes" label="name"
+                                           track-by="dcId"
+                                           :multiple="true" :close-on-select="false"
+                                           :clear-on-select="false" :hide-selected="true"
+                                           placeholder="Pick some"></multiselect>
+                            </div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label for="targetingTemplateName" class="col-sm-2 control-label">Postal code</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control"
-                                   id="postalCode"
-                                   name="postalCode"
-                                   v-model="newCampaign.postalCode"
-                                   placeholder="Postal code">
-                          </div>
-                        </div>-->
                       </div>
                       <div>
                         <h5>
@@ -295,12 +326,6 @@
                       <div class="form-group">
                         <label for="platformType" class="col-sm-2 control-label">Ad</label>
                         <div class="col-sm-10">
-                          <!--<multiselect class="" v-model="newCampaign.ad" :options="ads"
-                                       label="name"
-                                       track-by="dcId"
-                                       :multiple="true" :close-on-select="false"
-                                       :clear-on-select="false" :hide-selected="true" :option-height="10"
-                                       placeholder="Pick some"></multiselect>-->
                           <select v-model="newCampaign.adId" class="form-control" id="ad"
                                   name="ad">
                             <option v-for="ad in ads" v-bind:value="ad.dcId">
@@ -377,6 +402,7 @@
         'countries',
         'regions',
         'cities',
+        'postalCodes',
         'languages',
         'connectionTypes',
         'mobileCarriers',
@@ -395,6 +421,7 @@
         loadCountries: 'LOAD_COUNTRY_LIST',
         loadRegions: 'LOAD_REGION_LIST',
         loadCities: 'LOAD_CITY_LIST',
+        loadPostalCodes: 'LOAD_POSTAL_CODE_LIST',
         loadLanguages: 'LOAD_LANGUAGE_LIST',
         loadConnectionTypes: 'LOAD_CONNECTION_TYPE_LIST',
         loadMobileCarriers: 'LOAD_MOBILE_CARRIER_LIST',
@@ -408,8 +435,28 @@
         for (var country of this.newCampaign.country) {
           dcIds.push(country.dcId)
         }
-        this.loadCities(dcIds)
         this.loadMobileCarriers(dcIds)
+      },
+      regionCountrySelected () {
+        const dcIds = []
+        for (var country of this.newCampaign.regionCountry) {
+          dcIds.push(country.dcId)
+        }
+        this.loadRegions(dcIds)
+      },
+      cityCountrySelected () {
+        const dcIds = []
+        for (var country of this.newCampaign.cityCountry) {
+          dcIds.push(country.dcId)
+        }
+        this.loadCities(dcIds)
+      },
+      postalCodeCountrySelected () {
+        const dcIds = []
+        for (var country of this.newCampaign.postalCodeCountry) {
+          dcIds.push(country.dcId)
+        }
+        this.loadPostalCodes(dcIds)
       },
       onSubmit () {
         this.add(this.newCampaign).then(() => {
