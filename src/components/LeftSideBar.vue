@@ -19,6 +19,9 @@
             <ul class="child-nav">
               <li><a href="#/campaign"><i class="fa fa-bolt"></i> <span>Campaigns</span></a></li>
             </ul>
+            <ul class="child-nav">
+              <li><a href="#/search"><i class="fa fa-search"></i> <span>Search</span></a></li>
+            </ul>
           </li>
         </ul>
         <!-- /.side-nav -->
