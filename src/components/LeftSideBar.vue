@@ -14,8 +14,8 @@
             <span class="">Main Category</span>
           </li>
           <li class="has-children">
-            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span> <i
-              class="fa fa-angle-right arrow"></i></a>
+            <router-link to="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span> <i
+              class="fa fa-angle-right arrow"></i></router-link>
             <ul class="child-nav">
               <li><a href="#/campaign"><i class="fa fa-bolt"></i> <span>Campaigns</span></a></li>
             </ul>

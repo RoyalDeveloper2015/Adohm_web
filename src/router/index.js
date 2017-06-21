@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import MainPage from '../components/MainPage.vue'
 import CampaignList from '../components/campaign/CampaignList.vue'
 import AddCampaign from '../components/campaign/AddCampaign.vue'
-import SearchList from '../components/search/SearchList.vue'
+import Search from '../components/search/search.vue'
+import SearchCampaign from '../components/search/SearchCampaigns.vue'
 
 Vue.use(Router)
 
@@ -26,8 +27,15 @@ export default new Router({
     },
     {
       path: '/search',
-      name: 'SearchList',
-      component: SearchList
+      name: 'Search',
+      component: Search,
+      children: [
+        {
+          path: '/search/campaigns',
+          component: SearchCampaign,
+          name: 'SearchCampaign'
+        }
+      ]
     }
   ]
 })
