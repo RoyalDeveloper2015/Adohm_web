@@ -1,0 +1,19 @@
+{
+  "name": "adohm",
+  "description": "",
+  "scripts": {
+    "postdeploy": "build/build.js"
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
