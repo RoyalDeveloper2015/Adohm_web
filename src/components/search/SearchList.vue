@@ -55,6 +55,7 @@
   font-size: small;
   overflow-y: auto;
   max-height: 100vh;
+  transition: visibility 0s 2s, opacity 2s linear;
 }
 
 .submenu::-webkit-scrollbar {
