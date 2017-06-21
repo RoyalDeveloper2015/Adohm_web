@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white sub-side" style="width: 150px; border-width: 1px; border-color: #000;">
+  <div class="bg-white sub-side" style="width: 170px; border-width: 1px; border-color: #000;">
     <div class="sidebar-content">
       <div class="section submenu">
 
