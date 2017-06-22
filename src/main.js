@@ -4,14 +4,19 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+// import {mapActions} from 'vuex'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  template: '<App/>',
-  components: {App}
-})
+store.dispatch('user/load').then(init).catch(init);
+
+function init() {
+	new Vue({
+		el: '#app',
+		router,
+		store,
+		template: '<App/>',
+		components: {App}
+	})
+}

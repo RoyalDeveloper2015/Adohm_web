@@ -30,20 +30,24 @@
               <a href="#" class="dropdown-toggle bg-primary" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false"><i class="fa fa-plus-circle"></i> Add New <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#/campaign/add"><i class="fa fa-plus-square-o"></i>Campaign</a></li>
+                <li><a href="/campaign/add"><i class="fa fa-plus-square-o"></i>Campaign</a></li>
+				<li><a href="/users/settings"><i class="fa fa-plus-square-o"></i> Facebook account</a></li>
+				<li><a href="/users/settings"><i class="fa fa-plus-square-o"></i> Custom audience</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#trackerModal" data-toggle="modal">Generate Tracking Code</a></li>
               </ul>
             </li>
             <!-- /.dropdown -->
             <li><a href="#" class=""><i class="fa fa-bell"></i></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                 aria-expanded="false">John Doe <span class="caret"></span></a>
+                 aria-expanded="false"> User name<span class="caret"></span></a>
               <ul class="dropdown-menu profile-dropdown">
                 <li class="profile-menu bg-gray">
                   <div class="">
                     <img src="http://placehold.it/60/c2c2c2?text=User" alt="John Doe" class="img-circle profile-img">
                     <div class="profile-name">
-                      <h6>John Doe</h6>
+                      <h6>User Name</h6>
                       <a href="#">View Profile</a>
                     </div>
                     <div class="clearfix"></div>
