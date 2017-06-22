@@ -8,7 +8,10 @@
           <li class="item">Opportunites</li>
           <li><hr /></li>
 
-          <li class="item"><router-link to="/search/campaigns">Campaigns</router-link></li>
+          <li class="item"
+              v-bind:class="{ 'active-menu': isActive }">
+              <router-link class="item-link"
+                to="/search/campaigns">Campaigns</router-link></li>
           <li><hr /></li>
 
           <li class="item">Ad Groups</li>
@@ -45,7 +48,12 @@
 </template>
 <script>
   export default {
-    name: 'search'
+    name: 'search',
+    data: function () {
+      return {
+        isActive: false
+      }
+    }
   }
 </script>
 <style type="text/css">
@@ -93,7 +101,6 @@
   }
 
   .submenu li {
-    padding: 0px 30px 0px 30px;
     list-style: none;
   }
 
@@ -108,6 +115,9 @@
     border-bottom-color: #cccccc;
     padding: 5px 20px 5px 20px;
     margin-bottom: 0px;
+  }
+  .active-menu {
+    background-color: #1e72de;
   }
 </style>
 

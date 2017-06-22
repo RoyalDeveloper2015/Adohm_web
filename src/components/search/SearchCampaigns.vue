@@ -1,5 +1,5 @@
 <template>
-  <div class="search-item">
+  <div class="search-campaign">
     <nav class="navbar bg-white box-shadow sub-nav">
         <ul class="nav subnav active">
             Campaign  
@@ -20,78 +20,181 @@
         <span>0</span><hr />
       </div>
     </div>
-    <a class="round-button"><i class="fa fa-plus"></i></a>
-
-
-    <table id="example" class="display table-custom" cellspacing="0" width="100%">
+    <router-link to="/search/addcampaign"><a class="round-button"><i class="fa fa-plus"></i></a></router-link>
+    <div class="content-table">
+      <table id="example" class="display table table-striped table-bordered" cellspacing="0">
         <thead>
-            <tr>
-                <th>
-<i class="fa fa-check" aria-hidden="true"></i>
-                </th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
+          <tr>
+            <th>
+              <div class="checkbox radio-margin">
+                <label>
+                  <input type="checkbox" value="">
+                  <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                </label>
+              </div>
+            </th>
+            <th><i class="fa fa-circle black"></i></th>
+            <th>Campaign</th>
+            <th>Client
+                account</th>
+            <th>budget</th>
+            <th>status</th>
+            <th>Impr.</th>
+            <th>Clicks</th>      
+            <th>CTR</th>
+            <th>Avg.
+                CPC</th>
+            <th>Cost</th>
+          </tr>          
         </thead>
         <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total-all but removed campaigns</td>
+            <td></td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
+            <td></td>
+            <td class="amount">0</td>
+            <td class="amount">0</td>
+            <td class="amount">0.00%</td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Total-all experiments</td>
+            <td></td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
+            <td></td>
+            <td class="amount">0</td>
+            <td class="amount">0</td>
+            <td class="amount">0.00%</td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
+          </tr>  
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Total-all campaigns</th>
+            <th></th>
+            <th class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{totalbudget}}/day</th>
+            <th></th>
+            <th class="amount">0</th>
+            <th class="amount">0</th>
+            <th class="amount">0.00%</th>
+            <th class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</th>
+            <th class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</th>
+          </tr>
         </tfoot>
-        <tbody>
-            <tr>
-                <td data-search="Tiger Nixon">T. Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td data-order="1303689600">Mon 25th Apr 11</td>
-                <td data-order="320800">$320,800/y</td>
-            </tr>
-            <tr>
-                <td data-search="Garrett Winters">G. Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td data-order="1311552000">Mon 25th Jul 11</td>
-                <td data-order="170750">$170,750/y</td>
-            </tr>
-            <tr>
-                <td data-search="Ashton Cox">A. Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td data-order="1231718400">Mon 12th Jan 09</td>
-                <td data-order="86000">$86,000/y</td>
-            </tr>
-          </tbody>
-        </table>
-
-
+        <tbody>        
+          <tr class="content-row"v-for="campaign in campaigns">
+            <td>
+              <div class="checkbox radio-margin">
+                <label>
+                  <input type="checkbox" value="">
+                  <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                </label>
+              </div>
+            </td>
+            <td><i class="fa fa-circle green" v-if="campaign.status==='Eligible'"></i>
+                <i class="fa fa-pause red" v-else></i></td>
+            <td>{{campaign.name}}</td>
+            <td>{{campaign.client_account_name}}</td>
+            <td class="amount">{{campaign.budget.type}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.budget.amount}}/day</td>
+            <td>{{campaign.status}}</td>
+            <td class="amount">{{campaign.impr}}</td>
+            <td class="amount">{{campaign.clicks}}</td>
+            <td class="amount">{{campaign.ctr}}%</td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.avg_cpc}}</td>
+            <td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.cost}}</td>
+          </tr>             
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
+  import $ from 'jquery'
+
+  require('datatables.net')
+  require('datatables.net-bs')
+
   export default {
-    name: 'searchCampaign'
+    name: 'searchCampaign',
+    data: function () {
+      return {
+        campaigns: [
+          {
+            name: 'trial campaign',
+            client_account_name: 'test',
+            budget: {
+              type: '',
+              amount: 5000
+            },
+            status: 'Eligible',
+            impr: 0,
+            clicks: 0,
+            ctr: 0,
+            avg_cpc: 0,
+            cost: 0
+          },
+          {
+            name: 'test#1496232938768',
+            client_account_name: 'test',
+            budget: {
+              type: 'camp2#1496232937417',
+              amount: 5000
+            },
+            status: 'Paused',
+            impr: 0,
+            clicks: 0,
+            ctr: 0,
+            avg_cpc: 0,
+            cost: 0
+          },
+          {
+            name: 'test1#1496232938822',
+            client_account_name: 'test',
+            budget: {
+              type: 'camp2#1496232937417',
+              amount: 5000
+            },
+            status: 'Eligible',
+            impr: 0,
+            clicks: 0,
+            ctr: 0,
+            avg_cpc: 0,
+            cost: 0
+          }
+        ],
+        totalbudget: 0
+      }
+    },
+    mounted: function () {
+      this.$nextTick(function () {
+        $('#example').DataTable({
+          'paging': false
+        })
+      })
+      for (let i = 0; i < this.campaigns.length; i++) {
+        this.totalbudget = this.totalbudget + this.campaigns[i].budget.amount
+      }
+    }
   }
 </script>
 <style lang="css">
-  .search-item {
+
+  .search-campaign {
     display: inline-block;
     width: 100%;
     z-index: 2;    
   }
   .subnav {
-    margin: 30px 20px 0px 40px;
-    padding-bottom: 4px;
+    margin: 30px 20px 0px 20px;
+    padding: 0px 20px 4px 20px;
     display: inline-block;
   }
   .subnav:hover {
@@ -115,6 +218,7 @@
     text-decoration:none;
     background: #3498FC;
     box-shadow: 0 0 3px gray;
+    margin-left: 20px;
 }
   .round-button:hover {
       background: #ffffff;
@@ -136,16 +240,85 @@
     border-top: 1px solid #ccc;
     padding: 0;
     margin: 5px 0px 5px 10px;
-  }
+  } 
 
+/*---------- table style start ---------- */
+  .content-table {
+    padding: 0px 20px 0px 20px;
+  }
   .table-custom tr {
     border: 2px solid rgba(0,0,0,0.04);
   }
-
-  .fa-check{
-        border: 2px solid rgba(0,0,0,0.5);
-    border-radius: 3px;
-    color: rgba(0,0,0,0.7);
+  .top-row {
+    background-color: rgba(0,0,0,0.04) !important;
   }
+  .amount {
+    text-align: right;
+  }
+  tbody {
+    background-color: #f9f9f9;
+  }
+  .green {
+    color: #0db70d;
+  }
+  thead i {
+    color: rgba(0,0,0,0.5) !important;
+  }
+  tfoot {
+    background-color: rgba(0,0,0,0.04) !important;
+  }
+  table .fa-circle, .fa-pause {
+    font-size: xx-small !important;
+  }
+  tfoot td {
+    background-color: #f2f2f2 !important;
+    font-weight: bold;
+  }
+
+  .checkbox label:after {
+      content: '';
+      display: table;
+      clear: both;
+  }
+
+  .checkbox .cr {
+      position: relative;
+      display: inline-block;
+      border: 1px solid #a9a9a9;
+      border-radius: .25em;
+      width: 1.3em;
+      height: 1.3em;
+      float: left;
+      margin-right: .5em;
+  }
+
+  .checkbox .cr .cr-icon {
+      position: absolute;
+      font-size: .8em;
+      line-height: 0;
+      top: 50%;
+      left: 20%;
+  }
+
+  .checkbox label input[type="checkbox"] {
+      display: none;
+  }
+
+  .checkbox label input[type="checkbox"] + .cr > .cr-icon {
+      transform: scale(3) rotateZ(-20deg);
+      opacity: 0;
+      transition: all .3s ease-in;
+  }
+
+  .checkbox label input[type="checkbox"]:checked + .cr > .cr-icon {
+      transform: scale(1) rotateZ(0deg);
+      opacity: 1;
+  }
+
+  .checkbox label input[type="checkbox"]:disabled + .cr {
+      opacity: .5;
+  }
+
+/*-------------- table style end -------------------*/
 </style>
 
