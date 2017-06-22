@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import MainPage from '../components/MainPage.vue'
 import CampaignList from '../components/campaign/CampaignList.vue'
 import AddCampaign from '../components/campaign/AddCampaign.vue'
-import Search from '../components/search/search.vue'
+import Search from '../components/search/Search.vue'
 import SearchCampaign from '../components/search/SearchCampaigns.vue'
 import AddSearchCampaign from '../components/search/AddSearchCampaign.vue'
 
