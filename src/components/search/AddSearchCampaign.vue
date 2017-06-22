@@ -130,7 +130,7 @@
     margin: 10px 20px 0px 0px;
     padding: 15px;
     background-color: rgba(0,0,0,0.04) !important;
-    width: 20% !important;
+    width: 20%;
     text-align: center;
   }
   .card-item:hover {
@@ -159,7 +159,7 @@
     }
     .card-item {
       width: 230px;
-      height: 128px;
+      height: 265px;
       float: left;
     }
   }
