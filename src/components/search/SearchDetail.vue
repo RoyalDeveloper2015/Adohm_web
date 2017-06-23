@@ -16,16 +16,16 @@
           </div>
       <!-- End Sub Title -->        
       <!-- Cards -->
-          <div class="allcard-height">
+          <div class="menutab-area">
             <router-link to="/search/addcampaign/searchnetwork"
                 id="card"
                 class="tab-card"
                 v-bind:class="{active: isSearchActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-search"
+                <i class="fa fa-search"
                   aria-hidden="true"
                   v-bind:class="{network: !isSearchActive}"></i>
-                      Search Network</span>
+                  <span>Search Network</span>
               </div>            
             </router-link>
             <router-link to="/search/addcampaign/displaynetwork"
@@ -33,10 +33,10 @@
                 class="tab-card"
                 v-bind:class="{active: isDisplayActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-rss-square"
+                <i class="fa fa-rss-square"
                   aria-hidden="true"
                   v-bind:class="{network: !isDisplayActive}"></i>
-                      Display Network</span>
+                  <span>Display Network</span>
               </div>            
             </router-link>
             <router-link to="/search/addcampaign/shopping"
@@ -44,10 +44,10 @@
                 class="tab-card"
                 v-bind:class="{active: isShopActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-tags"
+                <i class="fa fa-tags"
                   aria-hidden="true"
                   v-bind:class="{network: !isShopActive}"></i>
-                      Shopping</span>
+                  <span>Shopping</span>
               </div>            
             </router-link>
             <router-link to="/search/addcampaign/video"
@@ -55,10 +55,10 @@
                 class="tab-card"
                 v-bind:class="{active: isVideoActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-video-camera"
+                <i class="fa fa-video-camera"
                   aria-hidden="true"
                   v-bind:class="{network: !isVideoActive}"></i>
-                      Video</span>
+                  <span>Video</span>
               </div>            
             </router-link>
             <router-link to="/search/addcampaign/universalapp"
@@ -66,10 +66,10 @@
                 class="tab-card"
                 v-bind:class="{active: isAppActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-android"
+                <i class="fa fa-android"
                   aria-hidden="true"
                   v-bind:class="{network: !isAppActive}"></i>
-                      Universal App</span>
+                  <span>Universal App</span>
               </div>            
             </router-link>
           </div>
@@ -153,8 +153,9 @@ export default {
   .pannel-title {
     padding: 0px 40px 0px 0px;
   }
-  .allcard-height {
-    display: flex;
+  .menutab-area {
+    width: 100%;
+    display: inline-flex;
   }  
   .tab-card {
     margin: 10px 20px 0px 0px;
@@ -187,15 +188,10 @@ export default {
     transition: all 0.5s ease;	
   }
   @media (max-width: 1350px){
-    .allcard-height {
-      display: inherit;
+    .content-text-title span {
+      display: none;
     }
-    .card-item {
-      width: 230px;
-      height: 265px;
-      float: left;
-    }
-  }
+}
   
 </style>
 

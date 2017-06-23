@@ -25,8 +25,10 @@
             </div>
             <div> 
               <div id="card" class="influence-card">            
-                <div class="bottom-line">
-                  <span><i class="fa fa-television ic-padding" aria-hidden="true"></i></i>
+                <div class="bottom-line"
+                  v-on:click="removeActive(); isVisit = !isVisit"
+                  v-bind:class="{activemenu: isVisit}">
+                  <span><i class="fa fa-television ic-padding" aria-hidden="true"></i>
                         Visit your website</span>
                 </div>                            
               </div>
@@ -66,7 +68,23 @@
 </template>
 <script>
 export default {
-  name: 'SearchNetwork'
+  name: 'SearchNetwork',
+  data: function () {
+    return {
+      isVisit: false,
+      isExpress: false,
+      isBuy: false,
+      isCall: false
+    }
+  },
+  methods: {
+    removeActive: function () {
+      this.isVisit = false
+      this.isExpress = false
+      this.isBuy = false
+      this.isCall = false
+    }
+  }
 }
 </script>
 <style>

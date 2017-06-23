@@ -8,7 +8,7 @@
             v-bind:class="{activemenu: isOverview}">
             <router-link class="item-link"                
               v-bind:class="{deactivelink: isOverview}"
-              to="/search/campaigns">
+              to="/search">
               <span v-on:click="removeActive(); isOverview = !isOverview">Overview</span>
             </router-link>
           </li>
@@ -98,7 +98,6 @@
         this.isDevices = false
         this.isAdvancedBid = false
         this.isChangeHistory = false
-        console.log('removed!')
       }
     },
     mounted: function () {
@@ -110,7 +109,6 @@
           this.isOverview = true
           break
       }
-      console.log(this.isCampaigns)
     }
   }
 </script>
@@ -175,7 +173,8 @@
     margin-bottom: 0px;
   }
   .activemenu {
-    background-color: #1e72de;    
+    background-color: #1e72de;
+    color: #ffffff !important;   
   }
   .deactivelink {
     color: #ffffff !important;
