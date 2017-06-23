@@ -1,5 +1,5 @@
 <template>
-  <div class="search-campaign">
+  <div class="add-campaign">
     <div id="card" class="campaign-pannel">
 
     <!-- Title -->
@@ -16,7 +16,7 @@
     <!-- End Sub Title -->
     <!-- Cards -->
         <div class="allcard-height">
-          <router-link to="/search/addcampaign/detail" id="card" class="card-item">
+          <router-link to="/search/addcampaign/searchnetwork" id="card" class="card-item">
             <div class="content-text-title">
               <span><i class="fa fa-search network" aria-hidden="true"></i>
                     Search Network</span>
@@ -87,9 +87,11 @@
   }
 </script>
 <style>
-  .search-campaign {
+  .add-campaign {
+    display: inline-block;
     width: 100%;
     padding: 40px;
+    z-index: 2;
   }
   .campaign-pannel {
     width: 100%;
