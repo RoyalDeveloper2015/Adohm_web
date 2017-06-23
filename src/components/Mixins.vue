@@ -1,5 +1,8 @@
 <script>
-export {vItems, vListMethods};
+import {mapMutations, mapGetters} from 'vuex'
+export {vItems, vListMethods, vUtils};
+import {request} from '@/config/default/request'
+import axios from 'axios'
 
 var vItems = {
 	// required: this.listName
@@ -145,6 +148,40 @@ var vListMethods = {
 			$.get(`/api/${this.listName}/get`).done(response => {
 				this.items.push(...response.result);
 			});
+		}
+	}
+}
+
+var vUtils = {
+	methods: {
+		...mapMutations('session', ['message']),
+		search({url, listTarget, listSource, query}) {
+			if(query !== undefined && !query) return;
+			else url = url.replace(/\{query\}/g, encodeURIComponent(query))
+			this.isLoading = true;
+			var req = request;
+			if(url.substr(0, 4) === 'http') {req = axios}
+			req.get(url).then(response => {
+				var list = eval('response.data' + (listSource || '.result'));
+				if(Array.isArray(list) && list.length) {
+					this.isLoading = false;
+					listTarget[0][listTarget[1]] = list;
+				} else listTarget[0][listTarget[1]] = [];
+			}).catch((error) => {
+				console.error(error);
+				listTarget[0][listTarget[1]] = []
+			})
+		}
+	},
+	computed: {
+		...mapGetters('session', ['user', 'fbApi'])
+	},
+	filters: {
+		formatDate(value) {
+			return moment(value).format('YYYY-MM-DD');
+		},
+		humanize (value) {
+			return value[0].toUpperCase() + value.substr(1).replace(/\_/g, ' ');
 		}
 	}
 }

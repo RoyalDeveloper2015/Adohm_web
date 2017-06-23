@@ -22,7 +22,7 @@
 			<div v-if="currentStep" class="panel">
 				<ul class="breadcrumb bg-white" style="margin-bottom: 0">
 					<!--<li :class="{active: !steps.length}" @click="gotoStep('platform')">Platform </li>-->
-					<li v-for="step in steps" :class="{active: currentStep === step}"><a @click="gotoStep(step)" href="#">{{getData(details.steps, step, 'name', 'id')}}</a></li>
+					<li v-for="step in steps" :class="{active: currentStep === step}" :key="step"><a @click="gotoStep(step)" href="#">{{getData(details.steps, step, 'name', 'id')}}</a></li>
 				</ul>
 			</div>
 			<div v-if="currentStep === 'platform'" class="panel">
@@ -34,10 +34,10 @@
 						<div class="col-xs-12"> Choose a platform: </div>
 					</div>
 					<div class="grid-container">
-						<div @click="$set($data, 'platform', 'facebook'); gotoStep('fb_objective')" class="panel bg-primary-700 grid">
+						<div @click="$set($data, 'platform', 'facebook'), gotoStep('fb_objective')" class="panel bg-primary-700 grid">
 							<strong>Facebook</strong>
 						</div>
-						<div @click="$set($data, 'platform', 'twitter');" class="panel bg-primary-300 grid">
+						<div @click="$set($data, 'platform', 'twitter')" class="panel bg-primary-300 grid">
 							<strong>Twitter</strong>
 						</div>
 					</div>
@@ -56,42 +56,42 @@
 					<div  class="tab-pane active" id="facebook">
 						<div class="mb-5">Select a campaign objective</div>
 						<div class="grid-container">
-							<div @click="$set(facebook.data, 'objective', 'CONVERSIONS'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'CONVERSIONS'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Conversions</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'LEAD_GENERATION'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'LEAD_GENERATION'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Lead generation</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'APP_INSTALLS'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'APP_INSTALLS'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>App installs</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'LINK_CLICKS'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'LINK_CLICKS'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Website traffic</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'PRODUCT_CATALOG_SALES'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'PRODUCT_CATALOG_SALES'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Product catalog sales</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'OFFER_CLAIMS'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'OFFER_CLAIMS'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Store visits</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'VIDEO_VIEWS'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'VIDEO_VIEWS'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Video views</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'BRAND_AWARENESS'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'BRAND_AWARENESS'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Brand awareness</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'REACH'); gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'REACH'), gotoStep('fb_campaign')" class="panel bg-gray-700 grid">
 								<strong>Reach</strong>
 							</div>
-							<div @click="$set(facebook.data, 'objective', 'ENGAGEMENT');" class="panel bg-gray-700 grid">
+							<div @click="$set(facebook.data, 'objective', 'ENGAGEMENT')" class="panel bg-gray-700 grid">
 								<strong>Engagement</strong>
 							</div>
 						</div>
 						<div class="row mt-20" v-if="['ENGAGEMENT', 'POST_ENGAGEMENT', 'PAGE_LIKES', 'EVENT_RESPONSES'].includes(facebook.data.objective)">
 							<div class="btn-group" style="width: 600px; margin: auto!important; display: block">
-								<a @click="$set(facebook.data, 'objective', 'POST_ENGAGEMENT'); gotoStep('fb_campaign')" class="btn btn-lg btn-default" :class="{active: facebook.data.objective === 'POST_ENGAGEMENT'}">Post Engagement</a>
-								<a @click="$set(facebook.data, 'objective', 'PAGE_LIKES'); gotoStep('fb_campaign')" class="btn btn-lg btn-default" :class="{active: facebook.data.objective === 'PAGE_LIKES'}">Page Likes</a>
-								<a @click="$set(facebook.data, 'objective', 'EVENT_RESPONSES'); gotoStep('fb_campaign')" class="btn btn-lg btn-default" :class="{active: facebook.data.objective === 'EVENT_RESPONSES'}">Event Responses</a>
+								<a @click="$set(facebook.data, 'objective', 'POST_ENGAGEMENT'), gotoStep('fb_campaign')" class="btn btn-lg btn-default" :class="{active: facebook.data.objective === 'POST_ENGAGEMENT'}">Post Engagement</a>
+								<a @click="$set(facebook.data, 'objective', 'PAGE_LIKES'), gotoStep('fb_campaign')" class="btn btn-lg btn-default" :class="{active: facebook.data.objective === 'PAGE_LIKES'}">Page Likes</a>
+								<a @click="$set(facebook.data, 'objective', 'EVENT_RESPONSES'), gotoStep('fb_campaign')" class="btn btn-lg btn-default" :class="{active: facebook.data.objective === 'EVENT_RESPONSES'}">Event Responses</a>
 							</div>
 						</div>
 					</div>
@@ -110,7 +110,18 @@
 								<label  class="control-label">Advertiser:</label>
 							</div>
 							<div class="col-xs-8 text-left">
-								<selectize  required placeholder="Search advetiser" @data="value=>updateList(details.advertisers, value)" v-model="item.advertiser" :data="details.advertisers" :options='{preload: true, ajax: {url: "/api/advertisers/"}}'></selectize>
+								<multi-select 
+									required 
+									track-by="_id" 
+									label="name"
+									placeholder="Search advertiser"
+									v-model="item.advertiser"
+									:options="details.advertisers" 
+									@search-change="search({
+										url: '/api/advertisers',
+										listTarget: [details, 'advertisers']
+									})">
+								</multi-select>
 							</div>
 						</div>
 						<div class="row align-content">
@@ -134,17 +145,7 @@
 									<label for="" class="control-label">Conversion event</label>
 								</div>
 								<div class="col-xs-8">
-									<selectize required v-model="facebook.data.custom_event_type">
-										<option value="CONTENT_VIEW">ViewContent</option>
-										<option value="SEARCH">Search</option>
-										<option value="ADD_TO_CART">AddToCart</option>
-										<option value="ADD_TO_WISHLIST">AddToWishlist</option>
-										<option value="INITIATED_CHECKOUT">InitiateCheckout</option>
-										<option value="ADD_PAYMENT_INFO">AddPaymentInfo</option>
-										<option value="PURCHASE">Purchase</option>
-										<option value="LEAD">Lead</option>
-										<option value="COMPLETE_REGISTRATION">CompleteRegistration</option>
-									</selectize>
+									<multi-select required label="name"  track-by="id" v-model="facebook.data.custom_event_type" :options="details.conversion_events"></multi-select>
 								</div>
 							</div>
 						</div>
@@ -183,13 +184,24 @@
 								</div>
 								<div class="col-xs-8">
 									<label for="">Geo includes</label>
-									<selectize :required="!geo_excludes.length" :multiple="true" v-model="item.targeting_rules.geo_includes" :data="details.geo" :options='{valueField: "id", ajax: {url: "/api/geo/suggestions?keyword={query}"}}'
-											placeholder="Type in a city, region or country (minimum 3 char)" @data="data => updateList(details.geo, data)">
-									</selectize>
+									<multi-select label="name" track-by="id" :required="!geo_excludes.length" :multiple="true" 
+										v-model="item.targeting_rules.geo_includes" :options="details.geo" 
+										@search-change="query => search({
+											url: '/api/geo/suggestions?keyword={query}', 
+											listTarget: [details, 'geo'],
+											query
+										})"
+										placeholder="Type in a city, region or country (minimum 3 char)">
+									</multi-select>
 									<label for="">Geo excludes</label>
-									<selectize :required="!geo_includes.length" :multiple="true" v-model="item.targeting_rules.geo_excludes" :data="details.geo"  :options='{valueField: "id", ajax: {url: "/api/geo/suggestions?keyword={query}"}}'
-											placeholder="Type in a city, region or country (minimum 3 char)" @data="data => updateList(details.geo, data)">
-									</selectize>
+									<multi-select label="name" track-by="id" :required="!geo_includes.length" :multiple="true" v-model="item.targeting_rules.geo_excludes" :options="details.geo"
+										@search-change="query => search({
+											url: '/api/geo/suggestions?keyword={query}', 
+											listTarget: [details, 'geo'],
+											query
+										})"
+										placeholder="Type in a city, region or country (minimum 3 char)">
+									</multi-select>
 								</div>
 							</div>
 							<div class="row align-content">
@@ -199,17 +211,10 @@
 								<div class="col-xs-8">
 									<div class="row">
 										<div class="col-xs-6">
-											<selectize v-model="item.targeting_rules.age_min">
-												<option value="13">13</option>
-												<option :value="13+n" v-for="n in 52">{{n+13}}</option>
-											</selectize>
+											<multi-select v-model="item.targeting_rules.age_min" :options="fb_age_list"></multi-select>
 										</div>
 										<div class="col-xs-6">
-											<selectize v-model="item.targeting_rules.age_max">
-												<option value="13">13</option>
-												<option :value="13+n" v-for="n in 51">{{n+13}}</option>
-												<option value="65">65+</option>
-											</selectize>
+											<multi-select v-model="item.targeting_rules.age_min" :options="fb_age_list"></multi-select>
 										</div>
 									</div>
 								</div>
@@ -229,8 +234,17 @@
 									<label class="control-label">Languages</label>
 								</div>
 								<div class="col-xs-8">
-									<selectize placeholder="Search languages" :data="details.locales" @data="value => updateList(details.locales, value, 'key')" v-model="facebook.data.locales" :multiple="true" :options="{valueField: 'key', listPath: 'data', ajax:{url: options.fbApi.baseUrl + '/search?q={query}&type=adlocale&access_token=' + options.fbApi.accessToken}}">
-									</selectize>
+									<multi-select placeholder="Search languages" 
+										:options="details.locales" 
+										label="name" track-by="key"
+										@search-change="query => search({
+											url: `${fbApi.baseUrl}/search?q={query}&type=adlocale&access_token=${fbApi.accessToken}`, 
+											listTarget: [details, 'locales'],
+											listSource: '.data',
+											query
+										})"
+										v-model="facebook.data.locales" :multiple="true">
+									</multi-select>
 								</div>
 							</div>
 							<div class="row ">
@@ -238,12 +252,25 @@
 									<label class="control-label">Detailed targeting</label>
 								</div>
 								<div class="col-xs-8">
-									<div class="form-group row" v-for="audience,idx in facebook.data.flexible_targeting">
+									<div class="form-group row" v-for="audience, idx in facebook.data.flexible_targeting">
 										<div class="col-xs-12">
 											<label class="control-label" v-if="idx > 0"> and MUST ALSO match at least ONE of the following </label>
 										</div>
 										<div :class="{'col-xs-11': idx > 0, 'col-xs-12': idx ===0}">
-											<selectize :value="fbCombineList(audience).map(el=>el.id)" placeholder="Search audience types" :data="fbCombineList(audience)" @data="item => fbUpdateList(audience, item)" :multiple="true" :options="{descriptionField: 'type', listPath: 'data', ajax: {url: options.fbApi.baseUrl + '/act_' + options.fbApi.accountId + '/targetingsearch?q={query}&access_token=' + options.fbApi.accessToken}}"></selectize>
+											<multi-select 
+												label="name" track-by="id"
+												v-model="audience" 
+												placeholder="Search audience types" 
+												@search-change="query => search({
+													url: `${fbApi.baseUrl}/act_${fbApi.accountId}/targetingsearch?q={query}&access_token=${fbApi.accessToken}`,
+													listTarget: [details, 'flexible_targeting'],
+													listSource: '.data',
+													query
+												})"
+												:options="details.flexible_targeting"
+												:multiple="true">
+
+											</multi-select>
 										</div>
 										<div v-if="idx > 0" class="col-xs-1">
 											<a @click="facebook.data.flexible_targeting.splice(idx, 1)" class="btn btn-danger pull-right">
@@ -261,7 +288,19 @@
 									</div>
 									<div class="form-group input-group">
 										<span class="input-group-addon">Exclude</span>
-										<selectize :value="fbCombineList(facebook.data.excludes).map(el=>el.id)" placeholder="Search audience types" :data="fbCombineList(facebook.data.excludes)" @data="item => fbUpdateList(facebook.data.excludes, item)" :multiple="true" :options="{descriptionField: 'type', listPath: 'data', ajax: {url: options.fbApi.baseUrl + '/act_' + options.fbApi.accountId + '/targetingsearch?q={query}&access_token=' + options.fbApi.accessToken}}"></selectize>
+										<multi-select 
+											label="name" track-by="id"
+											v-model="facebook.data.excludes" 
+											@search-change="query => search({
+												url: `${fbApi.baseUrl}/act_${fbApi.accountId}/targetingsearch?q={query}&access_token=${fbApi.accessToken}`, 
+												listTarget: [details, 'flexible_targeting'],
+												listSource: '.data',
+												query
+											})"
+											placeholder="Search audience types" 
+											:options="details.flexible_targeting" 
+											:multiple="true">
+										</multi-select>
 									</div>
 								</div>
 							</div>
@@ -277,8 +316,8 @@
 									<label class="control-label">Placement method</label>
 								</div>
 								<div class="col-xs-8">
-									<label class="box-label">	<input type="radio" v-model="facebook.data.placements.method" value="auto"> Automatic</label>
-									<label class="box-label">	<input type="radio" v-model="facebook.data.placements.method" value="manual"> Manual</label>
+									<label class="box-label"> <input type="radio" v-model="facebook.data.placements.method" value="auto"> Automatic</label>
+									<label class="box-label"> <input type="radio" v-model="facebook.data.placements.method" value="manual"> Manual</label>
 								</div>
 							</div>
 							<div v-show="facebook.data.placements.method === 'manual'" class="row align-content">
@@ -290,8 +329,16 @@
 									<label class="box-label"> <input type="radio" v-model="facebook.data.placements.deviceType" name="deviceType" value="mobile"> Mobiles</label>
 									<label class="box-label"> <input type="radio" v-model="facebook.data.placements.deviceType" name="deviceType" value="desktop"> Desktops</label>
 									<label class="m-5"> Specific Mobile devices and Operating systems </label>
-									<selectize v-model="facebook.data.user_os" placeholder="Select operating system" :data="details.user_oses" @data="item => updateList(details.user_oses, item, 'platform')"
-										:options="{listPath: 'data', labelField: 'platform', valueField: 'platform', preload: true, ajax: {url: options.fbApi.baseUrl + '/search?q={query}&type=adTargetingCategory&class=user_os&access_token=' + options.fbApi.accessToken}}"></selectize>
+									<multi-select 
+										v-model="facebook.data.user_os" placeholder="Select operating system" 
+										label="platform" track-by="platform"
+										:options="details.user_oses"
+										@search-change="search({
+											url: `${fbApi.baseUrl}/search?type=adTargetingCategory&class=user_os&access_token=${fbApi.accessToken}`,
+											listTarget: [details, 'user_oses'],
+											listSource: '.data'
+										})">
+									</multi-select>
 									<label class="m-5">
 										<input type="checkbox" v-model="facebook.data.wireless_carrier" value="Wifi">
 										Only when connected to WiFi
@@ -303,21 +350,13 @@
 									<label class="control-label">Platforms</label>
 								</div>
 								<div class="col-xs-8">
-									<selectize placeholder="Select multiple" :multiple="true" v-model="facebook.data.placements.platforms">
-										<optgroup label="Facebook">
-											<option value="facebook.feed">Feeds</option>
-											<option value="facebook.instant_article">Instant Articles</option>
-											<option value="facebook.instream_video">In-stream videos</option>
-											<option value="facebook.suggested_video">Suggested videos</option>
-											<option value="facebook.right_hand_column">Right Column</option>
-										</optgroup>
-										<optgroup label="Instagram">
-											<option value="instagram.stream">Instagram Feed</option>
-											<option value="instagram.story">Instagram Stories</option>
-										</optgroup>
-										<option value="audience_network">Audience network</option>
-										<!--<option value="messenger">Messenger</option>-->
-									</selectize>
+									<multi-select placeholder="Select multiple" :multiple="true" 
+										id="platforms"
+										v-model="facebook.data.placements.platforms" :options="platforms"
+										group-label="platform"
+										group-values="placements"
+										label="name" track-by="id">
+									</multi-select>
 								</div>
 							</div>
 						</div>
@@ -349,8 +388,8 @@
 									<label class="box-label"> <input :disabled="facebook.data.budgetType === 'lifetime'" type="radio" v-model="facebook.data.scheduleType" name="scheduleType" value="default"> Run my ad set continuously starting today </label>
 									<label class="box-label"> <input type="radio" v-model="facebook.data.scheduleType" name="scheduleType" value="custom"> Set a start and end date </label>
 									<div class="row " v-show="facebook.data.scheduleType === 'custom'">
-										<div class="col-xs-6"> <input type="text" data-toggle="datepicker" v-model="item.date_start" class="form-control" placeholder="Start date"> </div>
-										<div class="col-xs-6"> <input type="text" data-toggle="datepicker" v-model="item.date_end" class="form-control" placeholder="End date"> </div>
+										<div class="col-xs-6"> <input type="date" v-model="item.date_start" class="form-control" placeholder="Start date"> </div>
+										<div class="col-xs-6"> <input type="date" v-model="item.date_end" class="form-control" placeholder="End date"> </div>
 									</div>
 								</div>
 							</div>
@@ -359,11 +398,12 @@
 									<label class="control-label">Optimization for Ad Delivery</label>
 								</div>
 								<div class="col-xs-8">
-									<selectize required v-model="facebook.data.optimization_goal" :data="getOptimizationGoals()" :options="{valueField: 'id'}">
-									</selectize>
+									<multi-select required v-model="facebook.data.optimization_goal" :options="getOptimizationGoals()"
+										label="name" track-by="id">
+									</multi-select>
 								</div>
 							</div>
-							<div class="row" v-if="facebook.data.optimization_goal === 'REACH'">
+							<div class="row" v-if="facebook.data.optimization_goal.id === 'REACH'">
 								<div class="col-xs-4">
 									<label for="">Frequency cap</label>
 								</div>
@@ -372,21 +412,16 @@
 									<input type="number" min="1" max="90" v-model="facebook.data.frequency_cap" class="form-control" required>
 								</div>
 							</div>
-							<div class="row align-content" v-if="facebook.data.optimization_goal === 'OFFSITE_CONVERSIONS'" >
+							<div class="row align-content" v-if="facebook.data.optimization_goal.id === 'OFFSITE_CONVERSIONS'" >
 								<div class="col-xs-4">
 									<label class="control-label">Conversion window</label>
 								</div>
 								<div class="col-xs-8">
-									<selectize v-model="facebook.data.attribution_window_days" :data="details.attribution_window_days">
-										<optgroup label="AFTER CLICKING AD">
-											<option value="1">1 day click</option>
-											<option value="7">7 days click</option>
-										</optgroup>
-										<optgroup label="AFTER CLICKING OR VIEWING AD">
-											<option value="view_through:1">1 day click or view</option>
-											<option value="view_through:2">7 days click or 1 day view</option>
-										</optgroup>
-									</selectize>
+									<multi-select v-model="facebook.data.attribution_window_days" :options="attribution_window_days"
+										group-label="label"
+										group-values="values"
+										label="name" track-by="id">
+									</multi-select>
 								</div>
 							</div>
 							<div class="row align-content">
@@ -395,11 +430,9 @@
 								</div>
 								<div class="col-xs-8">
 									<div class="row">
-										<div class="col-xs-6">
-											<selectize :disabled="facebook.data.objective === 'BRAND_AWARENESS'" v-model="facebook.data.bidType">
-												<option value="auto">Automatic</option>
-												<option value="manual">Manual</option>
-											</selectize>
+										<div class="col-xs-6" v-show="facebook.data.objective !== 'BRAND_AWARENESS'">
+											<label> <input type="radio" name="bidtype" value="auto" v-model="facebook.data.bidType"> Automatic </label>
+											<label> <input type="radio" name="bidtype" value="manual" v-model="facebook.data.bidType"> Manual </label>
 										</div>
 										<div v-if="facebook.data.bidType === 'manual'" class="col-xs-6">
 											<div class="input-group">
@@ -421,277 +454,23 @@
 					</div>
 				</template>
 			</form>
-			<template v-if="currentStep === 'fb_ads'">
-				<form v-if="facebook.data.adformat" @submit="submit">
-					<div class="panel"  v-if="!item._id">
-						<div class="panel-heading">
-							<h4 class="panel-title">Ads</h4>
-						</div>
-						<div class="panel-body">
-							<div class="mb-10"> Select an ad type</div>
-							<div class="grid-container" >
-								<div v-if="getSupportedAdFormats().includes('CAROUSEL')" @click="$set(facebook.data, 'adformat', 'carousel')" class="panel bg-gray-700 grid">
-									<strong>Carousel</strong>
-								</div>
-								<div v-if="getSupportedAdFormats().includes('IMAGE')" @click="$set(facebook.data, 'adformat', 'image')" class="panel bg-gray-700 grid">
-									<strong>Single Image</strong>
-								</div>
-								<div v-if="getSupportedAdFormats().includes('VIDEO')" @click="$set(facebook.data, 'adformat', 'video')" class="panel bg-gray-700 grid">
-									<strong>Single Video</strong>
-								</div>
-								<div v-if="getSupportedAdFormats().includes('SLIDESHOW')" @click="$set(facebook.data, 'adformat', 'slideshow')" class="panel bg-gray-700 grid">
-									<strong>Slideshow</strong>
-								</div>
-							</div>
-						</div>
-					</div>
-					<template v-if="['POST_ENGAGEMENT'].includes(facebook.data.objective)">
-						<div class="panel">
-							<div class="panel-heading">
-								<h4 class="panel-title">Page & Post</h4>
-							</div>
-							<div class="panel-body" v-if="!item._id">
-								<div class="row">
-									<div class="col-xs-4">
-										<label class="control-label">Facebook Page</label>
-									</div>
-									<div class="col-xs-8" v-if="options.fbAccount.accessToken">
-										<selectize class="mb-10" name="page" required :value="fbad.page.id"
-											:options="{preload: true, fields: 'id,name,access_token', listPath: 'data', valueField: 'id',  ajax: { url: `${options.fbApi.baseUrl}/${options.fbAccount.id}/accounts/?limit=50&access_token=${options.fbAccount.accessToken}`}}"
-											:data="fbad.page"
-											@data="data => $set(fbad, 'page', data)"></selectize>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-4">
-										<label>Post</label>
-									</div>
-									<div class="col-xs-8">
-										<selectize class="mb-10" name="page" required :value="fbad.post.id" :options="{preload: true, listPath: 'data', ajax: { url: options.fbApi.baseUrl + '/' + fbad.page.id + '/promotable_posts/?fields=name,id,type&limit=50&access_token=' + fbad.page.access_token}}"
-											:data="fbad.post"
-											@data="data => $set(fbad, 'post', data)"></selectize>
-									</div>
-								</div>
-							</div>
-						</div>
-					</template>
-					<template v-else="">
-						<fb-carousel-ad v-if="facebook.data.adformat === 'carousel'" :value="facebook.data.ad" @data="data => $set(facebook, 'ad', data)"></fb-carousel-ad>
-						<div v-else class="panel">
-							<div class="panel-heading">
-								<h4 class="panel-title">{{facebook.data.adformat  | humanize}}</h4>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-xs-8">
-										<div v-if="facebook.data.adformat === 'slideshow'" class="row">
-											<div class="col-xs-4"><label class="text-right" for="">Image duration (ms)</label></div>
-											<div class="col-xs-8">
-												<input type="number" min="0" class="form-control" v-model="fbad.slideshow.duration_ms">
-											</div>
-										</div>
-										<div v-if="facebook.data.adformat === 'slideshow'" class="row">
-											<div class="col-xs-4"><label class="text-right" for="">Transition (ms)</label></div>
-											<div class="col-xs-8">
-												<input type="number" min="0" class="form-control" v-model="fbad.slideshow.transition_ms">
-											</div>
-										</div>
-										<div class="row" v-if="facebook.data.adformat != 'canvas'">
-											<div class="col-xs-4">
-												<uploader @upload-complete="handleUpload">
-													<div class="panel grid bg-gray-700 upload-btn">
-														<strong>Upload {{['image', 'video'].includes(facebook.data.adformat) ? facebook.data.adformat : 'Image' | humanize}}</strong>
-													</div>
-												</uploader>
-											</div>
-											<div class="col-xs-4" v-if="['image', 'video'].includes(facebook.data.adformat)">
-												<div class="grid bg-gray-700 panel">
-													<template v-if="!fbad.upload.uploadId">
-														<strong>Preview</strong>
-													</template>
-													<template v-else="">
-														<div class="text-center">
-															<span @click="$set(fbad, 'upload', {})" class="glyphicon glyphicon-remove" style="position: absolute; top: 3px; right: 40px"></span>
-															<template v-if="facebook.data.adformat === 'image'">
-																<img :src="fbad.upload.thumbnail_url" style="width: calc(100% - 5px)">
-															</template>
-															<template v-else-if="facebook.data.adformat === 'video'">
-																<video :src="fbad.upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
-															</template>
-														</div>
-													</template>
-												</div>
-											</div>
-											<div v-if="facebook.data.adformat === 'slideshow'" v-for="upload in fbad.slideshow.images" class="col-xs-4">
-												<div class="panel grid bg-gray-500">
-													<template v-if="!upload.uploadId">
-														<strong class="text-center">Preview</strong>
-													</template>
-													<template v-else="">
-														<div class="text-center">
-															<span @click="fbad.slideshow.images.splice(fbad.slideshow.images.findIndex(el => el.uploadId === upload.uploadId), 1)" class="glyphicon glyphicon-remove" style="position: absolute; top: 5px; right: 5px"></span>
-															<template v-if="['image', 'slideshow'].includes(facebook.data.adformat)">
-																<img :src="upload.thumbnail_url" style="width: calc(100% - 5px)">
-															</template>
-															<template v-else-if="facebook.data.adformat === 'video'">
-																<video :src="upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
-															</template>
-														</div>
-													</template>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-4">
-										<div v-if="facebook.data.adformat === 'image'">
-											<label for="">Recommended Image Specs</label>
-											<p>Recommended image size:</p>
-											1,200 x 628 pixels
-											<p>Image ratio: 1.91:1</p>
-											To maximize ad delivery, use an image that contains little or no overlaid text.
-										</div>
-										<div v-if="facebook.data.adformat === 'video'">
-											<label> Recommended Video Specs </label>
-											<ul>
-												<li> Resolution: at least 720p </li>
-												<li> Format: .MOV, .MP4 or .GIF files </li>
-												<li> Recommended aspect ratio: widescreen (16:9) </li>
-												<li> File size: 2.3 GB max </li>
-												<li> Instagram Feed: 60 seconds max </li>
-												<li> Facebook: 60 minutes max </li>
-											</ul>
-										</div>
-										<div v-if="facebook.data.adformat === 'slideshow'">
-											<label> Recommended Slideshow Specs </label>
-											<ul>
-												<li>Use high resolution images or a video file to create a slideshow</li>
-												<li>Recommended aspect ratio: widescreen (16:9)</li>
-												<li>Facebook and Instagram: 50 seconds max</li>
-												<li>5 seconds min duration</li>
-												<li>Slideshows will loop</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<template v-if="facebook.data.objective === 'EVENT_RESPONSES'">
-							<div class="panel">
-								<div class="panel-heading">
-									<h4 class="panel-title">Event Details</h4>
-								</div>
-								<div class="panel-body">
-									<!--<div class="row">
-										<div class="col-xs-4">
-											<label class="control-label">Event</label>
-										</div>
-										<div class="col-xs-8" v-if="options.fbAccount.accessToken">
-											<selectize class="mb-10" required :value="fbad.event.id" :options="{preload: true, listPath: 'data', ajax: { url: options.fbApi.baseUrl + '/' + options.fbAccount.id + '/promotable_events/?fields=name,id,owner,picture,link&limit=50&access_token=' + options.fbAccount.accessToken}}"
-												:data="fbad.post"
-												@data="data => $set(fbad, 'post', data)"></selectize>
-										</div>
-									</div>-->
-									<div class="row">
-										<div class="col-xs-4">
-											<label class="control-label">Event Url</label>
-										</div>
-										<div class="col-xs-8">
-											<input type="text" class="form-control" required @change="getEvent" v-if="!fbad.event.id">
-											<div v-if="fbad.event.name">
-												<input disabled type="text" class="form-control" :value="fbad.event.name">
-												<div @click="$set(fbad, 'event', {})" style="position: relative; top: -33px; left: -10px; " class="close"> &times; </div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</template>
-						<div v-if="facebook.data.objective != 'POST_ENGAGEMENT'" id="ad-params" class="panel">
-							<div class="panel-heading">
-								<h4 class="panel-title">Page & Links</h4>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-xs-4">
-										<label class="control-label">Facebook Page</label>
-									</div>
-									<div class="col-xs-8" v-if="options.fbAccount.accessToken">
-										<selectize class="mb-10" name="page" required :value="fbad.page.id"
-											:options="{preload: true, fields: 'id,name,access_token', listPath: 'data', valueField: 'id', ajax: { url: `${options.fbApi.baseUrl}/${options.fbAccount.id}/accounts/?fields=name,description,link,access_token&limit=50&access_token=${options.fbAccount.accessToken}`}}"
-											:data="fbad.page"
-											@data="data => $set(fbad, 'page', data)"></selectize>
-									</div>
-								</div>
-								<div class="row" v-if="!['APP_INSTALLS'].includes(facebook.data.objective)">
-									<div class="col-xs-4"><label for="">Website URL</label></div>
-									<div class="col-xs-8">
-										<input required type="text" class="form-control" required v-model="fbad.object_story_spec.link_data.link">
-									</div>
-								</div>
-								<div class="row"   v-if="facebook.data.adformat != 'carousel'">
-									<div class="col-xs-4"><label for="">Headline</label></div>
-									<div class="col-xs-8">
-										<input required type="text" class="form-control" required v-model="fbad.object_story_spec.link_data.name">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-4"><label for="">Text</label></div>
-									<div class="col-xs-8">
-										<input required type="text" class="form-control" required v-model="fbad.object_story_spec.link_data.message">
-									</div>
-								</div>
-								<div class="row" v-if="facebook.data.objective != 'VIDEO_VIEWS'">
-									<div class="col-xs-4"><label for="">Call To Action</label></div>
-									<div class="col-xs-8">
-										<selectize class="mb-10" v-model="fbad.object_story_spec.link_data.call_to_action.type" :data="getCallToAction()"  :options="{valueField: 'id'}">
-											<option value="0">None</option>
-										</selectize>
-									</div>
-								</div>
-								<div class="row"  v-if="facebook.data.adformat != 'carousel'">
-									<div class="col-xs-4"><label for="">News Feed Link Description<small>(Optional) </small></label></div>
-									<div class="col-xs-8">
-										<textarea class="form-control" v-model="fbad.object_story_spec.link_data.description"></textarea>
-									</div>
-								</div>
-								<div class="row"  v-if="facebook.data.adformat != 'carousel'">
-									<div class="col-xs-4"><label for="">Display Link <small>(Optional) </small></label></div>
-									<div class="col-xs-8">
-										<input type="text" class="form-control" v-model="fbad.object_story_spec.link_data.caption">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-4"><label for="">URL Parameters <small>(Optional) </small></label></div>
-									<div class="col-xs-8">
-										<input type="text" class="form-control" v-model="fbad.url_tags">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel" v-if="facebook.data.objective === 'LEAD_GENERATION'">
-							<div class="panel-heading">
-								<h4 class="panel-title">Lead form</h4>
-							</div>
-							<div class="panel-body">
-								<leadgenform-editor v-model="fbad.form.id" :page="fbad.page"></leadgenform-editor>
-							</div>
-						</div>
-					</template>
-					<div class="row mt-20">
-						<div class="col-xs-4"></div>
-						<div class="col-xs-8"><button class="btn btn-success">Submit</button></div>
-					</div>
-				</form>
-			</template>
+			<form @submit="submit">
+				<creative-editor v-if="currentStep === 'fb_ads'" :value.sync="facebook.data.ad"></creative-editor>
+			</form>
 		</div>
 	</section>
 </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import Vue from 'vue'
+import MultiSelect from 'vue-multiselect'
+import {vUtils} from '@/components/Mixins'
+import {request} from '@/config/default/request'
+import CreativeEditor from './CreativeEditor'
 
 export default {
-	mixins: [vFilters],
+	components: {MultiSelect, CreativeEditor},
+	mixins: [vUtils],
 	data: () => ({
 		currentStep: 'platform',
 		steps: ['platform'],
@@ -705,7 +484,7 @@ export default {
 			bidtype: 'CPC',
 			budget: null,
 			dailybudget: null,
-			advertiser: null,
+			advertiser: {},
 			creatives: [],
 			targeting_rules: {
 				age_min: 13,
@@ -720,17 +499,16 @@ export default {
 			facebook: {
 				enabled: true,
 				data: {
-					adformat: 'image',
 					custom_event_type: 'LEAD',
 					budgetType: 'daily',
 					scheduleType: 'default',
 					bidType: 'auto',
-					optimization_goal: null,
-					billing_event: null,
+					optimization_goal: {},
+					billing_event: {},
 					attribution_window_days: 1,
 					wireless_carrier: [],
-					flexible_targeting: [{}],
-					excludes: {},
+					flexible_targeting: [[]],
+					excludes: [],
 					locales: [],
 					objective: null,
 					promoted_object: {object_store_url: null, application_id: null},
@@ -742,49 +520,19 @@ export default {
 						platforms: ''
 					},
 					ad: {
-						slideshow: {
-							images: [],
-							duration_ms: null,
-							transition_ms: null
-						},
-						object_story_spec: {
-							link_data: {
-								call_to_action: {
-									type: 'LINK_CLICKS',
-									value: {}
-								},
-								child_attachments: [],
-								name: null, // heading
-								message: null, // message
-								description: null, // news feed
-								link: null,
-								caption: null,
-								picture: null
-							},
-							page_id: null
-						},
-						object_story_id: null,
-						object_type: null,
-						url_tags: null,
-						upload: {},
-						form: {id: null, name: null},
-						page: {id: null, name: null},
-						post: {id: null, name: null},
-						event: {id: null, name: null}
+						campaign_id: null,
+						objective: null
 					}
 				}
 			}
 		},
 		details: {
 			user_oses: [],
-			fb_posts: [],
-			creatives: [],
 			advertisers: [],
 			currency: {},
 			locales: [],
-			detailed_targeting: [],
+			flexible_targeting: [],
 			geo: [],
-			forms: [],
 			steps: [
 				{id: 'platform', name: 'Platform'},
 				{id: 'fb_objective', name: 'Objective'},
@@ -804,7 +552,7 @@ export default {
 				{id: 'PAGE_LIKES', name: 'Page Likes'},
 				{id: 'EVENT_RESPONSES', name: 'Event Responses'}
 			],
-			calltoaction: [{'id':'OPEN_LINK', 'name':'Open link'}, {'id':'LIKE_PAGE', 'name':'Like page'}, {'id':'SHOP_NOW', 'name':'Shop now'}, {'id':'PLAY_GAME', 'name':'Play game'}, {'id':'INSTALL_APP', 'name':'Install app'}, {'id':'USE_APP', 'name':'Use app'}, {'id':'INSTALL_MOBILE_APP', 'name':'Install mobile app'}, {'id':'USE_MOBILE_APP', 'name':'Use mobile app'}, {'id':'BOOK_TRAVEL', 'name':'Book travel'}, {'id':'LISTEN_MUSIC', 'name':'Listen music'}, {'id':'LEARN_MORE', 'name':'Learn more'}, {'id':'SIGN_UP', 'name':'Sign up'}, {'id':'DOWNLOAD', 'name':'Download'}, {'id':'WATCH_MORE', 'name':'Watch more'}, {'id':'NO_BUTTON', 'name':'No button'}, {'id':'CALL_NOW', 'name':'Call now'}, {'id':'APPLY_NOW', 'name':'Apply now'}, {'id':'BUY_NOW', 'name':'Buy now'}, {'id':'GET_OFFER', 'name':'Get offer'}, {'id':'GET_OFFER_VIEW', 'name':'Get offer view'}, {'id':'GET_DIRECTIONS', 'name':'Get directions'}, {'id':'MESSAGE_PAGE', 'name':'Message page'}, {'id':'MESSAGE_USER', 'name':'Message user'}, {'id':'SUBSCRIBE', 'name':'Subscribe'}, {'id':'SELL_NOW', 'name':'Sell now'}, {'id':'DONATE_NOW', 'name':'Donate now'}, {'id':'GET_QUOTE', 'name':'Get quote'}, {'id':'CONTACT_US', 'name':'Contact us'}, {'id':'RECORD_NOW', 'name':'Record now'}, {'id':'VOTE_NOW', 'name':'Vote now'}, {'id':'REGISTER_NOW', 'name':'Register now'}, {'id':'REQUEST_TIME', 'name':'Request time'}, {'id':'SEE_MENU', 'name':'See menu'}, {'id':'EMAIL_NOW', 'name':'Email now'}, {'id':'OPEN_MOVIES', 'name':'Open movies'}]
+			conversion_events: [{'id': 'CONTENT_VIEW', 'name': 'ViewContent'}, {'id': 'SEARCH', 'name': 'Search'}, {'id': 'ADD_TO_CART', 'name': 'AddToCart'}, {'id': 'ADD_TO_WISHLIST', 'name': 'AddToWishlist'}, {'id': 'INITIATED_CHECKOUT', 'name': 'InitiateCheckout'}, {'id': 'ADD_PAYMENT_INFO', 'name': 'AddPaymentInfo'}, {'id': 'PURCHASE', 'name': 'Purchase'}, {'id': 'LEAD', 'name': 'Lead'}, {'id': 'COMPLETE_REGISTRATION', 'name': 'CompleteRegistration'}]
 		},
 		options: {
 			fbAccount: {},
@@ -818,25 +566,27 @@ export default {
 		},
 		getEvent(e) {
 			var url = e.currentTarget.value;
-			$.get(this.options.fbApi.baseUrl + '/search', {
+			request.get(this.fbApi.baseUrl + '/search', {params: {
 				type: 'addestination',
 				object_url: url,
-				access_token: this.options.fbApi.accessToken
-			}).done(response => {
-				if(response.data && response.data[0]) {
-					Vue.set(this.fbad, 'event', response.data[0]);
+				access_token: this.fbApi.accessToken
+			}}).then(({data}) => {
+				if(data.data && data.data[0]) {
+					Vue.set(this.fbad, 'event', data.data[0]);
 				}
 			});
 		},
 		narrowAudience() {
-			this.facebook.data.flexible_targeting.push({});
+			this.facebook.data.flexible_targeting.push([]);
 		},
 		fbCombineList(list) {
+			debugger
 			var fullList = [];
 			for(var i in list) fullList = fullList.concat(list[i]);
 			return fullList;
 		},
 		fbUpdateList(list, value) {
+			debugger
 			if(!value) return;
 			if(!Array.isArray(value)) value = [value];
 			value.forEach(item => {
@@ -856,11 +606,11 @@ export default {
 			for(var i in list) list[i] = list[i][matchKey];
 			return list;
 		},
-		handleResponse(res, status, xhr) {
-			if(res.success) {
-				return vApp.message('Success');
+		handleResponse({data}) {
+			if(data.success) {
+				this.message('Success');
 				// location.href = '/campaigns/';
-			} else vApp.message('Error saving campaign', 'danger');
+			} else this.message('Error saving campaign', 'danger');
 		},
 		removeUnchangedFields(item, preserveFields) {
 			var original = this.originalItem;
@@ -881,36 +631,20 @@ export default {
 			if(!event.currentTarget.checkValidity()) return;
 			var campaign = clone(this.item);
 			if(campaign._id) this.removeUnchangedFields(campaign, ['id']);
-			if (Object.keys(campaign).length <= 1) return vApp.message('Nothing changed', 'info');
+			if (Object.keys(campaign).length <= 1) return this.message('Nothing changed', 'info');
 			console.log(clone(campaign));
 			if(campaign.services) {
 				var facebook = campaign.facebook;
 				if(facebook.enabled) {
 					facebook.data.locales = this.processList(facebook.data.locales, this.details.locales, 'key');
-					// facebook.data.detailed_targeting = this.processList(facebook.data.detailed_targeting, this.details.detailed_targeting);
-					// if(facebook.ad.post)
-					// 	facebook.ad.object_type = this.details.fb_posts.find(el => el.id === facebook.ad.object_story_id).type;
 				}
 			}
 			if(campaign._id)	{
 				var campaignId = campaign._id;
 				delete campaign._id;
-				$.ajax({
-					url: '/api/campaigns/' + campaignId,
-					type: 'post',
-					data: JSON.stringify(campaign),
-					processData: false,
-					headers: {'Content-type': 'application/json'}
-				}).always(this.handleResponse);
+				request.post(`/api/campaigns/${campaignId}`, campaign).then(this.handleResponse).catch(this.handleResponse);
 			} else {
-				delete campaign._id;
-				$.ajax({
-					url: '/api/campaigns/',
-					type: 'post',
-					data: JSON.stringify(campaign),
-					processData: false,
-					headers: {'Content-type': 'application/json'}
-				}).always(this.handleResponse)
+				request.post('/api/campaigns/', campaign).then(this.handleResponse).catch(this.handleResponse);
 			}
 		},
 		updateList(list, value, key = 'id') {
@@ -919,20 +653,6 @@ export default {
 			value.forEach(item => {
 				if(!list.find(el => el[key] === item[key])) list.push(item);
 			});
-		},
-		creativeFilters() {
-			var filters = [];
-			if(this.facebook.enabled) {
-				filters.push({
-					type: 'includes', field: 'type', value: 3
-				});
-			}
-			return filters;
-		},
-		handleUpload(data) {
-			if(['image', 'video'].includes(this.facebook.data.adformat)) {
-				Vue.set(this.fbad, 'upload', data);
-			} else this.fbad.slideshow.images.push(data);
 		},
 		getOptimizationGoals() {
 			var goals = [];
@@ -971,66 +691,17 @@ export default {
 				case 'PRODUCT_CATALOG_SALES':
 			}
 			return goals.map(goal => this.details.optimization_goals.find(el => el.id === goal));
-		},
-		getCallToAction() {
-			var items = [];
-			switch(this.facebook.data.objective) {
-				case 'BRAND_AWARENESS':
-				case 'LINK_CLICKS':
-					items = ['APPLY_NOW', 'BOOK_TRAVEL', 'CONTACT_US', 'DOWNLOAD', 'LEARN_MORE', 'REQUEST_TIME', 'SHOP_NOW', 'WATCH_MORE', 'SIGN_UP'];  // start order
-					break;
-				case 'REACH':
-					items = ['APPLY_NOW', 'BOOK_TRAVEL', 'CALL_NOW', 'CONTACT_US', 'DOWNLOAD', 'GET_DIRECTIONS', 'LEARN_MORE', 'REQUEST_TIME', 'SHOP_NOW', 'WATCH_MORE', 'SIGN_UP']; // send message, start order, save
-					break;
-				case 'LEAD_GENERATION':
-					items = ['APPLY_NOW', 'DOWNLOAD', 'GET_QUOTE', 'LEARN_MORE', 'SIGN_UP', 'SUBSCRIBE'];
-					break;
-				case 'CONVERSIONS':
-					items = ['APPLY_NOW', 'CONTACT_US', 'DOWNLOAD', 'LEARN_MORE', 'REQUEST_TIME', 'SHOP_NOW', 'SIGN_UP', 'WATCH_MORE'];  // Book now, Send Message, start order
-					break;
-				case 'APP_INSTALLS':
-					items = ['DOWNLOAD', 'INSTALL_APP', 'LEARN_MORE', 'LISTEN_MUSIC', 'PLAY_GAME', 'SHOP_NOW', 'SIGN_UP', 'USE_APP', 'WATCH_MORE']; // book now,
-					break;
-				case 'PAGE_LIKES':
-					items = ['LIKE_PAGE'];
-					break;
-				case 'VIDEO_VIEWS':
-				case 'OFFER_CLAIMS':
-				case 'PRODUCT_CATALOG_SALES':
-					break;
-			}
-			return items.map(item => this.details.calltoaction.find(el => el.id === item));
-		},
-		getSupportedAdFormats() {
-			switch(this.facebook.data.objective) {
-				case 'BRAND_AWARENESS':
-				case 'LINK_CLICKS':
-				case 'REACH':
-				case 'LEAD_GENERATION':
-				case 'CONVERSIONS':
-				case 'APP_INSTALLS':
-				case 'OFFER_CLAIMS':
-				case 'PRODUCT_CATALOG_SALES':
-					return ['IMAGE', 'VIDEO', 'CAROUSEL', 'SLIDESHOW'];
-				case 'POST_ENGAGEMENT':
-				case 'EVENT_RESPONSES':
-				case 'PAGE_LIKES':
-					return ['IMAGE', 'VIDEO', 'SLIDESHOW'];
-				case 'VIDEO_VIEWS':
-					return ['VIDEO', 'CAROUSEL', 'SLIDESHOW'];
-			}
-			return [];
 		}
 	},
 	mounted() {
 		this.gotoStep('platform');
 		console.log('campaign editor');
 		if(this.$route && this.$route.params.id) {
-			$.get('/api/campaigns/get/' + this.$route.params.id, (response) => {
-				if(!response.result) return vApp.message('Error fetching campaign data');
+			request.get('/api/campaigns/get/' + this.$route.params.id, ({data}) => {
+				if(!data.result) return this.message('Error fetching campaign data');
 				Vue.set(this, 'steps', ['fb_campaign', 'fb_ads']);
 				this.gotoStep('fb_campaign');
-				var campaign = response.result;
+				var campaign = data.result;
 				var facebook = campaign.facebook;
 				var targeting = campaign.targeting_rules;
 				for (i in {geo_includes:0, geo_excludes:0}) {
@@ -1042,33 +713,25 @@ export default {
 				if(facebook.campaign_id && facebook.data) {
 					facebook.enabled = true;
 					Vue.set(this.details, 'locales', clone(facebook.data.locales || []));
-					// Vue.set(this.details, 'detailed_targeting', clone(facebook.data.detailed_targeting||[]) );
 					facebook.data.locales = this.normalizeList(facebook.data.locales, 'key');
-					// facebook.data.detailed_targeting = this.normalizeList(facebook.data.detailed_targeting);
 				}
-				this.originalItem = $.extend(true, {}, this.item, campaign);
+				campaign.facebook.data.ad.campaign_id = campaign._id;
+				campaign.facebook.data.ad.objective = campaign.objective;
+
+				this.originalItem = Object.assign({}, this.item, campaign);
 				Vue.set(this, 'item', clone(this.originalItem));
 			});
 		}
-		$.get('/api/currency', (response) => {
-			if(response.success) {
-				Vue.set(this.details, 'currency', response.result);
+		request.get('/api/currency').then(({data}) => {
+			if(data.success) {
+				Vue.set(this.details, 'currency', data.result);
 			}
-		});
-		vApp.$watch('options.fbAccount', fbAccount => Vue.set(this.options, 'fbAccount', vApp.options.fbAccount), {deep: true});
-		$(document).on('focus', '[data-toggle="datepicker"]', function() {
-			$(this).datepicker({
-				autoclose: true,
-				forceParse: false
-			}).change(function() {
-				this.dispatchEvent(new Event('input'));
-			});
 		});
 	},
 	computed: {
-		...mapGetters('facebook', ['fbApi']),
 		currency_symbol() {
-			return this.details.currency[this.getData(this.details.advertisers, this.item.advertiser, 'currency')];
+			console.log('currency_symbol', this.details.currency[this.item.advertiser.currency]);
+			return this.details.currency[this.item.advertiser.currency];
 		},
 		facebook() {
 			return this.item.facebook;
@@ -1077,7 +740,7 @@ export default {
 			return this.item.facebook.data.ad;
 		},
 		bid_unit() {
-			switch(this.facebook.data.optimization_goal) {
+			switch(this.facebook.data.optimization_goal.id) {
 				case 'OFFSITE_CONVERSIONS':
 				case 'LEAD_GENERATION': return 'per result';
 				case 'VIDEO_VIEWS': return 'per video view';
@@ -1087,11 +750,55 @@ export default {
 				case 'PAGE_LIKES': return 'per page like';
 				case 'EVENT_RESPONSES':
 				case 'BRAND_AWARENESS':
+				case 'IMPRESSIONS':
 				case 'REACH': return 'per 1, 000 impressions';
 			}
 		},
 		geo_includes() {return this.item.targeting_rules.geo_includes || [] },
-		geo_excludes() {return this.item.targeting_rules.geo_excludes || [] }
+		geo_excludes() {return this.item.targeting_rules.geo_excludes || [] },
+		fb_age_list() {
+			var ages = [];
+			for(let i = 13; i <= 65; i++) ages.push(i);
+			return ages;
+		},
+		platforms() {
+			return [{
+				platform: 'Facebook',
+				placements: [
+					{id: 'fb.feed', name: 'Feeds'},
+					{id: 'fb.instant_article', name: 'Instant Articles'},
+					{id: 'fb.instream_video', name: 'In-stream videos'},
+					{id: 'fb.suggested_video', name: 'Suggested videos'},
+					{id: 'fb.right_hand_column', name: 'Right Colum'}
+				]
+			}, {
+				platform: 'Instagram',
+				placements: [
+					{id: 'instagram.stream', name: 'Instagram Feed'},
+					{id: 'instagram.story', name: 'Instagram Stories'}
+				]
+			}, {
+				platform: 'Other',
+				placements: [
+					{id: 'audience_network', name: 'Audience Network'}
+				]
+			}]
+		},
+		attribution_window_days() {
+			return [{
+				label: 'AFTER CLICKING AD',
+				values: [
+					{id:1, name: '1 day click'},
+					{id:7, name: '7 days click'}
+				]
+			}, {
+				label: 'AFTER CLICKING OR VIEWING AD',
+				values: [
+					{id: 'view_through:1', name: '1 day click or view'},
+					{id: 'view_through:2', name: '7 days click or 1 day view'}
+				]
+			}];
+		}
 	},
 	watch: {
 		'item.facebook.data.budgetType': {
@@ -1121,6 +828,12 @@ export default {
 		'fbad.page.id': {
 			handler: function(pageId) {
 				this.$forceUpdate();
+			}
+		},
+		'item.advertiser': {
+			deep: true,
+			handler(data) {
+				console.log(clone(data))
 			}
 		}
 	}

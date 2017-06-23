@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import user from './modules/user'
+import session from './modules/session'
 
 Vue.use(Vuex)
 
@@ -9,7 +9,7 @@ const baseUrl = 'http://localhost:3030' // 'http://13.228.2.2:4040'
 
 const store = new Vuex.Store({
 	modules: {
-		user: user
+		session: session
 	},
 	state: {
 		campaigns: [],

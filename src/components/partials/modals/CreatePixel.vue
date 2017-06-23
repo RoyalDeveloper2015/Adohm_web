@@ -12,7 +12,7 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label>Select advertiser</label>
-							<selectize v-model="item.advertiser" :options="{preload: true, ajax: { url: '/api/advertisers/get'}}"></selectize>
+							<!--<selectize v-model="item.advertiser" :options="{preload: true, ajax: { url: '/api/advertisers/get'}}"></selectize>-->
 						</div>
 						<div class="form-group col-md-6">
 							<label>Select Event</label>

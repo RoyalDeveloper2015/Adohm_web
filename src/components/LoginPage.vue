@@ -5,7 +5,7 @@
 			<div class="modal-content">
 				<form @submit="submit" action="/login" method="POST">
 					<div class="modal-header navbar navbar-inverse">
-						<a href="/"><img alt="" src="/images/logo.png"></a>
+						<a href="/"><img alt="" src="/static/images/logo.png"></a>
 					</div>
 					<div class="modal-body">
 						<div class="input-group">

@@ -8,6 +8,7 @@ import Users from '../components/pages/Users.vue'
 import UserSettings from '../components/pages/user/Settings.vue'
 import Performance from '../components/pages/social/Performance.vue'
 import * as Facebook from '../components/pages/social/facebook'
+import Test from '../components/pages/Test.vue'
 
 Vue.use(Router)
 
@@ -55,6 +56,10 @@ export default new Router({
 		{
 			path: '/social/facebook/campaigns/:id',
 			component: Facebook.CampaignEditor
+		},
+		{
+			path: '/test',
+			component: Test
 		}
 	]
 });

@@ -35,8 +35,7 @@
 							</button>
 							<ul class="dropdown-menu">
 								<li> <router-link to="/social/facebook/campaigns/create">Facebook Campaign</router-link> </li>
-								<li> <router-link to="/social/facebook/campaigns/create">Adwords Campaign</router-link> </li>
-								<li> <router-link to="/social/facebook/campaigns/create">DCM Campaign</router-link> </li>
+								<li> <router-link to="">Twitter Campaign (coming soon)</router-link> </li>
 							</ul>
 						</div>
 					</div>
