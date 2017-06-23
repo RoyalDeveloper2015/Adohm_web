@@ -100,8 +100,12 @@ export default {
     text-align: center;
   }
   .bottom-line {
-    padding: 10px 0px 10px 0px;
+    padding: 10px 15px;
     border-bottom: 1px solid rgba(0,0,0,0.3);
+  }
+  .bottom-line:hover {
+    color: #ffffff;
+    background-color: #1e72de;
   }
   .disabled-text {
     color: rgba(0,0,0,0.4);
@@ -126,14 +130,10 @@ export default {
   }
   .influence-card {
     margin: 10px 20px 0px 0px;
-    padding: 0px 15px 15px 15px;
     background-color: rgba(0,0,0,0.04) !important;
     width: 100%;
     height: 250px;
     text-align: left;
-  }  
-  .advertise {
-     padding: 10px 0px 10px 0px;
   }
   #card {
     background: #fff;
