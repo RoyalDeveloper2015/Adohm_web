@@ -17,33 +17,58 @@
       <!-- End Sub Title -->        
       <!-- Cards -->
           <div class="allcard-height">
-            <router-link to="/search/addcampaign/searchnetwork" id="card" class="tab-card">
+            <router-link to="/search/addcampaign/searchnetwork"
+                id="card"
+                class="tab-card"
+                v-bind:class="{active: isSearchActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-search network" aria-hidden="true"></i>
+                <span><i class="fa fa-search"
+                  aria-hidden="true"
+                  v-bind:class="{network: !isSearchActive}"></i>
                       Search Network</span>
               </div>            
             </router-link>
-            <router-link to="/search/addcampaign/displaynetwork" id="card" class="tab-card">
+            <router-link to="/search/addcampaign/displaynetwork"
+                id="card"
+                class="tab-card"
+                v-bind:class="{active: isDisplayActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-rss-square network" aria-hidden="true"></i>
+                <span><i class="fa fa-rss-square"
+                  aria-hidden="true"
+                  v-bind:class="{network: !isDisplayActive}"></i>
                       Display Network</span>
               </div>            
             </router-link>
-            <router-link to="/search/addcampaign/shopping" id="card" class="tab-card">
+            <router-link to="/search/addcampaign/shopping"
+                id="card"
+                class="tab-card"
+                v-bind:class="{active: isShopActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-tags network" aria-hidden="true"></i>
+                <span><i class="fa fa-tags"
+                  aria-hidden="true"
+                  v-bind:class="{network: !isShopActive}"></i>
                       Shopping</span>
               </div>            
             </router-link>
-            <router-link to="/search/addcampaign/video" id="card" class="tab-card">
+            <router-link to="/search/addcampaign/video"
+                id="card"
+                class="tab-card"
+                v-bind:class="{active: isVideoActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-video-camera network" aria-hidden="true"></i></i>
+                <span><i class="fa fa-video-camera"
+                  aria-hidden="true"
+                  v-bind:class="{network: !isVideoActive}"></i>
                       Video</span>
               </div>            
             </router-link>
-            <router-link to="/search/addcampaign/universalapp" id="card" class="tab-card">
+            <router-link to="/search/addcampaign/universalapp"
+                id="card"
+                class="tab-card"
+                v-bind:class="{active: isAppActive}">
               <div class="content-text-title">
-                <span><i class="fa fa-android network" aria-hidden="true"></i></i>
+                <span><i class="fa fa-android"
+                  aria-hidden="true"
+                  v-bind:class="{network: !isAppActive}"></i>
                       Universal App</span>
               </div>            
             </router-link>
@@ -57,7 +82,35 @@
 </template>
 <script>
 export default {
-  name: 'SearchNetwork'
+  name: 'SearchNetwork',
+  data: function () {
+    return {
+      isSearchActive: false,
+      isDisplayActive: false,
+      isShopActive: false,
+      isVideoActive: false,
+      isAppActive: false
+    }
+  },
+  mounted: function () {
+    switch (this.$route.name) {
+      case 'UniversalApp':
+        this.isAppActive = true
+        break
+      case 'DisplayNetwork':
+        this.isDisplayNetwork = true
+        break
+      case 'Shopping':
+        this.isShopActive = true
+        break
+      case 'Video':
+        this.isVideoActive = true
+        break
+      default:
+        this.isSearchActive = true
+        break
+    }
+  }
 }
 </script>
 <style>
@@ -112,7 +165,13 @@ export default {
   }
   .card-item:hover {
     background-color: rgba(0,0,0,0.08) !important;    
-  }  
+  }
+  .active {
+    color: #ffffff !important;
+    background-color: #1e72de !important;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
   #card {
     background: #fff;
     position: relative;

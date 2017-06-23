@@ -1,7 +1,7 @@
 <template>
   <div class="search-campaign">
     <nav class="navbar bg-white box-shadow sub-nav">
-        <ul class="nav subnav active">
+        <ul class="nav subnav active-bottom">
             Campaign  
         </ul>
         <ul class="nav subnav">
@@ -202,7 +202,7 @@
     border-bottom-width: 3px;
     border-bottom-color: #3498db;
   }
-  .active {
+  .active-bottom {
     border-bottom-style: solid;
     border-bottom-width: 3px;
     border-bottom-color: #3498db;

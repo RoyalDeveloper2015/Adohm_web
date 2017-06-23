@@ -4,17 +4,30 @@
       <div class="sidebar-content">
         <div class="section submenu">
 
-          <li class="item">Overview</li>
+          <li class="item"              
+            v-bind:class="{activemenu: isOverview}">
+            <router-link class="item-link"                
+              v-bind:class="{deactivelink: isOverview}"
+              to="/search/campaigns">
+              <span v-on:click="removeActive(); isOverview = !isOverview">Overview</span>
+            </router-link>
+          </li>
           <li class="item">Opportunites</li>
           <li><hr /></li>
 
           <li class="item"
-              v-bind:class="{ 'active-menu': isActive }">
-              <router-link class="item-link"
-                to="/search/campaigns">Campaigns</router-link></li>
+            v-bind:class="{activemenu: isCampaigns}">
+            <router-link class="item-link"
+              v-bind:class="{deactivelink: isCampaigns}"
+              to="/search/campaigns">
+              <span v-on:click="removeActive(); isCampaigns = !isCampaigns">Campaigns</span>
+            </router-link>
+          </li>
           <li><hr /></li>
 
-          <li class="item">Ad Groups</li>
+          <li class="item"
+              v-on:click="removeActive(); isAdGroups = !isAdGroups"
+              v-bind:class="{activemenu: isAdGroups}">Ad Groups</li>
           <li><hr /></li>
 
           <li class="item">Ads & Extensions</li>
@@ -42,7 +55,7 @@
           <li class="item">Change History</li>
         </div>
       </div>      
-    </div>   
+    </div>
     <router-view></router-view>
   </div>    
 </template>
@@ -51,8 +64,53 @@
     name: 'search',
     data: function () {
       return {
-        isActive: false
+        isOverview: false,
+        isOpportunites: false,
+        isCampaigns: false,
+        isAdGroups: false,
+        isAdsEx: false,
+        isKeyworkds: false,
+        isDynamic: false,
+        isAudience: false,
+        isDemographics: false,
+        isSetting: false,
+        isLocation: false,
+        isAdSchedule: false,
+        isDevices: false,
+        isAdvancedBid: false,
+        isChangeHistory: false
       }
+    },
+    methods: {
+      removeActive: function () {
+        this.isOverview = false
+        this.isOpportunites = false
+        this.isCampaigns = false
+        this.isAdGroups = false
+        this.isAdsEx = false
+        this.isKeyworkds = false
+        this.isDynamic = false
+        this.isAudience = false
+        this.isDemographics = false
+        this.isSetting = false
+        this.isLocation = false
+        this.isAdSchedule = false
+        this.isDevices = false
+        this.isAdvancedBid = false
+        this.isChangeHistory = false
+        console.log('removed!')
+      }
+    },
+    mounted: function () {
+      switch (this.$route.name) {
+        case 'SearchCampaign':
+          this.isCampaigns = true
+          break
+        default:
+          this.isOverview = true
+          break
+      }
+      console.log(this.isCampaigns)
     }
   }
 </script>
@@ -116,8 +174,11 @@
     padding: 5px 20px 5px 20px;
     margin-bottom: 0px;
   }
-  .active-menu {
-    background-color: #1e72de;
+  .activemenu {
+    background-color: #1e72de;    
+  }
+  .deactivelink {
+    color: #ffffff !important;
   }
 </style>
 
