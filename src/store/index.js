@@ -40,7 +40,11 @@ const store = new Vuex.Store({
       timeZone: '',
       days: [],
       hours: [],
-      adId: ''
+      adId: '',
+      chooseExisting: 'true',
+      adName: '',
+      adType: 'Standard',
+      active: ''
     },
     advertisers: [],
     countries: [],
