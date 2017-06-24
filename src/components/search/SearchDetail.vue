@@ -20,7 +20,7 @@
             <router-link to="/search/addcampaign/searchnetwork"
                 id="card"
                 class="tab-card"
-                v-bind:class="{active: isSearchActive}">
+                v-bind:class="{activetab: isSearchActive}">
               <div class="content-text-title">
                 <i class="fa fa-search"
                   aria-hidden="true"
@@ -31,7 +31,7 @@
             <router-link to="/search/addcampaign/displaynetwork"
                 id="card"
                 class="tab-card"
-                v-bind:class="{active: isDisplayActive}">
+                v-bind:class="{activetab: isDisplayActive}">
               <div class="content-text-title">
                 <i class="fa fa-rss-square"
                   aria-hidden="true"
@@ -42,7 +42,7 @@
             <router-link to="/search/addcampaign/shopping"
                 id="card"
                 class="tab-card"
-                v-bind:class="{active: isShopActive}">
+                v-bind:class="{activetab: isShopActive}">
               <div class="content-text-title">
                 <i class="fa fa-tags"
                   aria-hidden="true"
@@ -53,7 +53,7 @@
             <router-link to="/search/addcampaign/video"
                 id="card"
                 class="tab-card"
-                v-bind:class="{active: isVideoActive}">
+                v-bind:class="{activetab: isVideoActive}">
               <div class="content-text-title">
                 <i class="fa fa-video-camera"
                   aria-hidden="true"
@@ -64,7 +64,7 @@
             <router-link to="/search/addcampaign/universalapp"
                 id="card"
                 class="tab-card"
-                v-bind:class="{active: isAppActive}">
+                v-bind:class="{activetab: isAppActive}">
               <div class="content-text-title">
                 <i class="fa fa-android"
                   aria-hidden="true"
@@ -167,25 +167,11 @@ export default {
   .card-item:hover {
     background-color: rgba(0,0,0,0.08) !important;    
   }
-  .active {
+  .activetab {
     color: #ffffff !important;
     background-color: #1e72de !important;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-  }
-  #card {
-    background: #fff;
-    position: relative;
-
-    -webkit-box-shadow: 0px 1px 10px 0px rgba(207,207,207,1);
-    -moz-box-shadow: 0px 1px 10px 0px rgba(207,207,207,1);
-    box-shadow: 0px 1px 10px 0px rgba(207,207,207,1);
-
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;	
   }
   @media (max-width: 1350px){
     .content-text-title span {
