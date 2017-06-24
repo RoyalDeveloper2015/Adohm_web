@@ -15,8 +15,7 @@
         </div>
       </div>
 		</div>
-    <div id="card" class="detail-pannel margin-top-20"
-      v-on:click="expand('trans-1', 'ro-1')">
+    <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
         <div class="col-md-3">
           <span class="black">Campaign name</span>
@@ -27,12 +26,12 @@
           </div>
         </div>
         <div class="col-md-6 right">
-          <i class="fa fa-angle-up trans ro-1 font-xlarge"></i>
+          <i class="fa fa-angle-up trans ro-1 font-xlarge"
+            v-on:click="expand('trans-1', 'ro-1')"></i>
         </div>
       </div>
     </div>
-    <div id="card" class="detail-pannel margin-top-20"
-      v-on:click="expand('trans-2', 'ro-2')">
+    <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
 
         <div class="col-md-3">
@@ -86,7 +85,8 @@
         </div>
 
         <div class="col-md-1 right">
-          <i class="fa fa-angle-up trans ro-2 font-xlarge"></i>
+          <i class="fa fa-angle-up trans ro-2 font-xlarge"
+            v-on:click="expand('trans-2', 'ro-2')"></i>
         </div>
 
       </div>
@@ -101,8 +101,7 @@
         </div>
       </div>
     </div>
-    <div id="card" class="detail-pannel margin-top-20"
-      v-on:click="expand('trans-3', 'ro-3')">
+    <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
         <div class="col-md-3">
           <span class="black">Location</span>
@@ -139,7 +138,8 @@
           </div>
         </div>
         <div class="col-md-1 right">
-          <i class="fa fa-angle-up trans ro-3 font-xlarge"></i>
+          <i class="fa fa-angle-up trans ro-3 font-xlarge"
+            v-on:click="expand('trans-3', 'ro-3')"></i>
         </div>
       </div>
     </div>
