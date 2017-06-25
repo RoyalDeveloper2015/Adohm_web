@@ -118,23 +118,23 @@
         </div>
         <div class="col-md-8">
           <div class="trans-3">
-            <div class="display-block">
+            <div>
               <span>Select location to target</span>
               <i aria-hidden="true" class="fa fa-question-circle"></i>
             </div>
-            <div class="display-block margin-top-5">
+            <div class="margin-top-5">
               <span>
                 <input type="radio" name="location" class="margin-top-5" id="partner">
                 <span class="vertical margin-left-10">All countries and territories</span>
               </span>
             </div>
-            <div class="display-block margin-top-5">
+            <div class="margin-top-5">
               <span>
                 <input type="radio" name="location" class="margin-top-5" id="partner">
                 <span class="vertical margin-left-10">India</span>
               </span>
             </div>
-            <div class="display-block margin-top-5">
+            <div class="margin-top-5">
               <span>
                 <input type="radio" name="location" class="margin-top-5" id="partner">
                 <span class="vertical margin-left-10">Enter another location</span>
@@ -334,6 +334,9 @@
       </div>
     </div>
 
+    <!-- Sitelink Extensions -->
+    <site-link-extensions></site-link-extensions>
+
   </div>
 </template>
 <script>
@@ -342,6 +345,7 @@
   import {mapState, mapActions} from 'vuex'
   import Multiselect from 'vue-multiselect'
   import Bidding from './Bidding.vue'
+  import SiteLinkExtensions from './SiteLinkExtensions.vue'
 
   export default {
     name: 'DetailNetwork',
@@ -378,7 +382,8 @@
     },
     components: {
       Multiselect,
-      Bidding
+      Bidding,
+      SiteLinkExtensions
     },
     computed: {
       ...mapState([
