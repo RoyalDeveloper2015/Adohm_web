@@ -7,11 +7,11 @@
       </div>
       <div class="col-md-5">
         <div class="trans-5">
-          <div class="display-block">
+          <div>
             <span>Select your bid strategy</span>
             <i aria-hidden="true" class="fa fa-question-circle"></i>
           </div>
-          <div class="display-block">
+          <div>
             <select class="selectpicker margin-top-20 form-control"
                 v-model="selected"
                 v-on:change="empty = false; use_portfolio = false; use_existing_portfolio = false">
@@ -49,7 +49,7 @@
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20"
+            <div class="margin-top-20"
                 v-bind:class="{'margin-left-25': use_portfolio}"
                 v-show="!use_existing_portfolio">
               <div>              
@@ -89,7 +89,7 @@
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20"
+            <div class="margin-top-20"
                  v-bind:class="{'margin-left-25': use_portfolio}"
                  v-show="!use_existing_portfolio">
               <div>              
@@ -117,20 +117,20 @@
           <!-- maximum clicks -->    
           <div v-show="selected == 'Maximize clicks'">
             <div v-show="use_portfolio">
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="maximize-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="true">
                 <span>Use existing portfolio strategy</span>
               </div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="maximize-portfolio"
                   v-model="use_existing_portfolio"
                   v-bind:value="false">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20"
+            <div class="margin-top-20"
                 v-bind:class="{'margin-left-25': use_portfolio}"
                 v-show="!use_existing_portfolio">
               <div>              
@@ -168,20 +168,20 @@
           <!-- Target search page location -->
           <div v-show="selected == 'Target search page location'">
             <div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="target-search-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="true">
                 <span>Use existing portfolio strategy</span>
               </div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="target-search-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="false">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20 margin-left-25"                 
+            <div class="margin-top-20 margin-left-25"                 
                  v-show="!use_existing_portfolio">                            
               <span>Where do you want your ads to appear?</span><br />                     
               <div class="margin-left-10 margin-top-20">
@@ -202,20 +202,20 @@
           <!-- Target outranking share -->
           <div v-show="selected == 'Target outranking share'">
             <div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="share-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="true">
                 <span>Use existing portfolio strategy</span>
               </div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="share-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="false">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20 margin-left-25"                 
+            <div class="margin-top-20 margin-left-25"                 
                  v-show="!use_existing_portfolio">
               <div>              
                 <span>Domain name to outrank</span>             
@@ -250,20 +250,20 @@
           <!-- Enhanced CPC -->
           <div v-show="selected == 'Enhanced CPC'">
             <div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="enhanced-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="true">
                 <span>Use existing portfolio strategy</span>
               </div>
-              <div class="display-block margin-top-20">
+              <div class="margin-top-20">
                 <input type="radio" name="enhanced-portfolio"
                     v-model="use_existing_portfolio"
                     v-bind:value="false">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20 margin-left-25"                 
+            <div class="margin-top-20 margin-left-25"                 
                  v-show="!use_existing_portfolio">
               <div class="margin-top-20"><span>Name</span></div>
               <div class="margin-top-10">               
@@ -274,10 +274,12 @@
 
         </div>
       </div>
+
+      <!-- notes -->
       <div class="col-md-4 row margin-right-0">
-        <div class="display-block col-md-10 padding-right-0 font-size-smaller">
+        <div class="col-md-10 padding-right-0 font-size-smaller">
           <div class="trans-5">
-            <div class="margin-top-30 display-block padding-left-10 left-border">
+            <div class="margin-top-30 padding-left-10 left-border">
 
               <!-- Empty or Manual CPC -->
               <div v-show="empty || selected == 'Manual CPC'">
