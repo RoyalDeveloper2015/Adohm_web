@@ -142,7 +142,7 @@
             </div>
             <div class="margin-top-20 margin-left-25">            
               <span class="left-span"><i class="fa fa-search left-icon" aria-hidden="true"></i></span>
-              <input id="url" type="url" name="url" class="bottom-line-input width-40" placeholder="Enter a location to target or exclude">
+              <input type="text" class="bottom-line-input width-40" placeholder="Enter a location to target or exclude">
               <span class="margin-left-25"><a class="blue">Advanced search</a></span>                   
             </div>
           </div>

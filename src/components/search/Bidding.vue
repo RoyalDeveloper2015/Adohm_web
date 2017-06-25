@@ -22,7 +22,7 @@
           </div>
 
           <!-- Anyone is not selected -->
-          <div v-show="empty">
+          <div v-show="empty || selected == 'Manual CPC'">
             <div class="display-block margin-top-20">
               <input type="checkbox" class="margin-top-5">
               <span class="vertical margin-left-10">Enable Enhanced CPC</span>
@@ -57,11 +57,11 @@
               </div>
               <div class="margin-top-10">            
                 <span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>
-                <input id="url" type="url" name="url" class="bottom-line-input width-40">                 
+                <input type="text" class="bottom-line-input width-40">                 
               </div>
               <div class="margin-top-20" v-show="use_portfolio"><span>Name</span></div>
               <div class="margin-top-10" v-show="use_portfolio">               
-                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+                <input type="text" class="bottom-line-input width-40">                                
               </div>
             </div>
             <div class="margin-top-20" v-show="!use_portfolio">
@@ -97,12 +97,12 @@
                 <i aria-hidden="true" class="fa fa-question-circle"></i>
               </div>              
               <div class="margin-top-10">                
-                <input id="url" type="url" name="url" class="bottom-line-input width-40 margin-right-5-">
+                <input type="text" class="bottom-line-input width-40 margin-right-5-">
                 <span class="border-bottom"><i class="fa fa-percent left-icon" aria-hidden="true"></i></span>
               </div>
               <div class="margin-top-20" v-show="use_portfolio"><span>Name</span></div>
               <div class="margin-top-10" v-show="use_portfolio">               
-                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+                <input type="text" class="bottom-line-input width-40">                                
               </div>
             </div>
             <div class="margin-top-20" v-show="!use_portfolio">
@@ -139,11 +139,11 @@
               </div>
               <div class="margin-top-10">            
                 <span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>
-                <input id="url" type="url" name="url" class="bottom-line-input width-40">                 
+                <input type="text" class="bottom-line-input width-40">                 
               </div>
               <div class="margin-top-20" v-show="use_portfolio"><span>Name</span></div>
               <div class="margin-top-10" v-show="use_portfolio">               
-                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+                <input type="text" class="bottom-line-input width-40">                                
               </div>
               <div v-show="!use_portfolio">
                 <div class="display-block margin-top-20">
@@ -194,10 +194,86 @@
               </div>
               <div class="margin-top-20" v-show="!use_existing_portfolio"><span>Name</span></div>
               <div class="margin-top-10" v-show="!use_existing_portfolio">               
-                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+                <input type="text" class="bottom-line-input width-40">                                
               </div>
             </div>                 
           </div>
+
+          <!-- Target outranking share -->
+          <div v-show="selected == 'Target outranking share'">
+            <div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="share-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="true">
+                <span>Use existing portfolio strategy</span>
+              </div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="share-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="false">
+                <span>Create new portfolio strategy</span>
+              </div>
+            </div>
+            <div class="display-block margin-top-20 margin-left-25"                 
+                 v-show="!use_existing_portfolio">
+              <div>              
+                <span>Domain name to outrank</span>             
+                <i aria-hidden="true" class="fa fa-question-circle"></i>
+              </div>              
+              <div class="margin-top-10">                
+                <input type="url" class="bottom-line-input width-40 margin-right-5-">                
+              </div>
+              <div class="margin-top-20">              
+                <span>Target to outlank</span>             
+                <i aria-hidden="true" class="fa fa-question-circle"></i>
+              </div>              
+              <div class="margin-top-10">                
+                <input type="text" class="bottom-line-input width-40 margin-right-5-">
+                <span class="border-bottom"><i class="fa fa-percent left-icon" aria-hidden="true"></i></span>
+              </div>
+              <div class="margin-top-20">              
+                <span>Maximum bid limit</span>             
+                <i aria-hidden="true" class="fa fa-question-circle"></i>
+              </div>              
+              <div class="margin-top-10">
+                <span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>               
+                <input type="text" class="bottom-line-input width-40 margin-right-5-">                
+              </div class="margin-top-20">
+              <div class="margin-top-20"><span>Name</span></div>
+              <div class="margin-top-10">               
+                <input type="text" class="bottom-line-input width-40">                                
+              </div>
+            </div>                            
+          </div>
+
+          <!-- Enhanced CPC -->
+          <div v-show="selected == 'Enhanced CPC'">
+            <div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="enhanced-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="true">
+                <span>Use existing portfolio strategy</span>
+              </div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="enhanced-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="false">
+                <span>Create new portfolio strategy</span>
+              </div>
+            </div>
+            <div class="display-block margin-top-20 margin-left-25"                 
+                 v-show="!use_existing_portfolio">
+              <div class="margin-top-20"><span>Name</span></div>
+              <div class="margin-top-10">               
+                <input type="text" name="enhanced" class="bottom-line-input width-40">                                
+              </div>
+            </div>
+          </div>
+
+          <!-- Manual CPC -->
+
           
         </div>
       </div>
