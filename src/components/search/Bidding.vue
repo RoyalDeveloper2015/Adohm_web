@@ -53,6 +53,10 @@
                 <span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>
                 <input id="url" type="url" name="url" class="bottom-line-input width-40">                 
               </div>
+              <div class="margin-top-20" v-show="use_portfolio"><span>Name</span></div>
+              <div class="margin-top-10" v-show="use_portfolio">               
+                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+              </div>
             </div>
             <div class="margin-top-10" v-show="!use_portfolio">
               <div class="blue cursor" v-on:click="use_portfolio = true">Use a portfolio strategy</div>
@@ -83,8 +87,8 @@
                 <input id="url" type="url" name="url" class="bottom-line-input width-40 margin-right-5-">
                 <span class="border-bottom"><i class="fa fa-percent left-icon" aria-hidden="true"></i></span>
               </div>
-              <div class="margin-top-10"><span>Name</span></div>
-              <div class="margin-top-10">               
+              <div class="margin-top-20" v-show="use_portfolio"><span>Name</span></div>
+              <div class="margin-top-10" v-show="use_portfolio">               
                 <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
               </div>
             </div>
