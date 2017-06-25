@@ -1,5 +1,7 @@
 <template>
   <div class="search-detail">
+
+    <!-- search network campaign -->
     <div id="card" class="detail-pannel">
       <div class="top-card">
         <div class="col-md-3 align-left">
@@ -15,6 +17,8 @@
         </div>
       </div>
 		</div>
+
+    <!-- campaign name -->
     <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
         <div class="col-md-3">
@@ -31,6 +35,8 @@
         </div>
       </div>
     </div>
+
+    <!-- network -->
     <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
 
@@ -91,6 +97,8 @@
 
       </div>
     </div>
+
+    <!-- device -->
     <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
         <div class="col-md-3">
@@ -101,6 +109,8 @@
         </div>
       </div>
     </div>
+
+    <!-- location -->
     <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
         <div class="col-md-3">
@@ -114,19 +124,19 @@
             </div>
             <div class="display-block margin-top-5">
               <span>
-                <input type="radio" name="partner" class="margin-top-5" id="partner">
+                <input type="radio" name="location" class="margin-top-5" id="partner">
                 <span class="vertical margin-left-10">All countries and territories</span>
               </span>
             </div>
             <div class="display-block margin-top-5">
               <span>
-                <input type="radio" name="partner" class="margin-top-5" id="partner">
+                <input type="radio" name="location" class="margin-top-5" id="partner">
                 <span class="vertical margin-left-10">India</span>
               </span>
             </div>
             <div class="display-block margin-top-5">
               <span>
-                <input type="radio" name="partner" class="margin-top-5" id="partner">
+                <input type="radio" name="location" class="margin-top-5" id="partner">
                 <span class="vertical margin-left-10">Enter another location</span>
               </span>
             </div>
@@ -143,6 +153,8 @@
         </div>
       </div>
     </div>
+
+    <!-- language -->
     <div id="card" class="detail-pannel margin-top-20">
       <div class="top-card padding-15">
         <div class="col-md-3">

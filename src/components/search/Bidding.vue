@@ -1,4 +1,5 @@
 <template>
+  <!-- bidding -->
   <div id="card" class="detail-pannel margin-top-20">
     <div class="top-card padding-15">
       <div class="col-md-3">
@@ -36,11 +37,11 @@
           <div v-show="selected == 'Target CPA'">
             <div v-show="use_portfolio">
               <div class="display-block margin-top-20">
-                <input type="radio">
+                <input type="radio" name="cpa-portfolio">
                 <span>Use existing portfolio strategy</span>
               </div>
               <div class="display-block margin-top-20">
-                <input type="radio">
+                <input type="radio" name="cpa-portfolio">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
@@ -65,11 +66,11 @@
           <div v-show="selected == 'Target ROAS'">
             <div v-show="use_portfolio">
               <div class="display-block margin-top-20">
-                <input type="radio">
+                <input type="radio" name="roas-portfolio">
                 <span>Use existing portfolio strategy</span>
               </div>
               <div class="display-block margin-top-20">
-                <input type="radio">
+                <input type="radio" name="roas-portfolio">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
