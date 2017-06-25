@@ -170,52 +170,7 @@
         </div>
       </div>
     </div>
-    <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
-        <div class="col-md-3">
-          <span>Bidding</span>
-        </div>
-        <div class="col-md-6">
-          <div class="trans-5">
-            <div class="display-block">
-              <span>Select your bid strategy</span>
-              <i aria-hidden="true" class="fa fa-question-circle"></i>
-            </div>
-            <div class="display-block">
-              <select class="selectpicker margin-top-20 form-control" v-model="selected">
-                <optgroup v-for="bids in biddatas" v-bind:label="bids.name">
-                  <option v-for="bid in bids.values" v-bind:value="bid">{{bid}}</option>
-                </optgroup>
-              </select>
-            </div>
-            <div class="display-block margin-top-20">
-              <input type="checkbox" name="partner" class="margin-top-5" id="partner">
-              <span class="vertical margin-left-10">Enable Enhanced CPC</span>
-              <i aria-hidden="true" class="fa fa-question-circle"></i>
-            </div>
-            <div class="display-block margin-top-5">
-              <span>AdWords automatically adjusts your manual bids to try to maximize conversion</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 row margin-right-0">
-          <div class="col-md-10">
-            <div class="trans-5">
-              <div class="display-block margin-top-30 padding-left-10 left-border">
-                <span>With Manual CPC bidding, you set your own maximum cost-per-click (CPC) for your ads</span>
-              </div>            
-              <div class="display-block padding-top-10 padding-left-10 left-border">
-                <a class="blue">Learn more</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2 right padding-right-0">
-            <i class="fa fa-angle-up trans ro-5 font-xlarge"
-              v-on:click="expand('trans-5', 'ro-5')"></i>
-          </div>
-        </div>        
-      </div>
-    </div>
+      <bidding></bidding>
   </div>
 </template>
 <script>
@@ -223,6 +178,7 @@
 
   import {mapState, mapActions} from 'vuex'
   import Multiselect from 'vue-multiselect'
+  import Bidding from './Bidding.vue'
 
   export default {
     name: 'DetailNetwork',
@@ -257,7 +213,8 @@
       this.loadLanguages()
     },
     components: {
-      Multiselect
+      Multiselect,
+      Bidding
     },
     computed: {
       ...mapState([

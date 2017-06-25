@@ -5404,7 +5404,7 @@ canvas {
   padding: 0px 0px 0px 15px !important;
   margin-left: -5px;
   vertical-align: bottom;
-  margin-bottom: 0px;
+  margin-bottom: 0px !important;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
