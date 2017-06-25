@@ -24,7 +24,7 @@
           <!-- Anyone is not selected -->
           <div v-show="empty">
             <div class="display-block margin-top-20">
-              <input type="checkbox" name="partner" class="margin-top-5" id="partner">
+              <input type="checkbox" class="margin-top-5">
               <span class="vertical margin-left-10">Enable Enhanced CPC</span>
               <i aria-hidden="true" class="fa fa-question-circle"></i>
             </div>
@@ -68,8 +68,9 @@
               <div class="blue cursor" v-on:click="use_portfolio = true">Use a portfolio strategy</div>
             </div>
             <div class="margin-top-20" v-show="use_portfolio">
-              <div class="blue cursor" v-on:click="use_portfolio = false">Back to standard strategy</div>
-            </div>         
+              <div class="blue cursor"
+                v-on:click="use_portfolio = false; use_existing_portfolio = false">Back to standard strategy</div>
+            </div>                
           </div>
 
           <!-- Target ROAS -->
@@ -108,12 +109,96 @@
               <div class="blue cursor" v-on:click="use_portfolio = true">Use a portfolio strategy</div>
             </div>
             <div class="margin-top-20" v-show="use_portfolio">
-              <div class="blue cursor" v-on:click="use_portfolio = false">Back to standard strategy</div>
-            </div>         
+              <div class="blue cursor"
+                v-on:click="use_portfolio = false; use_existing_portfolio = false">Back to standard strategy</div>
+            </div>                 
           </div>
 
-              
+          <!-- maximum clicks -->    
+          <div v-show="selected == 'Maximize clicks'">
+            <div v-show="use_portfolio">
+              <div class="display-block margin-top-20">
+                <input type="radio" name="maximize-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="true">
+                <span>Use existing portfolio strategy</span>
+              </div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="maximize-portfolio"
+                  v-model="use_existing_portfolio"
+                  v-bind:value="false">
+                <span>Create new portfolio strategy</span>
+              </div>
+            </div>
+            <div class="display-block margin-top-20"
+                v-bind:class="{'margin-left-25': use_portfolio}"
+                v-show="!use_existing_portfolio">
+              <div>              
+                <span>Maximize CPC bid limit(optional)</span>
+                <i aria-hidden="true" class="fa fa-question-circle"></i>             
+              </div>
+              <div class="margin-top-10">            
+                <span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>
+                <input id="url" type="url" name="url" class="bottom-line-input width-40">                 
+              </div>
+              <div class="margin-top-20" v-show="use_portfolio"><span>Name</span></div>
+              <div class="margin-top-10" v-show="use_portfolio">               
+                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+              </div>
+              <div v-show="!use_portfolio">
+                <div class="display-block margin-top-20">
+                  <input type="checkbox" class="margin-top-5">
+                  <span class="vertical margin-left-10">Enable Enhanced CPC</span>
+                  <i aria-hidden="true" class="fa fa-question-circle"></i>
+                </div>
+                <div class="display-block margin-top-5">
+                  <span>AdWords automatically adjusts your manual bids to try to maximize conversion</span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20" v-show="!use_portfolio">
+              <div class="blue cursor" v-on:click="use_portfolio = true">Use a portfolio strategy</div>
+            </div>
+            <div class="margin-top-20" v-show="use_portfolio">
+              <div class="blue cursor"
+                v-on:click="use_portfolio = false; use_existing_portfolio = false">Back to standard strategy</div>
+            </div>                     
+          </div>
 
+          <!-- Target search page location -->
+          <div v-show="selected == 'Target search page location'">
+            <div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="target-search-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="true">
+                <span>Use existing portfolio strategy</span>
+              </div>
+              <div class="display-block margin-top-20">
+                <input type="radio" name="target-search-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="false">
+                <span>Create new portfolio strategy</span>
+              </div>
+            </div>
+            <div class="display-block margin-top-20 margin-left-25"                 
+                 v-show="!use_existing_portfolio">                            
+              <span>Where do you want your ads to appear?</span><br />                     
+              <div class="margin-left-10 margin-top-20">
+                <input type="radio" name="position" checked>                    
+                <span>Top of the first results page</span>
+              </div>
+              <div class="margin-left-10 margin-top-20">
+                <input type="radio" name="position">                    
+                <span>Anywhare on the first results page</span>
+              </div>
+              <div class="margin-top-20" v-show="!use_existing_portfolio"><span>Name</span></div>
+              <div class="margin-top-10" v-show="!use_existing_portfolio">               
+                <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
+              </div>
+            </div>                 
+          </div>
+          
         </div>
       </div>
       <div class="col-md-3 row margin-right-0">
@@ -171,9 +256,6 @@
       expand: function (tar1, tar2) {
         $('.' + tar1).slideToggle()
         $('.' + tar2).toggleClass('rotate')
-      },
-      select: function () {
-        console.log(this.selected)
       }
     }
   }
