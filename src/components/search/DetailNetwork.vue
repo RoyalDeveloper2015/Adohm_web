@@ -182,7 +182,12 @@
         </div>
       </div>
     </div>
-      <bidding></bidding>
+
+    <!-- Bidding -->
+    <bidding></bidding>
+
+    <!-- Daily budget -->
+    
   </div>
 </template>
 <script>

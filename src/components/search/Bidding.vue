@@ -5,7 +5,7 @@
       <div class="col-md-3">
         <span>Bidding</span>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="trans-5">
           <div class="display-block">
             <span>Select your bid strategy</span>
@@ -272,20 +272,86 @@
             </div>
           </div>
 
-          <!-- Manual CPC -->
-
-          
         </div>
       </div>
-      <div class="col-md-3 row margin-right-0">
-        <div class="col-md-10">
+      <div class="col-md-4 row margin-right-0">
+        <div class="display-block col-md-10 padding-right-0 font-size-smaller">
           <div class="trans-5">
-            <div class="display-block margin-top-30 padding-left-10 left-border">
-              <span>With Manual CPC bidding, you set your own maximum cost-per-click (CPC) for your ads</span>
-            </div>            
-            <div class="display-block padding-top-10 padding-left-10 left-border">
+            <div class="margin-top-30 display-block padding-left-10 left-border">
+
+              <!-- Empty or Manual CPC -->
+              <div v-show="empty || selected == 'Manual CPC'">
+                <span>With Manual CPC bidding, you set your own maximum cost-per-click (CPC) for your ads</span>
+              </div>
+
+              <!-- Target CPA -->
+              <div v-show="selected == 'Target CPA'">
+                <span>With Target CPA, Adwords automatically sets bids to 
+                  help get as many conversions as possible at the target cost-per-acquistion(CPA) you set. 
+                  Some conversions may cost more or less than your target.</span>
+              </div>
+
+              <!-- Target ROAS -->
+              <div v-show="selected == 'Target ROAS'">
+                <span>With Target ROAS, Adwords automatically sets bids to help get as much conver
+                    sion value as possible at the target return on ad spend(ROAS) you set. Some co
+                    versions may have a higher or lower return than your target.</span>
+              </div>
+
+              <!-- Maximize clicks -->
+              <div v-show="selected == 'Maximize clicks'">
+                <div>
+                  <span>With Maximize clicks, Adwords automatically sets your bids to help get as 
+                      many clicks as possible within your budget.</span>
+                </div>
+                <div class="margin-top-20">
+                  <span>A maximum CPC bid limit caps each cost-per-click bid. This could limit the 
+                      clicks on your ad.</span>
+                </div>
+              </div>
+
+              <!-- Maximize conversion -->
+              <div v-show="selected == 'Maximize conversions'">
+                <span>AdWords automatically sets your bids to help you get the most conversions within your budget.</span>
+              </div>
+
+              <!-- Target search page location -->
+              <div v-show="selected == 'Target search page location'">
+                <span>With Target search page location, Adwords automatically sets your bids to 
+                    increase the chances that your ads appear at the top of the page or on the first 
+                    page of search results.</span>
+              </div>
+
+              <!-- Target outranking share -->
+              <div v-show="selected == 'Target outranking share'">
+                <span>With Target outranking share, you choose a domain you want to outrank in 
+                    search results and how often you want to outrank it, and Adwords automatically 
+                    sets your bids to help meet that target.</span>
+              </div>
+
+              <!-- Enhanced CPC -->
+              <div v-show="selected == 'Enhanced CPC'">
+                <span>Adwords automatically adjusts your manual bids to help maximize conversions.</span>
+              </div>
+              
+              <div class="margin-top-20"
+                v-show="!use_portfolio && !empty && (selected == 'Target CPA' || selected == 'Target ROAS' || selected == 'Maximize clicks')">
+                <span>The strategy you select here will be applied to this campaign only.</span>
+              </div>
+
+              <div class="margin-top-20"
+                v-show="use_portfolio || selected == 'Target outranking share' || selected == 'Target search page location' || selected == 'Enhanced CPC'">
+                <span>A portfolio strategy groups together multiful campaigns, ad groups, 
+                  keywords into a single bid strategy</span>
+              </div>
+              
+              <div class="margin-top-20" v-show="use_portfolio">                
+                <span v-show="selected == 'Target CPA' || selected == 'Target ROAS' || selected == 'Maximize clicks'">
+                  To limit your bidding preferences to a single campaign, use a 
+                  standard strategy.</span>
+              </div><br />
               <a class="blue">Learn more</a>
-            </div>
+            </div>       
           </div>
         </div>
         <div class="col-md-2 right padding-right-0">
@@ -345,5 +411,8 @@
   }
   .border-bottom {
     border-bottom: 1px solid rgba(0,0,0,0.3);
+  }
+  .font-size-smaller {
+    font-size: smaller;
   }
 </style>
