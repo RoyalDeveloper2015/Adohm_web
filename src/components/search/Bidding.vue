@@ -14,7 +14,7 @@
           <div class="display-block">
             <select class="selectpicker margin-top-20 form-control"
                 v-model="selected"
-                v-on:change="empty = false; use_portfolio = false">
+                v-on:change="empty = false; use_portfolio = false; use_existing_portfolio = false">
               <optgroup v-for="bids in biddatas" v-bind:label="bids.name">
                 <option v-for="bid in bids.values" v-bind:value="bid">{{bid}}</option>
               </optgroup>
@@ -37,15 +37,21 @@
           <div v-show="selected == 'Target CPA'">
             <div v-show="use_portfolio">
               <div class="display-block margin-top-20">
-                <input type="radio" name="cpa-portfolio">
+                <input type="radio" name="cpa-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="true">
                 <span>Use existing portfolio strategy</span>
               </div>
               <div class="display-block margin-top-20">
-                <input type="radio" name="cpa-portfolio">
+                <input type="radio" name="cpa-portfolio"
+                  v-model="use_existing_portfolio"
+                  v-bind:value="false">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20" v-bind:class="{'margin-left-25': use_portfolio}">
+            <div class="display-block margin-top-20"
+                v-bind:class="{'margin-left-25': use_portfolio}"
+                v-show="!use_existing_portfolio">
               <div>              
                 <span>Target CPA</span>             
               </div>
@@ -58,10 +64,10 @@
                 <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
               </div>
             </div>
-            <div class="margin-top-10" v-show="!use_portfolio">
+            <div class="margin-top-20" v-show="!use_portfolio">
               <div class="blue cursor" v-on:click="use_portfolio = true">Use a portfolio strategy</div>
             </div>
-            <div class="margin-top-10" v-show="use_portfolio">
+            <div class="margin-top-20" v-show="use_portfolio">
               <div class="blue cursor" v-on:click="use_portfolio = false">Back to standard strategy</div>
             </div>         
           </div>
@@ -70,15 +76,21 @@
           <div v-show="selected == 'Target ROAS'">
             <div v-show="use_portfolio">
               <div class="display-block margin-top-20">
-                <input type="radio" name="roas-portfolio">
+                <input type="radio" name="roas-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="true">
                 <span>Use existing portfolio strategy</span>
               </div>
               <div class="display-block margin-top-20">
-                <input type="radio" name="roas-portfolio">
+                <input type="radio" name="roas-portfolio"
+                    v-model="use_existing_portfolio"
+                    v-bind:value="false">
                 <span>Create new portfolio strategy</span>
               </div>
             </div>
-            <div class="display-block margin-top-20" v-bind:class="{'margin-left-25': use_portfolio}">
+            <div class="display-block margin-top-20"
+                 v-bind:class="{'margin-left-25': use_portfolio}"
+                 v-show="!use_existing_portfolio">
               <div>              
                 <span>Target ROAS</span>             
                 <i aria-hidden="true" class="fa fa-question-circle"></i>
@@ -92,13 +104,15 @@
                 <input id="url" type="url" name="url" class="bottom-line-input width-40">                                
               </div>
             </div>
-            <div class="margin-top-10" v-show="!use_portfolio">
+            <div class="margin-top-20" v-show="!use_portfolio">
               <div class="blue cursor" v-on:click="use_portfolio = true">Use a portfolio strategy</div>
             </div>
-            <div class="margin-top-10" v-show="use_portfolio">
+            <div class="margin-top-20" v-show="use_portfolio">
               <div class="blue cursor" v-on:click="use_portfolio = false">Back to standard strategy</div>
             </div>         
-          </div>         
+          </div>
+
+              
 
         </div>
       </div>
@@ -130,6 +144,7 @@
         selected: '',
         empty: true,
         use_portfolio: false,
+        use_existing_portfolio: false,
         biddatas: [
           {
             name: 'Automated bid strategies',
