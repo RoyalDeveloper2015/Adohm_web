@@ -5,6 +5,15 @@ import CampaignList from '../components/campaign/CampaignList.vue'
 import AddCampaign from '../components/campaign/AddCampaign.vue'
 import setupAdGroups from '../components/search/adgroups/setupAdGroups.vue'
 import AdRotation from '../components/search/adgroups/campaignUrlOptionComponent.vue'
+
+import Search from '../components/search/Search.vue'
+import SearchCampaign from '../components/search/campaign/SearchCampaigns.vue'
+import AddSearchCampaign from '../components/search/campaign/AddSearchCampaign.vue'
+
+import SearchDetail from '../components/search/campaign/SearchDetail.vue'
+import SearchNetwork from '../components/search/campaign/searchdetail/SearchNetwork.vue'
+import DetailNetwork from '../components/search/campaign/DetailNetwork.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -30,9 +39,43 @@ export default new Router({
       component: setupAdGroups
     },
     {
-      path: '/search/adgroups/test',
+      path: 'search/adgroups/test',
       name: 'test',
       component: AdRotation
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search,
+      children: [
+        {
+          path: '/search/campaigns',
+          component: SearchCampaign,
+          name: 'SearchCampaign'
+        },
+        {
+          path: '/search/addcampaign',
+          component: AddSearchCampaign,
+          name: 'AddSearchCampagin'
+        },
+        {
+          path: '/search/addcampaign/searchnetwork/detail',
+          component: DetailNetwork,
+          name: 'DetailNetwork'
+        },
+        {
+          path: '/search/addcampaign/searchdetail',
+          component: SearchDetail,
+          name: 'SearchDetail',
+          children: [
+            {
+              path: '/search/addcampaign/searchnetwork',
+              component: SearchNetwork,
+              name: 'SearchNetwork'
+            }
+          ]
+        }
+      ]
     }
   ]
 })

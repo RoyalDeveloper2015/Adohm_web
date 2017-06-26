@@ -92,7 +92,53 @@ const store = new Vuex.Store({
       {id: 'Friday', name: 'Friday'},
       {id: 'Saturday', name: 'Saturday'}
     ],
-    ads: []
+    ads: [],
+    sitelink_extensions: [
+      {
+        text: 'aaaa',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
+      },
+      {
+        text: 'badffer',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
+      },
+      {
+        text: 'ytyttjghg',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
+      },
+      {
+        text: 'badfvbhtygddfer',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
+      }
+    ]
   },
   actions: {
     // campaign actions
