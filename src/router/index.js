@@ -3,13 +3,14 @@ import Router from 'vue-router'
 import MainPage from '../components/MainPage.vue'
 import CampaignList from '../components/campaign/CampaignList.vue'
 import AddCampaign from '../components/campaign/AddCampaign.vue'
-import Search from '../components/search/Search.vue'
-import SearchCampaign from '../components/search/SearchCampaigns.vue'
-import AddSearchCampaign from '../components/search/AddSearchCampaign.vue'
 
-import SearchDetail from '../components/search/SearchDetail.vue'
-import SearchNetwork from '../components/search/searchdetail/SearchNetwork.vue'
-import DetailNetwork from '../components/search/DetailNetwork.vue'
+import Search from '../components/search/Search.vue'
+import SearchCampaign from '../components/search/campaign/SearchCampaigns.vue'
+import AddSearchCampaign from '../components/search/campaign/AddSearchCampaign.vue'
+
+import SearchDetail from '../components/search/campaign/SearchDetail.vue'
+import SearchNetwork from '../components/search/campaign/searchdetail/SearchNetwork.vue'
+import DetailNetwork from '../components/search/campaign/DetailNetwork.vue'
 
 Vue.use(Router)
 
