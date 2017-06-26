@@ -337,6 +337,10 @@
     <!-- Sitelink Extensions -->
     <site-link-extensions></site-link-extensions>
 
+    <div class="margin-top-20 width-100 right">
+      <router-link to="/search/adgroups" class="gmd gmd-1 gmd-blue">SAVE AND CONTINUE</router-link>
+    </div>
+
   </div>
 </template>
 <script>
