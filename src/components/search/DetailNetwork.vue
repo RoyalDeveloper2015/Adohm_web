@@ -20,7 +20,7 @@
 
     <!-- campaign name -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">
           <span class="black">Campaign name</span>
         </div>
@@ -38,7 +38,7 @@
 
     <!-- network -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
 
         <div class="col-md-3">
           <span class="black">Network</span>
@@ -100,7 +100,7 @@
 
     <!-- device -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">
           <span class="black">Devices</span>
         </div>
@@ -112,7 +112,7 @@
 
     <!-- location -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">
           <span class="black">Location</span>
         </div>
@@ -156,7 +156,7 @@
 
     <!-- language -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">
           <span class="black">Language</span>
         </div>        
@@ -188,7 +188,7 @@
 
     <!-- Daily budget -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">
           <span class="black">Daily budget</span>
         </div>
@@ -200,9 +200,9 @@
               <input type="text" class="bottom-line-input width-40">                 
             </div>
             <div class="margin-top-20"><span class="cursor blue">Apply from Shared library</span></div>
-            <div class="margin-top-20" v-on:click="expand('trans-7', 'ro-7')">
+            <div class="margin-top-20">
               <i class="fa fa-angle-up trans ro-7 font-xlarge"></i>
-              <span class="cursor blue vertical-top">Delivery method</span>
+              <span class="cursor blue vertical-top" v-on:click="expand('trans-7', 'ro-7')">Delivery method</span>
               <div class="trans-7 margin-top-20">
                 <div>
                   <input type="radio" name="daily-bid-mode" checked>
@@ -239,7 +239,7 @@
 
     <!-- Select and start date -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">
           <span class="black">Start and end dates</span>
         </div>
@@ -247,7 +247,7 @@
           <div class="trans-8">
             <div><span>Start date</span></div>          
             <div class="margin-top-10">
-              <input type="date" class="bottom-line-input width-40" placeholder="Start date">                 
+              <input type="date" class="bottom-line-input width-40" placeholder="Start date">
             </div>
             <div class="margin-top-20">
               <input type="radio" name="select_end_date"
@@ -286,7 +286,7 @@
 
     <!-- Dynamic Search Ads -->
     <div id="card" class="detail-pannel margin-top-20">
-      <div class="top-card padding-15">
+      <div class="top-card">
         <div class="col-md-3">          
           <span class="black">Dynamic Search Ads</span>
         </div>
@@ -486,7 +486,8 @@
   .trans-8,
   .trans-9,
   .trans-10,
-  .trans-11 {
+  .trans-11,
+  .trans-12 {
     display: none;
   }  
   .font-xlarge {

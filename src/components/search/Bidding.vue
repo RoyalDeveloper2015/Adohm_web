@@ -1,7 +1,7 @@
 <template>
   <!-- bidding -->
   <div id="card" class="detail-pannel margin-top-20">
-    <div class="top-card padding-15">
+    <div class="top-card">
       <div class="col-md-3">
         <span>Bidding</span>
       </div>

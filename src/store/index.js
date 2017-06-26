@@ -91,20 +91,48 @@ const store = new Vuex.Store({
     ads: [],
     sitelink_extensions: [
       {
-        name: 'aaaa',
-        url: 'www.example.com'
+        text: 'aaaa',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
       },
       {
-        name: 'bbbb',
-        url: 'www.example.com'
+        text: 'badffer',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
       },
       {
-        name: 'cccc',
-        url: 'www.example.com'
+        text: 'ytyttjghg',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
       },
       {
-        name: 'dddd',
-        url: 'www.example.com'
+        text: 'badfvbhtygddfer',
+        description_line_1: 'okadef',
+        description_line_2: 'asdfdfd',
+        final_url: 'www.example.com',
+        mo_final_url: 'www.example.com',
+        tracking_template: 'www.example.com',
+        start_date: '',
+        end_date: '',
+        days_and_hours: []
       }
     ]
   },
