@@ -106,7 +106,7 @@
 							</thead>
 							<tbody>
 								<template  v-for="campaign in items">
-									<tr class="enter parent-row clickable" @click="getDetailed(campaign.id)"> 
+									<tr> 
 										<td>
 											<a href="" type="button">
 												<tooltip :content="getState(campaign.state, 'name')">
@@ -122,7 +122,7 @@
 											</template> 
 											<template v-else>-</template>
 										</td>
-										<td>{{processMacros('{currency}',campaign) + (campaign.budget||campaign.dailybudget) }} </td>
+										<td>{{processMacros('{currency}',campaign.advertiser) + (campaign.budget||campaign.dailybudget) }} </td>
 										<td>{{processValue(campaign, 'impressions')}}</td>
 										<td>{{processValue(campaign, 'spend')}}</td>
 										<td>{{campaign.clicks}}</td>
@@ -143,37 +143,6 @@
 											</div>
 										</td>
 									</tr>
-									<tr class="enter parent-row clickable"> 
-										<td class="secondary-row collapse" :id="'campaign-' + campaign.id" colspan="50">
-											<div style="text-align: center;" v-show="campaign.loading">
-												Loading details...
-											</div>
-											<template v-if="campaign.services">
-												<template v-if="campaign.services.facebook.data">
-													<div v-if="campaign.services.facebook.last_error_msg" class="pull-left" style="width: 100%; color: red">
-														There was an error submitting your campaign to facebbok. 
-														{{campaign.services.facebook.last_error_msg.msg}}
-													</div>
-													<div class="pull-left" style="width: 200px;">
-														Facebook 
-													</div>
-													<div class="pull-right">
-														<a v-show="canRun(campaign.state)" @click="updateState(campaign.id, C_STATE_ACTIVE)"><span class="glyphicon glyphicon-play" ></span></a>
-
-														<a v-show="campaign.state == C_STATE_ACTIVE" @click="updateState(campaign.id, C_STATE_INACTIVE)"><span class="glyphicon glyphicon-stop" ></span></a>
-													
-														<a @click="remove(campaign.id)"><span class="glyphicon glyphicon-trash"></span></a>
-														<span data-toggle="modal" data-target="#archiveModal"><a class="st-archive" data-toggle="popover" title="Archive" data-placement="top" data-trigger="hover"></a></span>	
-													</div>
-												</template>
-												<template v-else>
-													<div style="text-align: center">
-														No additional services enabled
-													</div>
-												</template>
-											</template>
-										</td>
-									</tr>
 								</template>
 
 								<tr v-if="!items.length">
@@ -191,6 +160,7 @@
 <script>
 	import Vue from 'vue'
 	import {ToolTip} from 'vue-strap'
+	import {request} from '@/config/default/request'
 
 	export default {
 		mixins: [vFilters, vListMethods, vInsights],
@@ -223,14 +193,6 @@
 			refreshItems(items) {
 				Vue.set(this, 'items', items);
 			},
-			getDetailed(id) {
-				// debugger
-				this.updateDirect(id, {loading: true});
-				$.get('/api/campaigns/get/' + id).done(response => {
-					this.updateDirect(id, {loading: false});
-					this.updateDirect(id, response.result);
-				});
-			},
 			loadInsights() {
 				this.getInsights(false, insights => {
 					insights.forEach(insight => {
@@ -243,25 +205,16 @@
 		},
 		mounted() {
 			this.listName = 'campaigns';
-			$.get('/api/campaigns/states/').done(response => {
-				Vue.set(this, 'states', response.result);
-			});
-			$.get('/api/campaigns/get', response => {
-				response.result.forEach((item) => {
+
+			request.get('/api/campaigns/').then(({data}) => {
+				data.result.forEach((item) => {
 					this.items.push(item);
 				});
 				this.loadInsights();
-				$.get('/api/advertisers/get/' + response.result[0].advertiser, (response) => {
-					if(response.success) {
-						for( var i in this.items ) {
-							Vue.set(this.items[i], 'currency', this.details.currency[response.result.currency]);
-						}
-					}
-				});
 			});
-			$.get('/api/currency', (response) => {
-				if(response.success) {
-					Vue.set(this.details, 'currency', response.result);
+			request.get('/api/currency').then(({data}) => {
+				if(data.success) {
+					Vue.set(this.details, 'currency', data.result);
 				}
 			});
 		},

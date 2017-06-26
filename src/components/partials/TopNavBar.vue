@@ -53,7 +53,7 @@
                     <div class="clearfix"></div>
                   </div>
                 </li>
-                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                <li><router-link to="/user/settings"><i class="fa fa-cog"></i> Settings</router-link></li>
                 <li><a href="#"><i class="fa fa-sliders"></i> Account Details</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#" class="color-danger text-center"><i class="fa fa-sign-out"></i> Logout</a></li>

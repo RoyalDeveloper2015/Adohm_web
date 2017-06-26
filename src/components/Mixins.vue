@@ -154,7 +154,9 @@ var vListMethods = {
 
 var vUtils = {
 	methods: {
-		...mapMutations('session', ['message']),
+		message(message, type) {
+			this.$store.commit('session/message', {message, type});
+		},
 		search({url, listTarget, listSource, query}) {
 			if(query !== undefined && !query) return;
 			else url = url.replace(/\{query\}/g, encodeURIComponent(query))
@@ -181,6 +183,7 @@ var vUtils = {
 			return moment(value).format('YYYY-MM-DD');
 		},
 		humanize (value) {
+			if(!value) return;
 			return value[0].toUpperCase() + value.substr(1).replace(/\_/g, ' ');
 		}
 	}

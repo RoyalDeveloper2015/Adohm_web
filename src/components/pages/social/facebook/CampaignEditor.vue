@@ -22,7 +22,7 @@
 			<div v-if="currentStep" class="panel">
 				<ul class="breadcrumb bg-white" style="margin-bottom: 0">
 					<!--<li :class="{active: !steps.length}" @click="gotoStep('platform')">Platform </li>-->
-					<li v-for="step in steps" :class="{active: currentStep === step}" :key="step"><a @click="gotoStep(step)" href="#">{{getData(details.steps, step, 'name', 'id')}}</a></li>
+					<li v-for="step in steps" :class="{active: currentStep === step}" :key="step"><a @click="gotoStep(step)">{{getData(details.steps, step, 'name', 'id')}}</a></li>
 				</ul>
 			</div>
 			<div v-if="currentStep === 'platform'" class="panel">
@@ -455,7 +455,7 @@
 				</template>
 			</form>
 			<form @submit="submit">
-				<creative-editor v-if="currentStep === 'fb_ads'" :value.sync="facebook.data.ad"></creative-editor>
+				<creative-editor v-if="currentStep === 'fb_ads'" :value.sync="facebook.data.ad" :meta="meta"></creative-editor>
 			</form>
 		</div>
 	</section>
@@ -521,7 +521,8 @@ export default {
 					},
 					ad: {
 						campaign_id: null,
-						objective: null
+						objective: null,
+						advertiser: {}
 					}
 				}
 			}
@@ -715,8 +716,6 @@ export default {
 					Vue.set(this.details, 'locales', clone(facebook.data.locales || []));
 					facebook.data.locales = this.normalizeList(facebook.data.locales, 'key');
 				}
-				campaign.facebook.data.ad.campaign_id = campaign._id;
-				campaign.facebook.data.ad.objective = campaign.objective;
 
 				this.originalItem = Object.assign({}, this.item, campaign);
 				Vue.set(this, 'item', clone(this.originalItem));
@@ -798,6 +797,13 @@ export default {
 					{id: 'view_through:2', name: '7 days click or 1 day view'}
 				]
 			}];
+		},
+		meta() {
+			return {
+				campaign_id: this.item._id,
+				objective: this.facebook.data.objective,
+				advertiser: this.item.advertiser
+			}
 		}
 	},
 	watch: {

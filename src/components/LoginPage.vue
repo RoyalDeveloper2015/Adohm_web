@@ -41,7 +41,7 @@
 			submit(e) {
 				if(e.currentTarget.checkValidity()) {
 					e.preventDefault();
-					this.$store.dispatch('user/login', this.$data);
+					this.$store.dispatch('session/login', this.$data);
 				}
 			}
 		}

@@ -13,6 +13,7 @@ const state = {
 const getters = {
 	user: state => state.user,
 	fbApi: state => state.fbApi,
+	fbAccount: state => state.user.options.facebook.account,
 	messages: state => state.messages
 }
 const actions = {
@@ -47,8 +48,8 @@ const mutations = {
 	logout(state) {
 		state.user = {};
 	},
-	message(state, message, type) {
-		state.messages.push({message, type});
+	message(state, data) {
+		state.messages.push(data);
 	}
 }
 

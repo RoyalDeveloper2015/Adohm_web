@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="panel"  v-if="!item.campaign_id">
+		<div class="panel"  v-if="!meta.campaign_id">
 			<div class="panel-heading">
 				<h4 class="panel-title">Ads</h4>
 			</div>
@@ -22,21 +22,24 @@
 				</div>
 			</div>
 		</div>
-		<template v-if="['POST_ENGAGEMENT'].includes(item.objective)">
+		<template v-if="['POST_ENGAGEMENT'].includes(meta.objective)">
 			<div class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title">Page & Post</h4>
 				</div>
-				<div class="panel-body" v-if="!item._id">
+				<div class="panel-body" v-if="!meta.campaign_id">
 					<div class="row">
 						<div class="col-xs-4">
 							<label class="control-label">Facebook Page</label>
 						</div>
-						<div class="col-xs-8" v-if="options.fbAccount.accessToken">
-							<multi-select class="mb-10" name="page" required :value="item.page.id"
-								:options="{preload: true, fields: 'id,name,access_token', listPath: 'data', valueField: 'id',  ajax: { url: `${fbApi.baseUrl}/${options.fbAccount.id}/accounts/?limit=50&access_token=${options.fbAccount.accessToken}`}}"
-								:data="item.page"
-								@data="data => $set(item, 'page', data)"></multi-select>
+						<div class="col-xs-8" v-if="fbApi.accessToken">
+							<multi-select class="mb-10" name="page" required v-model="item.page"
+								label="name" track-by="id"
+								@search-change="query => search({
+									url: `${fbApi.baseUrl}/${fbAccount.id}/accounts/?limit=50&access_token=${fbAccount.accessToken}`,
+									listSource: '.data', listTarget: [details, 'pages']
+								})"
+								:options="details.pages"></multi-select>
 						</div>
 					</div>
 					<div class="row">
@@ -44,9 +47,14 @@
 							<label>Post</label>
 						</div>
 						<div class="col-xs-8">
-							<multi-select class="mb-10" name="page" required :value="item.post.id" :options="{preload: true, listPath: 'data', ajax: { url: fbApi.baseUrl + '/' + item.page.id + '/promotable_posts/?fields=name,id,type&limit=50&access_token=' + item.page.access_token}}"
-								:data="item.post"
-								@data="data => $set(item, 'post', data)"></multi-select>
+							<multi-select class="mb-10" required :value="item.post"
+								label="name" track-by="id"
+								@search-change="query => search({
+									url: `${fbApi.baseUrl}/${item.page.id}/promotable_posts/?fields=name,id,type&limit=50&access_token=${item.page.access_token}`,
+									listSource: '.data', listTarget: [details, 'posts']
+								})"
+								:options="details.posts"
+								></multi-select>
 						</div>
 					</div>
 				</div>
@@ -99,7 +107,7 @@
 										</template>
 									</div>
 								</div>
-								<div v-if="item.adformat === 'slideshow'" v-for="upload in item.slideshow.images" class="col-xs-4">
+								<div v-if="item.adformat === 'slideshow'" v-for="upload in item.slideshow.images" :key="upload.thumbnail_url" class="col-xs-4">
 									<div class="panel grid bg-gray-500">
 										<template v-if="!upload.uploadId">
 											<strong class="text-center">Preview</strong>
@@ -152,7 +160,7 @@
 					</div>
 				</div>
 			</div>
-			<template v-if="item.objective === 'EVENT_RESPONSES'">
+			<template v-if="meta.objective === 'EVENT_RESPONSES'">
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">Event Details</h4>
@@ -162,8 +170,8 @@
 							<div class="col-xs-4">
 								<label class="control-label">Event</label>
 							</div>
-							<div class="col-xs-8" v-if="options.fbAccount.accessToken">
-								<multi-select class="mb-10" required :value="item.event.id" :options="{preload: true, listPath: 'data', ajax: { url: fbApi.baseUrl + '/' + options.fbAccount.id + '/promotable_events/?fields=name,id,owner,picture,link&limit=50&access_token=' + options.fbAccount.accessToken}}"
+							<div class="col-xs-8" v-if="fbApi.accessToken">
+								<multi-select class="mb-10" required :value="item.event.id" :options="{preload: true, listPath: 'data', ajax: { url: fbApi.baseUrl + '/' + fbApi.id + '/promotable_events/?fields=name,id,owner,picture,link&limit=50&access_token=' + fbApi.accessToken}}"
 									:data="item.post"
 									@data="data => $set(item, 'post', data)"></multi-select>
 							</div>
@@ -183,7 +191,7 @@
 					</div>
 				</div>
 			</template>
-			<div v-if="item.objective != 'POST_ENGAGEMENT'" id="ad-params" class="panel">
+			<div v-if="meta.objective != 'POST_ENGAGEMENT'" id="ad-params" class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title">Page & Links</h4>
 				</div>
@@ -192,14 +200,17 @@
 						<div class="col-xs-4">
 							<label class="control-label">Facebook Page</label>
 						</div>
-						<div class="col-xs-8" v-if="options.fbAccount.accessToken">
-							<multi-select class="mb-10" name="page" required :value="item.page.id"
-								:options="{preload: true, fields: 'id,name,access_token', listPath: 'data', valueField: 'id', ajax: { url: `${fbApi.baseUrl}/${options.fbAccount.id}/accounts/?fields=name,description,link,access_token&limit=50&access_token=${options.fbAccount.accessToken}`}}"
-								:data="item.page"
-								@data="data => $set(item, 'page', data)"></multi-select>
+						<div class="col-xs-8" v-if="fbApi.accessToken">
+							<multi-select class="mb-10" name="page" required v-model="item.page"
+								label="name" track-by="id"
+								@search-change="query => search({
+									url: `${fbApi.baseUrl}/${fbAccount.id}/accounts/?limit=50&access_token=${fbAccount.accessToken}`,
+									listSource: '.data', listTarget: [details, 'pages']
+								})"
+								:options="details.pages"></multi-select>
 						</div>
 					</div>
-					<div class="row" v-if="!['APP_INSTALLS'].includes(item.objective)">
+					<div class="row" v-if="!['APP_INSTALLS'].includes(meta.objective)">
 						<div class="col-xs-4"><label for="">Website URL</label></div>
 						<div class="col-xs-8">
 							<input required type="text" class="form-control" required v-model="item.object_story_spec.link_data.link">
@@ -217,11 +228,11 @@
 							<input required type="text" class="form-control" required v-model="item.object_story_spec.link_data.message">
 						</div>
 					</div>
-					<div class="row" v-if="item.objective != 'VIDEO_VIEWS'">
+					<div class="row" v-if="meta.objective != 'VIDEO_VIEWS'">
 						<div class="col-xs-4"><label for="">Call To Action</label></div>
 						<div class="col-xs-8">
-							<multi-select class="mb-10" v-model="item.object_story_spec.link_data.call_to_action.type" :data="getCallToAction()"  :options="{valueField: 'id'}">
-								<option value="0">None</option>
+							<multi-select class="mb-10" v-model="item.object_story_spec.link_data.call_to_action.type" :options="getCallToAction()" 
+								track-by="id" label="name">
 							</multi-select>
 						</div>
 					</div>
@@ -245,7 +256,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel" v-if="item.objective === 'LEAD_GENERATION'">
+			<div class="panel" v-if="meta.objective === 'LEAD_GENERATION'">
 				<div class="panel-heading">
 					<h4 class="panel-title">Lead form</h4>
 				</div>
@@ -263,13 +274,18 @@
 
 <script>
 import {vUtils} from '@/components/Mixins'
+import {mapGetters} from 'vuex'
+import Uploader from '@/components/partials/Uploader.vue'
+import MultiSelect from 'vue-multiselect'
+
 export default {
 	mixins: [vUtils],
-	props: ['value'],
+	props: ['meta'],
+	components: {Uploader, MultiSelect},
 	data: () => ({
 		item: {
-			adformat: null,
-			objective: null,
+			adformat: 'image',
+			advertiser: {},
 			slideshow: {
 				images: [],
 				duration_ms: null,
@@ -301,8 +317,8 @@ export default {
 			event: {id: null, name: null}
 		},
 		details: {
-			fb_posts: [],
-			creatives: [],
+			posts: [],
+			pages: [],
 			forms: [],
 			calltoaction: [{'id':'OPEN_LINK', 'name':'Open link'}, {'id':'LIKE_PAGE', 'name':'Like page'}, {'id':'SHOP_NOW', 'name':'Shop now'}, {'id':'PLAY_GAME', 'name':'Play game'}, {'id':'INSTALL_APP', 'name':'Install app'}, {'id':'USE_APP', 'name':'Use app'}, {'id':'INSTALL_MOBILE_APP', 'name':'Install mobile app'}, {'id':'USE_MOBILE_APP', 'name':'Use mobile app'}, {'id':'BOOK_TRAVEL', 'name':'Book travel'}, {'id':'LISTEN_MUSIC', 'name':'Listen music'}, {'id':'LEARN_MORE', 'name':'Learn more'}, {'id':'SIGN_UP', 'name':'Sign up'}, {'id':'DOWNLOAD', 'name':'Download'}, {'id':'WATCH_MORE', 'name':'Watch more'}, {'id':'NO_BUTTON', 'name':'No button'}, {'id':'CALL_NOW', 'name':'Call now'}, {'id':'APPLY_NOW', 'name':'Apply now'}, {'id':'BUY_NOW', 'name':'Buy now'}, {'id':'GET_OFFER', 'name':'Get offer'}, {'id':'GET_OFFER_VIEW', 'name':'Get offer view'}, {'id':'GET_DIRECTIONS', 'name':'Get directions'}, {'id':'MESSAGE_PAGE', 'name':'Message page'}, {'id':'MESSAGE_USER', 'name':'Message user'}, {'id':'SUBSCRIBE', 'name':'Subscribe'}, {'id':'SELL_NOW', 'name':'Sell now'}, {'id':'DONATE_NOW', 'name':'Donate now'}, {'id':'GET_QUOTE', 'name':'Get quote'}, {'id':'CONTACT_US', 'name':'Contact us'}, {'id':'RECORD_NOW', 'name':'Record now'}, {'id':'VOTE_NOW', 'name':'Vote now'}, {'id':'REGISTER_NOW', 'name':'Register now'}, {'id':'REQUEST_TIME', 'name':'Request time'}, {'id':'SEE_MENU', 'name':'See menu'}, {'id':'EMAIL_NOW', 'name':'Email now'}, {'id':'OPEN_MOVIES', 'name':'Open movies'}]
 		}
@@ -318,7 +334,7 @@ export default {
 		},
 		getCallToAction() {
 			var items = [];
-			switch(this.item.objective) {
+			switch(this.meta.objective) {
 				case 'BRAND_AWARENESS':
 				case 'LINK_CLICKS':
 					items = ['APPLY_NOW', 'BOOK_TRAVEL', 'CONTACT_US', 'DOWNLOAD', 'LEARN_MORE', 'REQUEST_TIME', 'SHOP_NOW', 'WATCH_MORE', 'SIGN_UP'];  // start order
@@ -346,7 +362,7 @@ export default {
 			return items.map(item => this.details.calltoaction.find(el => el.id === item));
 		},
 		getSupportedAdFormats() {
-			switch(this.item.objective) {
+			switch(this.meta.objective) {
 				case 'BRAND_AWARENESS':
 				case 'LINK_CLICKS':
 				case 'REACH':
@@ -372,6 +388,12 @@ export default {
 			handler(item) {
 				this.$emit('input', item);
 			}
+		}
+	},
+	computed: {
+		...mapGetters('session', ['user', 'fbApi', 'fbAccount']),
+		fbAdAccount() {
+			return this.meta.advertiser.options.facebook.adaccount;
 		}
 	}
 }
