@@ -88,7 +88,25 @@ const store = new Vuex.Store({
       {id: 'Friday', name: 'Friday'},
       {id: 'Saturday', name: 'Saturday'}
     ],
-    ads: []
+    ads: [],
+    sitelink_extensions: [
+      {
+        name: 'aaaa',
+        url: 'www.example.com'
+      },
+      {
+        name: 'bbbb',
+        url: 'www.example.com'
+      },
+      {
+        name: 'cccc',
+        url: 'www.example.com'
+      },
+      {
+        name: 'dddd',
+        url: 'www.example.com'
+      }
+    ]
   },
   actions: {
     // campaign actions
