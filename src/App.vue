@@ -1,12 +1,9 @@
 <template>
-<<<<<<< HEAD
-=======
   <!--<div id="app">
       <img src="./assets/logo.png">
 
       <hello></hello>
     </div>-->
->>>>>>> daniel
   <div>
     <!-- ========== TOP NAVBAR ========== -->
     <top-nav-bar></top-nav-bar>
@@ -19,9 +16,7 @@
 			<left-side-bar></left-side-bar>
 			<!-- /.left-sidebar -->
 
-<<<<<<< HEAD
 			<router-view></router-view>
-=======
         <!-- ========== LEFT SIDEBAR ========== -->
         <left-side-bar></left-side-bar>
         <!-- /.left-sidebar -->
@@ -33,7 +28,6 @@
         <!--<right-side-bar></right-side-bar>-->
 
         <!-- /.right-sidebar -->
->>>>>>> daniel
 
 			<!--<right-side-bar></right-side-bar>-->
 			<!-- /.right-sidebar -->
@@ -50,7 +44,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 	import TopNavBar from './components/partials/TopNavBar.vue'
 	import LeftSideBar from './components/partials/LeftSideBar.vue'
 	import RightSideBar from './components/partials/RightSideBar.vue'
@@ -73,19 +66,4 @@
 			...mapGetters('session', ['user'])
 		}
 	}
-=======
-import TopNavBar from './components/TopNavBar.vue'
-import LeftSideBar from './components/LeftSideBar.vue'
-import RightSideBar from './components/RightSideBar.vue'
-import MainPage from './components/MainPage.vue'
-export default {
-  components: {
-    TopNavBar,
-    LeftSideBar,
-    RightSideBar,
-    MainPage
-  },
-  name: 'app'
-}
->>>>>>> daniel
 </script>
