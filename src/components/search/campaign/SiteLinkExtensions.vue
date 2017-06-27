@@ -258,12 +258,7 @@
   }
   .none-border-top {
     border-top: 0px !important;
-  }
-  .flex-row-10 {
-    display: flex;
-    flex-direction: row;
-    flex: 10;
-  }
+  }  
   .flex-item-8 {
     flex: 8;
   }
@@ -272,9 +267,6 @@
   }
   .flex-item-2 {
     flex: 2;
-  }
-  .flex-item-5 {
-    flex: 5;
   }
   .width-85 {
     width: 90%;

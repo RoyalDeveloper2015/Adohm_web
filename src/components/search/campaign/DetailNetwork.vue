@@ -444,9 +444,6 @@
   .margin-left-25 {
     margin-left: 25px;
   }
-  .margin-left-10 {
-    margin-left: 10px;
-  }
   .margin-right-0 {
     margin-right: 0px;
     padding-right: 0px;
@@ -472,9 +469,6 @@
   .vertical-top {
     vertical-align: top;
   }
-  .right {
-    text-align: right;
-  }
   .trans-1,
   .trans-2,
   .trans-3,
@@ -499,9 +493,6 @@
   }  
   .bold {
     font-weight: bold;
-  }
-  .blue {
-    color: #4285F4;
   }
   .vertical {
     vertical-align: top;
