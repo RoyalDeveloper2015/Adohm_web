@@ -8,6 +8,7 @@ const getState = () => ({
 		role: {}
 	},
 	fbApi: {},
+	currency: [],
 	messages: []
 })
 
@@ -15,6 +16,7 @@ const getters = {
 	user: state => state.user,
 	fbApi: state => state.fbApi,
 	fbAccount: state => state.user.options.facebook.account,
+	currency: state => state.currency,
 	messages: state => state.messages
 }
 const actions = {
@@ -44,7 +46,19 @@ const actions = {
 
 const mutations = {
 	set(state, data) {
-		for(let i in data) state[i] = data[i];
+		for(let i in data) {
+			switch(i) {
+				case 'currency': {
+					for(let j in data[i]) {
+						state.currency.push({name: j, symbol: data[i][j]});
+					}
+				}
+				break;
+				default: 
+					state[i] = data[i];
+			}
+
+		}
 	},
 	logout(state) {
 		state.user = getState().user;

@@ -17,7 +17,10 @@
 </template>
 
 <script>
-	({
+	import {request} from '@/config/default/request'
+	import Vue from 'vue'
+	
+	export default {
 		props: ['options'],
 		data() {return {
 			activeFilter: {
@@ -35,8 +38,8 @@
 				var filterObj = clone(this.activeFilter);
 				var args = transfer(filterObj, this.getFilterArgs());
 				var filter = Object.assign(args, {value});
-				$.post(this.options.source, filter).done((response) => {
-					this.$emit('input', response.result);
+				request.post(this.options.source, filter).then(({data}) => {
+					this.$emit('input', data.result);
 				});
 			},
 			getFilterArgs() {
@@ -63,5 +66,5 @@
 				}
 			}
 		}
-	})
+	}
 </script>

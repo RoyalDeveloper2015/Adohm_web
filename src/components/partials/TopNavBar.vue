@@ -53,8 +53,8 @@
                     <div class="clearfix"></div>
                   </div>
                 </li>
-				<li><a href="/users/settings"><i class="fa fa-cog"></i> Settings</a></li>
-				<li><a href="#"><i class="fa fa-sliders"></i> Account Details</a></li>
+				<li><router-link to="/user/settings"><i class="fa fa-cog"></i> Settings</router-link></li>
+				<li><router-link to="/user/account"><i class="fa fa-sliders"></i> Account Details</router-link></li>
 				<li v-if="['superadmin','admin'].includes(user.role.id)">
 					<router-link to="/advertisers"><i class="fa fa-user"></i>Advertisers</router-link>
 				</li>
@@ -84,8 +84,6 @@
 import {mapGetters} from 'vuex'
   export default {
     name: 'topNavBar',
-	mounted: {
-	},
 	computed: {
 		...mapGetters('session', ['user'])
 	}

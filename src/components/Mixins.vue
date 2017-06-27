@@ -2,155 +2,7 @@
 import {mapMutations, mapGetters} from 'vuex'
 import {request} from '@/config/default/request'
 import axios from 'axios'
-
-var vItems = {
-	// required: this.listName
-	// optional: this.onSuccess, this.onFailure
-	methods: {
-		status(success, message) {
-			if(success) {
-				// vApp.message('Success !');
-
-				this.onSuccess && this.onSuccess();
-			} else {
-				vApp.message('Error performing last action', 'danger');
-				this.onFailure && this.onFailure();
-			}
-		},
-		update(item, done) {
-			var $this = this;
-			// this.prefilter(update);
-			var index = this.getIndex(item.id);
-			if(index < 0) return;
-
-			$.post(`/api/${this.listName}/`, item)
-				.done((response) => {
-					$this.status(response.success);
-					if(response.success) {
-						$this.items[index] = Object.assign($this.items[index], response.result);
-						done && done(true);
-					} else done && done(false)
-				})
-				.fail(() => $this.status(false));
-		},
-		updateDirect(id, item) {
-			var index = this.getIndex(id);
-			if(index < 0) return;
-			this.items[index] = Object.assign(this.items[index], item);
-		},
-		get(id) {
-			var index = this.getIndex(id);
-			if(index > -1) return this.items[index];
-			else return false;
-		},
-		remove(id) {
-			var $this = this;
-			$.delete(`/api/${this.listName}/${id}`)
-				.done((response) => {
-					$this.status(response);
-					if(response.success) {
-						var index = $this.getIndex(id);
-						if(index > -1) $this.items.splice(index, 1);
-					}
-				})
-				.fail(() => {
-					$this.status(false)
-				})
-		},
-		getIndex(id) {
-			for(var i = 0; i < this.items.length; i++) {
-				if(this.items[i].id === id) return i;
-			}
-			return -1;
-		},
-		loadItems() {
-			var $this = this;
-			$.get(`/api/${this.listName}/`).done(function(response) {
-				$this.items.push(...response.result);
-			});
-		}
-	}
-};
-
-var vListMethods = {
-	// required: this.listName
-	// optional: this.onSuccess, this.onFailure
-	methods: {
-		status(response) {
-			if(response && response.success) {
-				// vApp.message('Success !');
-				this.onSuccess && this.onSuccess();
-			} else {
-				vApp.message('Error performing last action: ' + response.error, 'danger');
-				this.onFailure && this.onFailure();
-			}
-		},
-		add(item, done) {
-			var $this = this;
-			// this.prefilter(item);
-			request.post(`/api/${this.listName}`, item)
-				.then(({data}) => {
-					$this.status(data);
-					if(data.success) {
-						this.items.push(data.result);
-						done && done(true);
-					} else done && done(false);
-				})
-				.fail(() => $this.status(false));
-		},
-		update(id, item, done) {
-			var $this = this;
-			// this.prefilter(update);
-			var index = this.getIndex(id);
-			if(index < 0) return;
-
-			request.post(`/api/${this.listName}/${id}`, item)
-				.then(({data}) => {
-					$this.status(data);
-					if(data.success) {
-						$this.items[index] = Object.assign($this.items[index], data.result);
-						done && done(true);
-					} else done && done(false)
-				})
-				.fail(() => $this.status(false));
-		},
-		updateDirect(id, item) {
-			var index = this.getIndex(id);
-			if(index < 0) return;
-			Vue.set(this.items, index, $.extend(true, {}, this.items[index], item) );
-		},
-		get(id) {
-			var index = this.getIndex(id);
-			if(index > -1) return this.items[index];
-			else return false;
-		},
-		remove(id) {
-			var $this = this;
-			request.delete(`/api/${this.listName}/${id}`)
-				.then(({data}) => {
-					$this.status(data);
-					if(data.success) {
-						var index = $this.getIndex(id);
-						if(index > -1) $this.items.splice(index, 1);
-					}
-				})
-				.fail(() => {
-					$this.status(false)
-				})
-		},
-		getIndex(id) {
-			for(var i = 0; i < this.items.length; i++) {
-				if(this.items[i].id === id) return i;
-			}
-			return -1;
-		},
-		loadItems() {
-			request.get(`/api/${this.listName}/`).then(({data}) => {
-				this.items.push(...data.result);
-			});
-		}
-	}
-}
+import Vue from 'vue'
 
 var vUtils = {
 	methods: {
@@ -174,9 +26,9 @@ var vUtils = {
 				listTarget[0][listTarget[1]] = []
 			})
 		},
-		getData(list, id, field, keyname='_id') {
-			var item = list.find((item) => item[keyname] == id);
-			return item && item[field];
+		getData(list, where_value, select_field, where_key='_id') {
+			var item = list.find((item) => item[where_key] == where_value);
+			return item && item[select_field];
 		}
 	},
 	computed: {
@@ -189,6 +41,157 @@ var vUtils = {
 		humanize (value) {
 			if(!value) return;
 			return value[0].toUpperCase() + value.substr(1).replace(/\_/g, ' ');
+		}
+	}
+}
+
+var vItems = {
+	// required: this.listName
+	// optional: this.onSuccess, this.onFailure
+	methods: {
+		status(success, message) {
+			if(success) {
+				// this.message('Success !');
+
+				this.onSuccess && this.onSuccess();
+			} else {
+				this.message('Error performing last action', 'danger');
+				this.onFailure && this.onFailure();
+			}
+		},
+		update(item, done) {
+			debugger
+			var $this = this;
+			// this.prefilter(update);
+			var index = this.getIndex(item.id);
+			if(index < 0) return;
+
+			$.post(`/api/${this.listName}/`, item)
+				.then(({data}) => {
+					$this.status(data.success);
+					if(data.success) {
+						$this.items[index] = Object.assign($this.items[index], data.result);
+						done && done(true);
+					} else done && done(false)
+				})
+				.catch(() => $this.status(false));
+		},
+		updateDirect(id, item) {
+			var index = this.getIndex(id);
+			if(index < 0) return;
+			this.items[index] = Object.assign(this.items[index], item);
+		},
+		get(id) {
+			var index = this.getIndex(id);
+			if(index > -1) return this.items[index];
+			else return false;
+		},
+		remove(id) {
+			var $this = this;
+			$.delete(`/api/${this.listName}/${id}`)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
+						var index = $this.getIndex(id);
+						if(index > -1) $this.items.splice(index, 1);
+					}
+				})
+				.catch(() => {
+					$this.status(false)
+				})
+		},
+		getIndex(id) {
+			for(var i = 0; i < this.items.length; i++) {
+				if(this.items[i]._id === id) return i;
+			}
+			return -1;
+		},
+		loadItems() {
+			var $this = this;
+			$.get(`/api/${this.listName}/`).then(({data}) => {
+				$this.items.push(...data.result);
+			});
+		}
+	}
+};
+
+var vListMethods = {
+	// required: this.listName
+	// optional: this.onSuccess, this.onFailure
+	mixins: [vUtils],
+	methods: {
+		status(response) {
+			if(response && response.success) {
+				// this.message('Success !');
+				this.onSuccess && this.onSuccess();
+			} else {
+				this.message('Error performing last action: ' + response.error, 'danger');
+				this.onFailure && this.onFailure();
+			}
+		},
+		add(item, done) {
+			var $this = this;
+			// this.prefilter(item);
+			request.post(`/api/${this.listName}`, item)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
+						this.items.push(data.result);
+						done && done(true);
+					} else done && done(false);
+				})
+				.catch(() => $this.status(false));
+		},
+		update(id, item, done) {
+			var $this = this;
+			// this.prefilter(update);
+			var index = this.getIndex(id);
+			if(index < 0) return;
+
+			request.post(`/api/${this.listName}/${id}`, item)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
+						$this.items[index] = Object.assign($this.items[index], data.result);
+						done && done(true);
+					} else done && done(false)
+				})
+				.catch(() => $this.status(false));
+		},
+		updateDirect(id, item) {
+			var index = this.getIndex(id);
+			if(index < 0) return;
+			Vue.set(this.items, index, $.extend(true, {}, this.items[index], item) );
+		},
+		get(id) {
+			var index = this.getIndex(id);
+			if(index > -1) return this.items[index];
+			else return false;
+		},
+		remove(id) {
+			var $this = this;
+			request.delete(`/api/${this.listName}/${id}`)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
+						var index = $this.getIndex(id);
+						if(index > -1) $this.items.splice(index, 1);
+					}
+				})
+				.catch(() => {
+					$this.status(false)
+				})
+		},
+		getIndex(id) {
+			for(var i = 0; i < this.items.length; i++) {
+				if(this.items[i]._id === id) return i;
+			}
+			return -1;
+		},
+		loadItems() {
+			request.get(`/api/${this.listName}/`).then(({data}) => {
+				this.items.push(...data.result);
+			});
 		}
 	}
 }

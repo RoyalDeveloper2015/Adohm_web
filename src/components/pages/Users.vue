@@ -41,7 +41,7 @@
 
 								<td class="text-left">
 									<div class="nameText">
-										{{item.name}} ({{item.id}})
+										{{item.name}} 
 									</div>
 								</td>
 								<td class="text-left">
@@ -56,8 +56,8 @@
 								<td> 
 									<div class="actions">
 										<div class="noselect sub-actions">
-											<a @click="editItem(item)" data-toggle="modal" href="#editUser" title="Edit"><span class="fa fa-pencil"></span></a>
-											<a @click="remove(item.id)" class="st-delete" data-placement="top" data-toggle="popover" data-trigger="hover" title="Delete"><span class="fa fa-trash"></span></a>
+											<a @click="editItem(item._id)" data-toggle="modal" href="#editUser" title="Edit"><span class="fa fa-pencil"></span></a>
+											<a @click="remove(item._id)" class="st-delete" data-placement="top" data-toggle="popover" data-trigger="hover" title="Delete"><span class="fa fa-trash"></span></a>
 										</div>
 									</div>
 								</td>
@@ -72,12 +72,16 @@
 </template>
 
 <script>
+	import {request} from '@/config/default/request'
 	import {vListMethods} from '@/components/Mixins.vue'
-	import {ToolTip} from 'vue-strap'
+	import UserEditor from './user/UserEditor.vue'
+	import vBus from '@/components/Bus'
+	import Vue from 'vue'
+	
 	export default {
 		mixins: [vListMethods],
-		components: {ToolTip},
-		data() {return {
+		components: {UserEditor},
+		data() { return {
 			items: [],
 			active: {},
 			roles: [
@@ -94,17 +98,11 @@
 					$this.reset();
 				});
 			},
-			editItem(item) {
-				Vue.set(this, 'active', item);
+			editItem(id) {
+				vBus.$emit('user-editor:edit', id);
 			},
 			updateItem(item) {
-				var $this = this;
-				this.update(item.id, item, (ok) => {
-					if(ok) {
-						$('#editUser').modal('hide');
-						$this.reset();
-					}
-				});
+				this.updateDirect(item._id, item);
 			},
 			reset() {
 				Vue.set(this, 'active', {});

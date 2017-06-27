@@ -17,20 +17,7 @@
 			<!-- /.left-sidebar -->
 
 			<router-view></router-view>
-        <!-- ========== LEFT SIDEBAR ========== -->
-        <left-side-bar></left-side-bar>
-        <!-- /.left-sidebar -->
-
-        <router-view></router-view>
-        <!--<main-page></main-page>-->
-        <!-- /.main-page -->
-
-        <!--<right-side-bar></right-side-bar>-->
-
-        <!-- /.right-sidebar -->
-
-			<!--<right-side-bar></right-side-bar>-->
-			<!-- /.right-sidebar -->
+ 
 		</template>
 		<template v-else> 
 			<login-page></login-page>
