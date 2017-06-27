@@ -1,6 +1,5 @@
 <script>
 import {mapMutations, mapGetters} from 'vuex'
-export {vItems, vListMethods, vUtils};
 import {request} from '@/config/default/request'
 import axios from 'axios'
 
@@ -11,6 +10,7 @@ var vItems = {
 		status(success, message) {
 			if(success) {
 				// vApp.message('Success !');
+
 				this.onSuccess && this.onSuccess();
 			} else {
 				vApp.message('Error performing last action', 'danger');
@@ -173,6 +173,10 @@ var vUtils = {
 				console.error(error);
 				listTarget[0][listTarget[1]] = []
 			})
+		},
+		getData(list, id, field, keyname='_id') {
+			var item = list.find((item) => item[keyname] == id);
+			return item && item[field];
 		}
 	},
 	computed: {
@@ -188,4 +192,110 @@ var vUtils = {
 		}
 	}
 }
+
+var vInsights = {
+	data: () => ({
+		details: {
+			fields: [
+				{ "id": "campaign_id", "name": "Campaign id" },
+				{ "id": "campaign_name", "name": "Campaign name" },
+				{ "id": "objective", "name": "Campaign objective" },
+				{ "id": "date_start", "name": "Start date", "filters": ["formatDate"] },
+				{ "id": "date_stop", "name": "End date", "filters": ["formatDate"] },
+				{ "id": "results", "name": "Results" },
+				{ "id": "cost_per_result", "name": "Cost per result",  "prefix": "{currency}",  "filters": ["toFixed"]},
+				{ "id": "clicks", "name": "Clicks" },
+				{ "id": "cpc", "name": "CPC", "prefix": "{currency}", "filters": ["toFixed"]},
+				{ "id": "cpm", "name": "CPM", "prefix": "{currency}", "filters": ["toFixed"]},
+				{ "id": "cpp", "name": "CPP", "prefix": "{currency}", "filters": ["toFixed"]},
+				{ "id": "ctr", "name": "CTR", "suffix": "%", "filters": ["toFixed"]},
+				{ "id": "frequency", "name": "Frequency" },
+				{ "id": "impressions", "name": "Impressions" },
+				{ "id": "reach", "name": "Reach" },
+				{ "id": "spend", "name": "Spend", "prefix": "{currency}"}
+			],
+			currency: {}
+		}
+	}),
+	methods: {
+		getInsights(_params, done) {
+			var _params = Object.assign({
+				fields: ['impressions','spend','clicks','cpc','cpm','ctr','results','cost_per_result'],
+				range: {
+					type: 'predefined',
+					value: 'last_30d'
+				}
+			}, _params||{});
+			var fields = clone(_params.fields);
+			var _fields = [];
+			for(var i in fields) {
+				var fieldDetail = this.details.fields.find(el => el.id == fields[i]);
+				_fields.push(fields[i]);
+			}
+			fields = _fields;
+			var params = {
+				fields: (['objective'].concat(fields)).join(',')
+			};
+			var range = _params.range;
+			if(_params.range.type == 'predefined') {
+				params.date_preset = range.value;
+			} else {
+				params.time_range = {};
+				if(range.start)	params.time_range.since = range.start.format('YYYY-MM-DD');
+				if(range.end)	params.time_range.until = range.end.format('YYYY-MM-DD');
+			}
+			request.post('/api/insights', params).then(({data}) => {
+				var insights = [];
+				for(var i in data.result)  
+					insights.push(data.result[i]);
+				done(insights);
+			});
+		},
+		processValue(item, field) {
+			var filters = {
+				toFixed: function(value) {
+					var number = Number(value);
+					if( !isNaN(number) && (Math.round(number) != number) ) return number.toFixed(2);
+					else return value;
+				},
+				formatDate: function(value) {
+					return moment(value).format('YYYY-MM-DD');
+				}
+			};
+
+			var fieldDetails = this.details.fields;
+			var fieldDetail = fieldDetails.find(el => el.id == field);
+			var value = item[field];
+
+			if(value != undefined || value != null && fieldDetail) {
+				if(fieldDetail.filters) {
+					fieldDetail.filters.forEach(filter => {
+						value = filters[filter](value);
+					});
+				}
+				if(fieldDetail.suffix) value = value + this.processMacros(fieldDetail.suffix, item);
+				if(fieldDetail.prefix) value = this.processMacros(fieldDetail.prefix, item) + value;
+			}
+			return value;
+		},
+		processMacros(value, item) {
+			value = value.replace(/\{(\w+)\}/g, ($0, $1) => {
+				switch($1) {
+					case 'currency': {
+						return this.details.currency[item.advertiser.currency];
+					}
+				}
+			});
+			return value;
+		}
+	},
+	mounted() {
+		request.get('/api/currency', ({data}) => {
+			if(data.success) {
+				Vue.set(this.details, 'currency', data.result);
+			}
+		});
+	}
+}
+export {vItems, vListMethods, vUtils, vInsights};
 </script>

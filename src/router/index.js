@@ -7,7 +7,9 @@ import Advertisers from '../components/pages/Advertisers.vue'
 import Users from '../components/pages/Users.vue'
 import UserSettings from '../components/pages/user/Settings.vue'
 import Performance from '../components/pages/social/Performance.vue'
-import * as Facebook from '../components/pages/social/facebook'
+import Overview from '../components/pages/social/Overview'
+import FacebookCampaignEditor from '../components/pages/social/facebook/CampaignEditor'
+import FacebookReporting from '../components/pages/social/facebook/Reporting'
 import Test from '../components/pages/Test.vue'
 
 Vue.use(Router)
@@ -45,17 +47,21 @@ export default new Router({
 			path: '/social/performance',
 			component: Performance
 		},
-		// {
-		// 	path: '/social/facebook/campaigns/',
-		// 	component: Facebook.Campaigns
-		// },
+		{
+			path: '/social/overview/',
+			component: Overview
+		},
 		{
 			path: '/social/facebook/campaigns/create',
-			component: Facebook.CampaignEditor
+			component: FacebookCampaignEditor
 		},
 		{
 			path: '/social/facebook/campaigns/:id',
-			component: Facebook.CampaignEditor
+			component: FacebookCampaignEditor
+		},
+		{
+			path: '/social/facebook/reporting/',
+			component: FacebookReporting
 		},
 		{
 			path: '/test',
