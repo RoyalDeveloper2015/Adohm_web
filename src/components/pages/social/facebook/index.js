@@ -1,1 +1,2 @@
-export {default as CampaignEditor} from './CampaignEditor.vue';
+import CampaignEditor from './CampaignEditor'
+import Reporting from './Reporting'

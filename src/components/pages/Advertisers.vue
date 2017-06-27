@@ -45,7 +45,7 @@
 									<div class="statusClass deactivated">&nbsp;</div>
 								</a>
 							</td>
-							<td> {{advertiser.name}} ({{advertiser.id}}) </td>
+							<td> {{advertiser.name}}</td>
 							<td> {{advertiser.email}} </td>
 							<td> {{advertiser.net_fee}}%  </td>
 							<td class="balance">  ${{advertiser.billing_balance || 0}} </td>
@@ -67,7 +67,10 @@
 </template>
 
 <script>
+	import {request} from '@/config/default/request'
+	import {vListMethods} from '@/components/Mixins'
 	export default {
+		mixins: [vListMethods],
 		data() {return {
 			items: [],
 			active: {
@@ -84,8 +87,8 @@
 				this.add(advertiser);
 			},
 			editItem(id) {
-				$.get('/api/advertisers/get/' + id).done(response => {
-					Vue.set(this, 'active', $.extend(true, {}, this.active, response.result) );
+				request.get('/api/advertisers/get/' + id).done(({data}) => {
+					Vue.set(this, 'active', $.extend(true, {}, this.active, data.result) );
 				});
 			},
 			updateItem(item) {

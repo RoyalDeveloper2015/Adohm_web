@@ -1,15 +1,16 @@
 import {request} from '@/config/default/request'
 
-const state = {
+const getState = () => ({
 	user: {
 		_id: null,
 		login: null,
 		name: null,
-		role: null
+		role: {}
 	},
 	fbApi: {},
 	messages: []
-}
+})
+
 const getters = {
 	user: state => state.user,
 	fbApi: state => state.fbApi,
@@ -29,7 +30,7 @@ const actions = {
 	},
 	login(context, data) {
 		request.post('/login', data).then(response => {
-			if(response.data.success) context.dispatch('load');
+			if(response.data.success) location.href="/"
 		}).catch(error => {
 			console.error(error);
 		})
@@ -46,7 +47,8 @@ const mutations = {
 		for(let i in data) state[i] = data[i];
 	},
 	logout(state) {
-		state.user = {};
+		state.user = getState().user;
+		console.log(state)
 	},
 	message(state, data) {
 		state.messages.push(data);
@@ -55,7 +57,7 @@ const mutations = {
 
 export default {
 	namespaced: true,
-	state,
+	state: getState(),
 	getters,
 	actions,
 	mutations

@@ -109,10 +109,10 @@
 									<tr> 
 										<td>
 											<a href="" type="button">
-												<tooltip :content="getState(campaign.state, 'name')">
+												<!--<tooltip :content="getState(campaign.state, 'name')">-->
 													<div v-if="[1,3,5].includes(campaign.state)" class="statusClass" :class="{'pending': campaign.state == 1, 'active': campaign.state == 3,  'draft': campaign.state == 5}"> &nbsp; </div>
 													<div v-else class="statusClass inactive"> &nbsp; </div>
-												</tooltip>
+												<!--</tooltip>-->
 											</a>
 										</td>
 										<td class="text-left"> <a class="editable">{{campaign.name}}</a> </td>
