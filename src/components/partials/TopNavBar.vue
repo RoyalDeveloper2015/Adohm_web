@@ -25,7 +25,7 @@
           </ul>
           <!-- /.nav navbar-nav -->
 
-          <ul class="nav navbar-nav navbar-right" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+          <ul v-if="user._id" class="nav navbar-nav navbar-right" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle bg-primary" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false"><i class="fa fa-plus-circle"></i> Add New <span class="caret"></span></a>
@@ -41,24 +41,32 @@
             <li><a href="#" class=""><i class="fa fa-bell"></i></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                 aria-expanded="false"> User name<span class="caret"></span></a>
+                 aria-expanded="false">{{user.name}}<span class="caret"></span></a>
               <ul class="dropdown-menu profile-dropdown">
                 <li class="profile-menu bg-gray">
                   <div class="">
                     <img src="http://placehold.it/60/c2c2c2?text=User" alt="John Doe" class="img-circle profile-img">
                     <div class="profile-name">
-                      <h6>User Name</h6>
+                      <h6>{{user.name}}</h6>
                       <a href="#">View Profile</a>
                     </div>
                     <div class="clearfix"></div>
                   </div>
                 </li>
-                <li><router-link to="/user/settings"><i class="fa fa-cog"></i> Settings</router-link></li>
-                <li><a href="#"><i class="fa fa-sliders"></i> Account Details</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#" class="color-danger text-center"><i class="fa fa-sign-out"></i> Logout</a></li>
+				<li><a href="/users/settings"><i class="fa fa-cog"></i> Settings</a></li>
+				<li><a href="#"><i class="fa fa-sliders"></i> Account Details</a></li>
+				<li v-if="['superadmin','admin'].includes(user.role.id)">
+					<router-link to="/advertisers"><i class="fa fa-user"></i>Advertisers</router-link>
+				</li>
+				<li v-if="['superadmin','admin','advertiser'].includes(user.role.id)">
+					<router-link to="/users"><i class="fa fa-user"></i>Users</router-link>
+				</li>
+				<li role="separator" class="divider"></li>
+				<li><a @click="$store.dispatch('session/logout')" class="color-danger text-center"><i class="fa fa-sign-out"></i> Logout</a></li>
               </ul>
             </li>
+			<li role="separator" class="divider"></li>
+        	
             <!-- /.dropdown -->
             <li><a href="#" class="hidden-xs hidden-sm open-right-sidebar"><i class="fa fa-ellipsis-v"></i></a></li>
           </ul>
@@ -73,7 +81,13 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
   export default {
-    name: 'topNavBar'
+    name: 'topNavBar',
+	mounted: {
+	},
+	computed: {
+		...mapGetters('session', ['user'])
+	}
   }
 </script>

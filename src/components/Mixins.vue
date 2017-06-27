@@ -88,11 +88,11 @@ var vListMethods = {
 		add(item, done) {
 			var $this = this;
 			// this.prefilter(item);
-			$.post(`/api/${this.listName}/add`, item)
-				.done((response) => {
-					$this.status(response);
-					if(response.success) {
-						this.items.push(response.result);
+			request.post(`/api/${this.listName}`, item)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
+						this.items.push(data.result);
 						done && done(true);
 					} else done && done(false);
 				})
@@ -104,11 +104,11 @@ var vListMethods = {
 			var index = this.getIndex(id);
 			if(index < 0) return;
 
-			$.post(`/api/${this.listName}/update/${id}`, item)
-				.done((response) => {
-					$this.status(response);
-					if(response.success) {
-						$this.items[index] = Object.assign($this.items[index], response.result);
+			request.post(`/api/${this.listName}/${id}`, item)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
+						$this.items[index] = Object.assign($this.items[index], data.result);
 						done && done(true);
 					} else done && done(false)
 				})
@@ -126,10 +126,10 @@ var vListMethods = {
 		},
 		remove(id) {
 			var $this = this;
-			$.post(`/api/${this.listName}/delete/${id}`)
-				.done((response) => {
-					$this.status(response);
-					if(response.success) {
+			request.delete(`/api/${this.listName}/${id}`)
+				.then(({data}) => {
+					$this.status(data);
+					if(data.success) {
 						var index = $this.getIndex(id);
 						if(index > -1) $this.items.splice(index, 1);
 					}
@@ -145,8 +145,8 @@ var vListMethods = {
 			return -1;
 		},
 		loadItems() {
-			$.get(`/api/${this.listName}/get`).done(response => {
-				this.items.push(...response.result);
+			request.get(`/api/${this.listName}/`).then(({data}) => {
+				this.items.push(...data.result);
 			});
 		}
 	}
