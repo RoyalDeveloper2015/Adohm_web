@@ -14,6 +14,8 @@ import SearchDetail from '../components/search/campaign/SearchDetail.vue'
 import SearchNetwork from '../components/search/campaign/searchdetail/SearchNetwork.vue'
 import DetailNetwork from '../components/search/campaign/DetailNetwork.vue'
 
+import Report from '../components/search/overview/Report.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -74,6 +76,11 @@ export default new Router({
               name: 'SearchNetwork'
             }
           ]
+        },
+        {
+          path: '/search/overview',
+          component: Report,
+          name: 'Report'
         }
       ]
     }

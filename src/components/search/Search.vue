@@ -8,7 +8,7 @@
             v-bind:class="{activemenu: isOverview}">
             <router-link class="item-link"                
               v-bind:class="{deactivelink: isOverview}"
-              to="/search">
+              to="/search/overview">
               <span v-on:click="removeActive(); isOverview = !isOverview">Overview</span>
             </router-link>
           </li>

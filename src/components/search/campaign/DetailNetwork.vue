@@ -421,20 +421,14 @@
   .title-content {
     padding-left: 3px;
   }
-  .top-card {
-    display: inline-flex;
-    width: 100%;
-    padding: 20px 20px;
-  }
+  
   .margin-left-50 {
     margin-left: 50px;
   }
   .margin-top-10 {
     margin-top: 10px;
   }
-  .margin-top-20 {
-    margin-top: 20px;
-  }
+  
   .margin-top-30 {
     margin-top: 30px;
   }
@@ -502,15 +496,9 @@
   }
   .display-block {
     display: block;
-  }
-  .display-flex {
-    display: inline-flex;
-  }
+  }  
   .bold {
     font-weight: bold;
-  }
-  .black {
-    color: #000 !important;
   }
   .blue {
     color: #4285F4;
