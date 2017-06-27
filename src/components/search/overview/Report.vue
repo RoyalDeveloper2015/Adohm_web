@@ -156,9 +156,10 @@
 
             <!-- Tab panes -->
             <div class="tab-content bg-white p-15">
-              <div role="tabpanel" class="tab-pane active" id="home8"></div>
-              <div role="tabpanel" class="tab-pane" id="profile8">
-                  <div id="hitmap">
+              <div role="tabpanel" class="tab-pane" id="home8"></div>
+              <div role="tabpanel" class="tab-pane active" id="profile8">
+                  <div id="heatmap">
+                    <!-- <highcharts v-bind:options="heatoptions" ref="highcharts"></highcharts>-->
                   </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="messages8"></div>              
@@ -173,179 +174,14 @@
 <script>
   import Vue from 'vue'
   import VueHighCharts from 'vue-highcharts'
-  import * as d3 from 'd3'
+  import * as Highcharts from 'highcharts'
+  import 'highcharts-more'
+
+  // import $ from 'jquery'
+
+  window.Highcharts = Highcharts
   
   Vue.use(VueHighCharts)
-
-  const csvDataString = 'day,hour,value\n' +
-  '1,1,16\n' +
-  '1,2,20\n' +
-  '1,3,0\n' +
-  '1,4,0\n' +
-  '1,5,0\n' +
-  '1,6,2\n' +
-  '1,7,0\n' +
-  '1,8,9\n' +
-  '1,9,25\n' +
-  '1,10,49\n' +
-  '1,11,57\n' +
-  '1,12,61\n' +
-  '1,13,37\n' +
-  '1,14,66\n' +
-  '1,15,70\n' +
-  '1,16,55\n' +
-  '1,17,51\n' +
-  '1,18,55\n' +
-  '1,19,17\n' +
-  '1,20,20\n' +
-  '1,21,9\n' +
-  '1,22,4\n' +
-  '1,23,0\n' +
-  '1,24,12\n' +
-  '2,1,6\n' +
-  '2,2,2\n' +
-  '2,3,0\n' +
-  '2,4,0\n' +
-  '2,5,0\n' +
-  '2,6,2\n' +
-  '2,7,4\n' +
-  '2,8,11\n' +
-  '2,9,28\n' +
-  '2,10,49\n' +
-  '2,11,51\n' +
-  '2,12,47\n' +
-  '2,13,38\n' +
-  '2,14,65\n' +
-  '2,15,60\n' +
-  '2,16,50\n' +
-  '2,17,65\n' +
-  '2,18,50\n' +
-  '2,19,22\n' +
-  '2,20,11\n' +
-  '2,21,12\n' +
-  '2,22,9\n' +
-  '2,23,0\n' +
-  '2,24,13\n' +
-  '3,1,5\n' +
-  '3,2,8\n' +
-  '3,3,8\n' +
-  '3,4,0\n' +
-  '3,5,0\n' +
-  '3,6,2\n' +
-  '3,7,5\n' +
-  '3,8,12\n' +
-  '3,9,34\n' +
-  '3,10,43\n' +
-  '3,11,54\n' +
-  '3,12,44\n' +
-  '3,13,40\n' +
-  '3,14,48\n' +
-  '3,15,54\n' +
-  '3,16,59\n' +
-  '3,17,60\n' +
-  '3,18,51\n' +
-  '3,19,21\n' +
-  '3,20,16\n' +
-  '3,21,9\n' +
-  '3,22,5\n' +
-  '3,23,4\n' +
-  '3,24,7\n' +
-  '4,1,0\n' +
-  '4,2,0\n' +
-  '4,3,0\n' +
-  '4,4,0\n' +
-  '4,5,0\n' +
-  '4,6,2\n' +
-  '4,7,4\n' +
-  '4,8,13\n' +
-  '4,9,26\n' +
-  '4,10,58\n' +
-  '4,11,61\n' +
-  '4,12,59\n' +
-  '4,13,53\n' +
-  '4,14,54\n' +
-  '4,15,64\n' +
-  '4,16,55\n' +
-  '4,17,52\n' +
-  '4,18,53\n' +
-  '4,19,18\n' +
-  '4,20,3\n' +
-  '4,21,9\n' +
-  '4,22,12\n' +
-  '4,23,2\n' +
-  '4,24,8\n' +
-  '5,1,2\n' +
-  '5,2,0\n' +
-  '5,3,8\n' +
-  '5,4,2\n' +
-  '5,5,0\n' +
-  '5,6,2\n' +
-  '5,7,4\n' +
-  '5,8,14\n' +
-  '5,9,31\n' +
-  '5,10,48\n' +
-  '5,11,46\n' +
-  '5,12,50\n' +
-  '5,13,66\n' +
-  '5,14,54\n' +
-  '5,15,56\n' +
-  '5,16,67\n' +
-  '5,17,54\n' +
-  '5,18,23\n' +
-  '5,19,14\n' +
-  '5,20,6\n' +
-  '5,21,8\n' +
-  '5,22,7\n' +
-  '5,23,0\n' +
-  '5,24,8\n' +
-  '6,1,2\n' +
-  '6,2,0\n' +
-  '6,3,2\n' +
-  '6,4,0\n' +
-  '6,5,0\n' +
-  '6,6,0\n' +
-  '6,7,4\n' +
-  '6,8,8\n' +
-  '6,9,8\n' +
-  '6,10,6\n' +
-  '6,11,14\n' +
-  '6,12,12\n' +
-  '6,13,9\n' +
-  '6,14,14\n' +
-  '6,15,0\n' +
-  '6,16,4\n' +
-  '6,17,7\n' +
-  '6,18,6\n' +
-  '6,19,0\n' +
-  '6,20,0\n' +
-  '6,21,0\n' +
-  '6,22,0\n' +
-  '6,23,0\n' +
-  '6,24,0\n' +
-  '7,1,7\n' +
-  '7,2,6\n' +
-  '7,3,0\n' +
-  '7,4,0\n' +
-  '7,5,0\n' +
-  '7,6,0\n' +
-  '7,7,0\n' +
-  '7,8,0\n' +
-  '7,9,0\n' +
-  '7,10,0\n' +
-  '7,11,2\n' +
-  '7,12,2\n' +
-  '7,13,5\n' +
-  '7,14,6\n' +
-  '7,15,0\n' +
-  '7,16,4\n' +
-  '7,17,0\n' +
-  '7,18,2\n' +
-  '7,19,10\n' +
-  '7,20,7\n' +
-  '7,21,0\n' +
-  '7,22,19\n' +
-  '7,23,9\n' +
-  '7,24,4'
 
   export default {
     name: 'Report',
@@ -382,14 +218,57 @@
             name: '',
             data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
           }]
+        },
+        heatoptions: {
+          chart: {
+            type: 'bar',
+            marginTop: 10,
+            marginBottom: 10
+          },
+          title: {
+            text: ''
+          },
+          xAxis: {
+            categories: ['12AM', '3AM', '6AM', '9AM', '12PM', '3PM', '6PM', '9PM', '12PM']
+          },
+          yAxis: {
+            categories: ['M', 'T', 'W', 'T', 'F'],
+            title: null
+          },
+          colorAxis: {
+            min: 0,
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+          },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            margin: 0,
+            verticalAlign: 'top',
+            y: 25,
+            symbolHeight: 320
+          },
+          series: [{
+            name: null,
+            borderWidth: 0,
+            data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84]],
+            dataLabels: {
+              enabled: true,
+              color: 'black',
+              style: {
+                textShadow: 'none'
+              }
+            }
+          }]
         }
       }
     },
     mounted: function () {
-      // let svg = this.$d3.select('#hitmap').append('svg').append('g')
-      const data1 = d3.csv.parse(csvDataString)
-
-      console.log(data1)
+      if (!window.NAME_UNIQUE_FOR_THIS_FILE) {
+        window.NAME_UNIQUE_FOR_THIS_FILE = true
+        const mychart = document.getElementById('heatmap')
+        Highcharts.chart(mychart, this.heatoptions)
+      }
     }
   }
 </script>
