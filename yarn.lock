@@ -1116,10 +1116,6 @@ caniuse-lite@^1.0.30000684:
   version "1.0.30000693"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000693.tgz#c9c6298697c71fdf6cb13eefe8aa93926f2f8613"
 
-canvas@1.0.x:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/canvas/-/canvas-1.0.4.tgz#e17c9eef9e7ffc2df0d03e02761e5ef31d694c46"
-
 caseless@~0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.11.0.tgz#715b96ea9841593cc33067923f5ec60ebda4f7d7"
@@ -1264,10 +1260,6 @@ coa@~1.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
-
-color-convert@0.2.x:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.2.1.tgz#363cab23c94b31a0d64db71048b8c6a940f8c68c"
 
 color-convert@^1.3.0:
   version "1.9.0"
@@ -1634,10 +1626,6 @@ currently-unhandled@^0.4.1:
 custom-event@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
-
-d3@3.5.17:
-  version "3.5.17"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
 
 d@1:
   version "1.0.0"
@@ -2862,27 +2850,6 @@ he@1.1.x, he@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
-heatmap@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/heatmap/-/heatmap-0.0.5.tgz#de6aeda7f2e491a78eec5d26fba0bd3b79955097"
-  dependencies:
-    canvas "1.0.x"
-    color-convert "0.2.x"
-
-highcharts-more-node@^1.0.2:
-  version v1.0.2
-  resolved "https://registry.yarnpkg.com/highcharts-more-node/-/highcharts-more-node-1.0.2.tgz#845beaeb550a78ab4a3baf7f7c641c815b77e182"
-  dependencies:
-    highcharts "^4.2.5"
-
-highcharts-more@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/highcharts-more/-/highcharts-more-0.1.2.tgz#38c2e386569ec79c8bd97fd68b384c5ea512efac"
-
-highcharts@^4.2.5:
-  version v4.2.7
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-4.2.7.tgz#45cbed8e99c9c042e95f9c51076726496f686862"
-
 highcharts@^5.0.12:
   version v5.0.12
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.12.tgz#f73b970fe5c7f04100220b64aa7bd7fb019d11e2"
@@ -4017,10 +3984,6 @@ mocha@^3.2.0:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
-
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -4208,7 +4171,7 @@ object-assign@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-2.1.1.tgz#43c36e5d569ff8e4816c4efa8be02d26967c18aa"
 
-object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -4893,7 +4856,7 @@ qs@~6.3.0:
   version "6.3.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
 
-query-string@^4.1.0:
+query-string@^4.1.0, query-string@^4.2.3:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   dependencies:
@@ -5894,6 +5857,13 @@ unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
 
+update-query@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/update-query/-/update-query-1.0.5.tgz#4e7c811d3eeba5955ae3078bb80b1769d17a39e0"
+  dependencies:
+    object-assign "^4.1.1"
+    query-string "^4.2.3"
+
 upper-case@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
@@ -5992,6 +5962,12 @@ vue-date-picker@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vue-date-picker/-/vue-date-picker-1.0.2.tgz#d8243dde3d3c37b550cbe4f88c8d4b0803128471"
 
+vue-daterangepicker-component@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-daterangepicker-component/-/vue-daterangepicker-component-1.0.0.tgz#5868cf9e0ac1d843af49b7f51f30d9601f0fe895"
+  dependencies:
+    vue-update-query-mixin "^1.0.4"
+
 vue-form-wizard@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/vue-form-wizard/-/vue-form-wizard-0.4.2.tgz#da1ee215ef4a2d0f1ad5c7600d75763d06238992"
@@ -6061,6 +6037,12 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.2.tgz#a0a6c50c941d2a4abda963f2f42c337ac450ee95"
 
+vue-update-query-mixin@^1.0.4:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/vue-update-query-mixin/-/vue-update-query-mixin-1.1.7.tgz#4ac4e33146cec2e63c85e98ecb6c85146d5ac09b"
+  dependencies:
+    update-query "^1.0.3"
+
 vue@^1.0.26:
   version "1.0.28"
   resolved "https://registry.yarnpkg.com/vue/-/vue-1.0.28.tgz#ed2ff07b200bde15c87a90ef8727ceea7d38567d"
@@ -6070,15 +6052,6 @@ vue@^1.0.26:
 vue@^2.3.3:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"
-
-vuejs-heatmap@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/vuejs-heatmap/-/vuejs-heatmap-1.0.1.tgz#6da05ef3d81f2ee416f6d22e33850bced262e660"
-  dependencies:
-    d3 "3.5.17"
-    lodash "^4.17.4"
-    moment "^2.18.1"
-    vue "^2.3.3"
 
 vuex@^2.3.1:
   version "2.3.1"
