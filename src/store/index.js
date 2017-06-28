@@ -44,7 +44,16 @@ const store = new Vuex.Store({
       chooseExisting: 'true',
       adName: '',
       adType: 'Standard',
-      active: ''
+      adActive: '',
+      adArchived: '',
+      adSslRequired: '',
+      adComments: '',
+      adStartDate: '',
+      adEndDate: '',
+      adImpressionRatio: '',
+      adPriority: '',
+      adImpressions: '',
+      adDuration: ''
     },
     advertisers: [],
     countries: [],

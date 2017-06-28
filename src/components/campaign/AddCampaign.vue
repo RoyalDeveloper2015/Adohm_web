@@ -368,13 +368,13 @@
                         <div class="form-group">
                           <label for="active" class="col-sm-2 control-label">Active</label>
                           <div class="col-sm-10">
-                            <input type="checkbox" id="active" v-model="newCampaign.active">
+                            <input type="checkbox" id="active" v-model="newCampaign.adActive">
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="archived" class="col-sm-2 control-label">Archived</label>
                           <div class="col-sm-10">
-                            <input type="checkbox" id="archived" v-model="newCampaign.archived">
+                            <input type="checkbox" id="archived" v-model="newCampaign.adArchived">
                           </div>
                         </div>
                         <div class="form-group">
@@ -386,104 +386,104 @@
                         <div class="form-group">
                           <label for="platformType" class="col-sm-2 control-label">Comments</label>
                           <div class="col-sm-10">
-                              <textarea v-model="newCampaign.comments" class="form-control" id="comments"
+                              <textarea v-model="newCampaign.adComments" class="form-control" id="comments"
                                         name="comments"
                                         placeholder="Comments"></textarea>
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="text1" class="col-sm-2 control-label">Start date</label>
-                        <div class="col-sm-10">
-                          <input type="date" v-model="newCampaign.adStartDate" class="form-control" id="adStartDate"
-                                 name="startDate"
-                                 placeholder="Start date">
+                        <div class="form-group">
+                          <label for="text1" class="col-sm-2 control-label">Start date</label>
+                          <div class="col-sm-10">
+                            <input type="date" v-model="newCampaign.adStartDate" class="form-control" id="adStartDate"
+                                   name="startDate"
+                                   placeholder="Start date">
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="text1" class="col-sm-2 control-label">End date</label>
-                        <div class="col-sm-10">
-                          <input type="date" v-model="newCampaign.adEndDate" class="form-control" id="adEndDate"
-                                 name="endDate"
-                                 placeholder="End date">
+                        <div class="form-group">
+                          <label for="text1" class="col-sm-2 control-label">End date</label>
+                          <div class="col-sm-10">
+                            <input type="date" v-model="newCampaign.adEndDate" class="form-control" id="adEndDate"
+                                   name="endDate"
+                                   placeholder="End date">
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="text1" class="col-sm-2 control-label">Impression Ratio</label>
-                        <div class="col-sm-10">
-                          <select v-model="newCampaign.adImpressionRatio" class="form-control" id="adImpressionRatio"
-                                  name="adImpressionRatio">
-                            <option value=1>1</option>
-                            <option value=2>2</option>
-                            <option value=3>3</option>
-                            <option value=4>4</option>
-                            <option value=5>5</option>
-                            <option value=6>6</option>
-                            <option value=7>7</option>
-                            <option value=8>8</option>
-                            <option value=9>9</option>
-                            <option value=10>10</option>
-                          </select>
+                        <div class="form-group">
+                          <label for="text1" class="col-sm-2 control-label">Impression Ratio</label>
+                          <div class="col-sm-10">
+                            <select v-model="newCampaign.adImpressionRatio" class="form-control" id="adImpressionRatio"
+                                    name="adImpressionRatio">
+                              <option value=1>1</option>
+                              <option value=2>2</option>
+                              <option value=3>3</option>
+                              <option value=4>4</option>
+                              <option value=5>5</option>
+                              <option value=6>6</option>
+                              <option value=7>7</option>
+                              <option value=8>8</option>
+                              <option value=9>9</option>
+                              <option value=10>10</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="priority" class="col-sm-2 control-label">Priority</label>
-                        <div class="col-sm-10">
-                          <select v-model="newCampaign.priority" class="form-control" id="priority"
-                                  name="priority">
-                            <option value="AD_PRIORITY_01">1</option>
-                            <option value="AD_PRIORITY_02">2</option>
-                            <option value="AD_PRIORITY_03">3</option>
-                            <option value="AD_PRIORITY_04">4</option>
-                            <option value="AD_PRIORITY_05">5</option>
-                            <option value="AD_PRIORITY_06">6</option>
-                            <option value="AD_PRIORITY_07">7</option>
-                            <option value="AD_PRIORITY_08">8</option>
-                            <option value="AD_PRIORITY_09">9</option>
-                            <option value="AD_PRIORITY_10">10</option>
-                            <option value="AD_PRIORITY_11">11</option>
-                            <option value="AD_PRIORITY_12">12</option>
-                            <option value="AD_PRIORITY_13">13</option>
-                            <option value="AD_PRIORITY_14">14</option>
-                            <option value="AD_PRIORITY_15">15</option>
-                            <option value="AD_PRIORITY_16">16</option>
-                          </select>
+                        <div class="form-group">
+                          <label for="priority" class="col-sm-2 control-label">Priority</label>
+                          <div class="col-sm-10">
+                            <select v-model="newCampaign.adPriority" class="form-control" id="priority"
+                                    name="priority">
+                              <option value="AD_PRIORITY_01">1</option>
+                              <option value="AD_PRIORITY_02">2</option>
+                              <option value="AD_PRIORITY_03">3</option>
+                              <option value="AD_PRIORITY_04">4</option>
+                              <option value="AD_PRIORITY_05">5</option>
+                              <option value="AD_PRIORITY_06">6</option>
+                              <option value="AD_PRIORITY_07">7</option>
+                              <option value="AD_PRIORITY_08">8</option>
+                              <option value="AD_PRIORITY_09">9</option>
+                              <option value="AD_PRIORITY_10">10</option>
+                              <option value="AD_PRIORITY_11">11</option>
+                              <option value="AD_PRIORITY_12">12</option>
+                              <option value="AD_PRIORITY_13">13</option>
+                              <option value="AD_PRIORITY_14">14</option>
+                              <option value="AD_PRIORITY_15">15</option>
+                              <option value="AD_PRIORITY_16">16</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="frequency" class="col-sm-2 control-label">Frequency cap</label>
-                        <div class="col-sm-10">
-                          <input type="text" v-model="newCampaign.adImpressions" class="form-control" id="adImpressions"
-                                 name="adImpressions"
-                                 placeholder="Frequency cap">
-                          <span>Cap cannot exceed 15.</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="region" class="col-sm-2 control-label">Time period</label>
-                        <div class="col-sm-10">
-                          <div class="col-sm-6">
-                            <input type="text" v-model="newCampaign.adDuration" class="form-control"
-                                   id="adDuration"
+                        <div class="form-group">
+                          <label for="frequency" class="col-sm-2 control-label">Frequency cap</label>
+                          <div class="col-sm-10">
+                            <input type="text" v-model="newCampaign.adImpressions" class="form-control" id="adImpressions"
                                    name="adImpressions"
                                    placeholder="Frequency cap">
+                            <span>Cap cannot exceed 15.</span>
                           </div>
-                          <div class="col-sm-6">
-                            <select v-model="newCampaign.durType" class="form-control" id="durType"
-                                    name="durType">
-                              <option value="Minutes">
-                                Minutes
-                              </option>
-                              <option value="Hours">
-                                Hours
-                              </option>
-                              <option value="Days">
-                                Days
-                              </option>
-                              <option value="Weeks">
-                                Weeks
-                              </option>
-                            </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="region" class="col-sm-2 control-label">Time period</label>
+                          <div class="col-sm-10">
+                            <div class="col-sm-6">
+                              <input type="text" v-model="newCampaign.adDuration" class="form-control"
+                                     id="adDuration"
+                                     name="adImpressions"
+                                     placeholder="Frequency cap">
+                            </div>
+                            <div class="col-sm-6">
+                              <select v-model="newCampaign.durType" class="form-control" id="durType"
+                                      name="durType">
+                                <option value="Minutes">
+                                  Minutes
+                                </option>
+                                <option value="Hours">
+                                  Hours
+                                </option>
+                                <option value="Days">
+                                  Days
+                                </option>
+                                <option value="Weeks">
+                                  Weeks
+                                </option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
