@@ -777,11 +777,11 @@ export default {
 			return [{
 				platform: 'Facebook',
 				placements: [
-					{id: 'fb.feed', name: 'Feeds'},
-					{id: 'fb.instant_article', name: 'Instant Articles'},
-					{id: 'fb.instream_video', name: 'In-stream videos'},
-					{id: 'fb.suggested_video', name: 'Suggested videos'},
-					{id: 'fb.right_hand_column', name: 'Right Colum'}
+					{id: 'facebook.feed', name: 'Feeds'},
+					{id: 'facebook.instant_article', name: 'Instant Articles'},
+					{id: 'facebook.instream_video', name: 'In-stream videos'},
+					{id: 'facebook.suggested_video', name: 'Suggested videos'},
+					{id: 'facebook.right_hand_column', name: 'Right Colum'}
 				]
 			}, {
 				platform: 'Instagram',
