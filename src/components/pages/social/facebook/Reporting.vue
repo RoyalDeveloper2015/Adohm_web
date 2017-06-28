@@ -46,8 +46,7 @@
 						</thead>
 						<tbody>
 							<tr v-for="item in items">
-								<td v-for="field in params.fields" align="left" v-html="processValue(item, field)">
-								</td>
+								<td v-for="field in params.fields" align="left" v-html="processValue(item, field)"></td>
 							</tr>
 							<tr v-if="items.length ==0"> 
 								<td :colspan="params.fields.length" align="center">No results found</td>
@@ -69,7 +68,7 @@
 	import Vue from 'vue'
 
 	export default {
-		mixins: [vFilters, vInsights, vUtils],
+		mixins: [vInsights, vUtils],
 		data: () => ({
 			items: [],
 			params: {
@@ -138,14 +137,12 @@
 					this.params.range = Object.assign({}, this.params.range, {type: 'predefined', value: map[label], start, end});
 				}
 			});
-
-			this.loadInsights();
-
-			request.get('/api/currency', ({data}) => {
+			request.get('/api/currency').then(({data}) => {
 				if(data.success) {
 					Vue.set(this.details, 'currency', data.result);
 				}
 			});
+			this.loadInsights();
 		},
 		computed: {
 			...mapGetters('session', ['fbApi'])

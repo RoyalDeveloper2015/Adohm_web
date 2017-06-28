@@ -122,23 +122,22 @@
 											</template> 
 											<template v-else>-</template>
 										</td>
-										<td>{{processMacros('{currency}',campaign.advertiser) + (campaign.budget||campaign.dailybudget) }} </td>
-										<td>{{processValue(campaign, 'impressions')}}</td>
-										<td>{{processValue(campaign, 'spend')}}</td>
-										<td>{{campaign.clicks}}</td>
-										<td>{{processValue(campaign, 'cpc')}}</td>
-										<td>{{processValue(campaign, 'cpm')}}</td>
-										<td>{{processValue(campaign, 'results')}}</td>
-										<td>{{processValue(campaign, 'cost_per_result')}}</td>
+										<td>{{processMacros('{currency}', campaign.insight) + (campaign.budget||campaign.dailybudget) }} </td>
+										<td>{{processValue(campaign.insight, 'impressions')}}</td>
+										<td>{{processValue(campaign.insight, 'spend')}}</td>
+										<td>{{processValue(campaign.insight, 'clicks')}}</td>
+										<td>{{processValue(campaign.insight, 'cpc')}}</td>
+										<td>{{processValue(campaign.insight, 'cpm')}}</td>
+										<td>{{processValue(campaign.insight, 'results')}}</td>
+										<td>{{processValue(campaign.insight, 'cost_per_result')}}</td>
 										<td>
 											<div class="actions">
 												<div class="noselect sub-actions" stop-propagate="">
-													<a v-show="canRun(campaign.state)" @click="updateState(campaign.id, C_STATE_ACTIVE)"><span class="glyphicon glyphicon-play" ></span></a>
-													<a v-show="campaign.state == C_STATE_ACTIVE" @click="updateState(campaign.id, C_STATE_INACTIVE)"><span class="glyphicon glyphicon-stop" ></span></a>
-													<a data-toggle="collapse" :href="'#campaign-' + campaign.id"><span class="glyphicon glyphicon-plus"></span></a>
-													<router-link :to="'/social/campaign-editor/' + campaign.id"><span class="glyphicon glyphicon-pencil"></span></router-link>
-													<a @click="remove(campaign.id)"><span class="glyphicon glyphicon-trash"></span></a>
-													<span data-toggle="modal" data-target="#archiveModal"><a class="st-archive" data-toggle="popover" title="Archive" data-placement="top" data-trigger="hover"></a></span>
+													<a v-show="canRun(campaign.state)" @click="updateState(campaign._id, C_STATE_ACTIVE)"><span class="glyphicon glyphicon-play" ></span></a>
+													<a v-show="campaign.state == C_STATE_ACTIVE" @click="updateState(campaign._id, C_STATE_INACTIVE)"><span class="glyphicon glyphicon-stop" ></span></a>
+													<a data-toggle="collapse" :href="'#campaign-' + campaign._id"><span class="glyphicon glyphicon-plus"></span></a>
+													<router-link :to="'/social/facebook/campaigns/' + campaign._id"><span class="glyphicon glyphicon-pencil"></span></router-link>
+													<a @click="remove(campaign._id)"><span class="glyphicon glyphicon-trash"></span></a>
 												</div>
 											</div>
 										</td>
@@ -159,12 +158,13 @@
 
 <script>
 	import Vue from 'vue'
-	import {ToolTip} from 'vue-strap'
+	// import {ToolTip} from 'vue-strap'
 	import {request} from '@/config/default/request'
+	import {vListMethods, vInsights, vUtils} from '@/components/Mixins'
 
 	export default {
-		mixins: [vFilters, vListMethods, vInsights],
-		components: { ToolTip },
+		mixins: [vListMethods, vInsights, vUtils],
+		// components: { ToolTip },
 		data() {
 			return {
 				C_STATE_PENDING: 1,
@@ -196,10 +196,12 @@
 			loadInsights() {
 				this.getInsights(false, insights => {
 					insights.forEach(insight => {
-						let idx = this.items.findIndex(el => el.id === insight.campaign_id);
+						insight.advertiser = insight.campaign.advertiser;
+						let idx = this.items.findIndex(el => el._id === insight.campaign_id);
 						if(idx === -1) return;
-						this.items.splice(idx, 1, Object.assign(this.items[idx], insight));
+						this.items.splice(idx, 1, Object.assign(this.items[idx], {insight}));
 					});
+					console.log(clone(this.items))
 				});
 			}
 		},

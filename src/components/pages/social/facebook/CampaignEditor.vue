@@ -214,7 +214,7 @@
 											<multi-select v-model="item.targeting_rules.age_min" :options="fb_age_list"></multi-select>
 										</div>
 										<div class="col-xs-6">
-											<multi-select v-model="item.targeting_rules.age_min" :options="fb_age_list"></multi-select>
+											<multi-select v-model="item.targeting_rules.age_max" :options="fb_age_list"></multi-select>
 										</div>
 									</div>
 								</div>
@@ -269,7 +269,11 @@
 												})"
 												:options="details.flexible_targeting"
 												:multiple="true">
-
+												<template slot="option" scope="props">
+													<span tabindex="0" data-select="Press enter to select" data-selected="Selected" data-deselect="Press enter to remove" class="multiselect__option">
+														<span>{{props.option.name}}</span> <br/> <small> {{props.option.path.join('>')}} </small>
+													</span>
+												</template>
 											</multi-select>
 										</div>
 										<div v-if="idx > 0" class="col-xs-1">
@@ -300,6 +304,11 @@
 											placeholder="Search audience types" 
 											:options="details.flexible_targeting" 
 											:multiple="true">
+											<template slot="option" scope="props">
+												<span tabindex="0" data-select="Press enter to select" data-selected="Selected" data-deselect="Press enter to remove" class="multiselect__option">
+													<span>{{props.option.name}}</span> <br/> <small> {{props.option.path.join('>')}} </small>
+												</span>
+											</template>
 										</multi-select>
 									</div>
 								</div>
@@ -698,7 +707,7 @@ export default {
 		this.gotoStep('platform');
 		console.log('campaign editor');
 		if(this.$route && this.$route.params.id) {
-			request.get('/api/campaigns/get/' + this.$route.params.id, ({data}) => {
+			request.get('/api/campaigns/' + this.$route.params.id, ({data}) => {
 				if(!data.result) return this.message('Error fetching campaign data');
 				Vue.set(this, 'steps', ['fb_campaign', 'fb_ads']);
 				this.gotoStep('fb_campaign');

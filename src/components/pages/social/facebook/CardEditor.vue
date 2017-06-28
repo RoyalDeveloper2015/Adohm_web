@@ -8,13 +8,13 @@
 				<div class="panel bg-gray-700 center-block" >
 					<div class="text-center" v-if="card.upload.thumbnail_url">
 						<template v-if="card.upload.type == 'image'">
-							<img :src="card.upload.thumbnail_url" width="100%"/>
+							<img :src="card.upload.thumbnail_url" width="100%"> </img>
 						</template>
 						<template v-else-if="card.upload.type == 'video'">
 							<video :src="card.upload.thumbnail_url" width="100%" controls="controls" style="max-height: 300px"></video>
 						</template>
 					</div>
-					<div v-else class="text-center" v-else>Upload preview</div>
+					<div v-else class="text-center">Upload preview</div>
 				</div>
 				<div class="container-fluid"> 
 					<uploader @upload-complete="handleUpload">
@@ -58,9 +58,12 @@
 
 
 <script>
-	import Uplaoder from '@/components/partials/Uploader'
+	import Uploader from '@/components/partials/Uploader'
+	import Vue from 'vue'
+
 	export default {
-		props: ['value', 'index'],
+		props: ['value'],
+		components: {Uploader},
 		data: () => ({
 			card: {
 				call_to_action: {
@@ -75,6 +78,7 @@
 		}),
 		methods: {
 			handleUpload(data) {
+				if(!data) return;
 				this.card.upload = Object.assign({}, this.card.upload, data);
 			}
 		},
@@ -85,7 +89,7 @@
 			card: {
 				deep: true,
 				handler(card) {
-					this.$emit('input', card);
+					this.$emit('update:value', card);
 				}
 			}
 		}

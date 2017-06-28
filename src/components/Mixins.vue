@@ -255,6 +255,7 @@ var vInsights = {
 			});
 		},
 		processValue(item, field) {
+			if(!item) return 0;
 			var filters = {
 				toFixed: function(value) {
 					var number = Number(value);
@@ -276,6 +277,7 @@ var vInsights = {
 						value = filters[filter](value);
 					});
 				}
+				debugger
 				if(fieldDetail.suffix) value = value + this.processMacros(fieldDetail.suffix, item);
 				if(fieldDetail.prefix) value = this.processMacros(fieldDetail.prefix, item) + value;
 			}
@@ -285,6 +287,7 @@ var vInsights = {
 			value = value.replace(/\{(\w+)\}/g, ($0, $1) => {
 				switch($1) {
 					case 'currency': {
+						if(!item) return '';
 						return this.details.currency[item.advertiser.currency];
 					}
 				}

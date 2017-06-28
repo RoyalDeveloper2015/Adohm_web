@@ -39,7 +39,6 @@
 						<a href="#"><i class="fa fa-paint-brush"></i> <span>Social</span> <i class="fa fa-angle-right arrow"></i></a>
 						<ul class="child-nav">
 							<li><router-link to="/social/overview"><i class="fa fa-bank"></i> <span>Overview</span></router-link></li>
-							<li><router-link to=""><i class="fa fa-bell"></i> <span>Brand</span></router-link></li>
 							<li><router-link to="/social/performance" name="social-performance"><i class="fa fa-check"></i> <span> Performance</span></router-link></li>
 						</ul>
 					</li>

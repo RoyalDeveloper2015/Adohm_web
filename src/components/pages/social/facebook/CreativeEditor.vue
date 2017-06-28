@@ -61,7 +61,7 @@
 			</div>
 		</template>
 		<template v-else>
-			<fb-carousel-ad v-if="item.adformat === 'carousel'" :value="item" @data="data => $set($data, 'item', data)"></fb-carousel-ad>
+			<carousel-ad v-if="item.adformat === 'carousel'" :value.sync="item"></carousel-ad>
 			<div v-else class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title">{{item.adformat  | humanize}}</h4>
@@ -116,7 +116,7 @@
 											<div class="text-center">
 												<span @click="item.slideshow.images.splice(item.slideshow.images.findIndex(el => el.uploadId === upload.uploadId), 1)" class="glyphicon glyphicon-remove" style="position: absolute; top: 5px; right: 5px"></span>
 												<template v-if="['image', 'slideshow'].includes(item.adformat)">
-													<img :src="upload.thumbnail_url" style="width: calc(100% - 5px)">
+													<img :src="upload.thumbnail_url" style="width: calc(100% - 5px)"></img>
 												</template>
 												<template v-else-if="item.adformat === 'video'">
 													<video :src="upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
@@ -277,11 +277,13 @@ import {vUtils} from '@/components/Mixins'
 import {mapGetters} from 'vuex'
 import Uploader from '@/components/partials/Uploader.vue'
 import MultiSelect from 'vue-multiselect'
+import CarouselAd from './CarouselAd'
+import Vue from 'vue'
 
 export default {
 	mixins: [vUtils],
-	props: ['meta'],
-	components: {Uploader, MultiSelect},
+	props: ['value', 'meta'],
+	components: {Uploader, MultiSelect, CarouselAd},
 	data: () => ({
 		item: {
 			adformat: 'image',
@@ -310,7 +312,10 @@ export default {
 			object_story_id: null,
 			object_type: null,
 			url_tags: null,
-			upload: {},
+			upload: {
+				uploadId: null, 
+				thumbnail_url: null
+			},
 			form: {id: null, name: null},
 			page: {id: null, name: null},
 			post: {id: null, name: null},
@@ -324,10 +329,11 @@ export default {
 		}
 	}),
 	mounted() {
-		this.ad = Object.assign({}, this.item, this.value);
+		this.item = Object.assign({}, this.item, this.value);
 	},
 	methods: {
 		handleUpload(data) {
+			if(!data) return;
 			if(['image', 'video'].includes(this.item.adformat)) {
 				Vue.set(this.item, 'upload', data);
 			} else this.item.slideshow.images.push(data);
@@ -383,10 +389,10 @@ export default {
 		}
 	},
 	watch: {
-		ad: {
+		item: {
 			deep: true,
 			handler(item) {
-				this.$emit('input', item);
+				this.$emit('update:value', item);
 			}
 		}
 	},
