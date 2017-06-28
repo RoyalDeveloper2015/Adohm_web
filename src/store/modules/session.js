@@ -19,6 +19,7 @@ const getters = {
 	currency: state => state.currency,
 	messages: state => state.messages
 }
+
 const actions = {
 	load(context) {
 		return new Promise((resolve, reject) => {
@@ -66,6 +67,7 @@ const mutations = {
 	},
 	message(state, data) {
 		state.messages.push(data);
+		setTimeout(() => state.messages.pop(), 3000);
 	}
 }
 

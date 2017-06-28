@@ -87,13 +87,15 @@
 	import {vUtils} from '@/components/Mixins'
 	import MultiSelect from 'vue-multiselect'
 	import Vue from 'vue'
+	import {mapGetters} from 'vuex'
 	import vBus from '@/components/Bus'
 	import {request} from '@/config/default/request';
+	import axios from 'axios';
 	
 	export default {
 		components: {MultiSelect},
 		mixins: [vUtils],
-		props: ['data', 'value', 'page'],
+		props: ['value', 'page'],
 		data: () => ({
 			item: {
 				id: null,
@@ -166,30 +168,12 @@
 				
 				function handleResponse(response) {
 					var id = vm.getId(response, form_id);
-					if(!id) return vApp.message("Error saving form", "danger");
-					vApp.message('Success');
+					if(!id) return vm.message("Error saving form", "danger");
+					vm.message('Success');
 					vBus.$emit('input', id);
 					vm.details.forms.push({id, name: form.name});
 					Vue.set(vm.item, 'id', id);
 				}
-			},
-			edit(id) {
-				console.log('edit', id);
-				request.get('/api/items/' + id).then(({data}) => {
-					var form = data.result;
-					form.customQuestions = [];
-					form.data.questions.forEach( (question, index) => {
-						if(question.type == 'CUSTOM') {
-							form.customQuestions.push(question);
-							delete form.data.questions[index];
-						}
-					});
-					form.data.questions = form.data.questions.map(q => q.type);
-					// debugger
-					form = Object.assign(form, form.data);
-					delete form.data;
-					Vue.set(this, 'item',form);
-				});
 			},
 			toggleForm(event) {
 				$(event.currentTarget).find('.glyphicon')
@@ -226,13 +210,13 @@
 		watch: {
 			page(page) {
 				console.log("Page changed", page);
-				request.get(`${this.options.fbApi.baseUrl}/${page.id}/leadgen_forms?fields=id,name&access_token=${page.access_token}`).then(({data}) => {
+				axios.get(`${this.fbApi.baseUrl}/${page.id}/leadgen_forms?fields=id,name&access_token=${page.access_token}`).then(({data}) => {
 					Vue.set(this.details, 'forms', data.data || []);
 				});
 			},
 			value(form_id) {
 				console.log("value changed");
-				FB.api(`/${this.options.page.id}/${form_id}`, 'GET', {access_token: this.options.fbAccount.accessToken}, function(response) {
+				FB.api(`/${this.options.page.id}/${form_id}`, 'GET', {access_token: this.fbAccount.accessToken}, function(response) {
 					console.log("Lead form get", response)
 				});
 			},
@@ -241,6 +225,9 @@
 					this.$emit('input', value);
 				}
 			}
+		},
+		computed: {
+			...mapGetters('session', ['fbApi', 'fbAccount'])
 		}
 	}
 </script>

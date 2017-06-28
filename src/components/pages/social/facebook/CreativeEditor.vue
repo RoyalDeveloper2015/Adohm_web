@@ -1,27 +1,6 @@
 <template>
 	<div>
-		<div class="panel"  v-if="!meta.campaign_id">
-			<div class="panel-heading">
-				<h4 class="panel-title">Ads</h4>
-			</div>
-			<div class="panel-body">
-				<div class="mb-10"> Select an ad type</div>
-				<div class="grid-container" >
-					<div v-if="getSupportedAdFormats().includes('CAROUSEL')" @click="$set(item, 'adformat', 'carousel')" class="panel bg-gray-700 grid">
-						<strong>Carousel</strong>
-					</div>
-					<div v-if="getSupportedAdFormats().includes('IMAGE')" @click="$set(item, 'adformat', 'image')" class="panel bg-gray-700 grid">
-						<strong>Single Image</strong>
-					</div>
-					<div v-if="getSupportedAdFormats().includes('VIDEO')" @click="$set(item, 'adformat', 'video')" class="panel bg-gray-700 grid">
-						<strong>Single Video</strong>
-					</div>
-					<div v-if="getSupportedAdFormats().includes('SLIDESHOW')" @click="$set(item, 'adformat', 'slideshow')" class="panel bg-gray-700 grid">
-						<strong>Slideshow</strong>
-					</div>
-				</div>
-			</div>
-		</div>
+
 		<template v-if="['POST_ENGAGEMENT'].includes(meta.objective)">
 			<div class="panel">
 				<div class="panel-heading">
@@ -61,7 +40,29 @@
 			</div>
 		</template>
 		<template v-else>
-			<carousel-ad v-if="item.adformat === 'carousel'" :value.sync="item"></carousel-ad>
+			<div class="panel"  v-if="!meta.campaign_id">
+				<div class="panel-heading">
+					<h4 class="panel-title">Ads</h4>
+				</div>
+				<div class="panel-body">
+					<div class="mb-10"> Select an ad type</div>
+					<div class="grid-container" >
+						<div v-if="getSupportedAdFormats().includes('CAROUSEL')" @click="$set(item, 'adformat', 'carousel')" class="panel bg-gray-700 grid">
+							<strong>Carousel</strong>
+						</div>
+						<div v-if="getSupportedAdFormats().includes('IMAGE')" @click="$set(item, 'adformat', 'image')" class="panel bg-gray-700 grid">
+							<strong>Single Image</strong>
+						</div>
+						<div v-if="getSupportedAdFormats().includes('VIDEO')" @click="$set(item, 'adformat', 'video')" class="panel bg-gray-700 grid">
+							<strong>Single Video</strong>
+						</div>
+						<div v-if="getSupportedAdFormats().includes('SLIDESHOW')" @click="$set(item, 'adformat', 'slideshow')" class="panel bg-gray-700 grid">
+							<strong>Slideshow</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+			<carousel-ad v-if="item.adformat === 'carousel'" :value.sync="item.object_story_spec"></carousel-ad>
 			<div v-else class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title">{{item.adformat  | humanize}}</h4>
@@ -181,7 +182,7 @@
 								<label class="control-label">Event Url</label>
 							</div>
 							<div class="col-xs-8">
-								<input type="text" class="form-control" required @change="getEvent" v-if="!item.event.id">
+								<input type="text" class="form-control" required  v-if="!item.event.id">
 								<div v-if="item.event.name">
 									<input disabled type="text" class="form-control" :value="item.event.name">
 									<div @click="$set(item, 'event', {})" style="position: relative; top: -33px; left: -10px; " class="close"> &times; </div>
@@ -261,7 +262,7 @@
 					<h4 class="panel-title">Lead form</h4>
 				</div>
 				<div class="panel-body">
-					<leadgenform-editor v-model="item.form.id" :page="item.page"></leadgenform-editor>
+					<leadgen-form-editor v-model="item.form.id" :page="item.page"></leadgen-form-editor>
 				</div>
 			</div>
 		</template>
@@ -278,12 +279,13 @@ import {mapGetters} from 'vuex'
 import Uploader from '@/components/partials/Uploader.vue'
 import MultiSelect from 'vue-multiselect'
 import CarouselAd from './CarouselAd'
+import LeadgenFormEditor from './LeadgenFormEditor'
 import Vue from 'vue'
 
 export default {
 	mixins: [vUtils],
 	props: ['value', 'meta'],
-	components: {Uploader, MultiSelect, CarouselAd},
+	components: {Uploader, MultiSelect, CarouselAd, LeadgenFormEditor},
 	data: () => ({
 		item: {
 			adformat: 'image',

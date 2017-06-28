@@ -60,7 +60,6 @@ var vItems = {
 			}
 		},
 		update(item, done) {
-			debugger
 			var $this = this;
 			// this.prefilter(update);
 			var index = this.getIndex(item.id);
@@ -277,7 +276,7 @@ var vInsights = {
 						value = filters[filter](value);
 					});
 				}
-				debugger
+				
 				if(fieldDetail.suffix) value = value + this.processMacros(fieldDetail.suffix, item);
 				if(fieldDetail.prefix) value = this.processMacros(fieldDetail.prefix, item) + value;
 			}

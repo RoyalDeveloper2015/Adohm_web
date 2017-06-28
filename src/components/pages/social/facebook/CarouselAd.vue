@@ -10,7 +10,7 @@
 			</ul>
 			<div class="tab-content p-15">
 				<div v-for="card, idx in cards" :id="'card-' + idx" class="tab-pane">
-					<card-editor :value.sync="card"></card-editor>
+					<card-editor :value.sync="cards[idx]" :index="idx"></card-editor>
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 		props: ['value'],
 		components: {CardEditor},
 		data: () => ({
-			item: {
+			item: { // object_story_spec
 				link_data: {
 					call_to_action: {
 						type: "LEARN_MORE"
@@ -70,7 +70,7 @@
 			},
 		},
 		mounted() {
-			this.item = Object.assign({}, this.item, this.value);
+			this.item = Object.assign({}, this.item, this.value)
 			if(this.cards.length == 0) this.cards.push(this.newCard());
 			Vue.nextTick(() => {
 				$('#cards ul.nav li:first, #cards .tab-pane:first').addClass('active');
@@ -86,6 +86,12 @@
 				deep: true,
 				handler: function(item) {
 					this.$emit('update:value', item);
+				}
+			},
+			cards: {
+				deep: true, 
+				handler: function(card) {
+					console.log("updated detected", clone(card))
 				}
 			}
 		}

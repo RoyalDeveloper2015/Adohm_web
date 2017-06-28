@@ -10,31 +10,14 @@
 
 			<div class="sidebar-nav">
 				<ul class="side-nav color-gray">
-					
-					<li>
-						<a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span> </a>
-					</li>
-
 					<li class="has-children">
-						<a href="#"><i class="fa fa-file-text"></i> <span>Search</span> <i class="fa fa-angle-right arrow"></i></a>
+						<router-link to="/"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-right arrow"></i></router-link>
 						<ul class="child-nav">
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Overview</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Opportunites</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Campaigns</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Ad Groups</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Ads & Extensions</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Keywords</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Dynamic Ad Targets</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Audiences</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Demographics</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Settings</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Locations</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Ad schedule</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Devices</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Advanced bid Adjustment</span></a></li>
-							<li><a href="layout-fixed-top.html"><i class="fa fa-lock"></i> <span>Change History</span></a></li>
+							<li><router-link to="/campaign"><i class="fa fa-bolt"></i> <span>Campaigns</span></router-link></li>
+							<li><router-link to="/search"><i class="fa fa-search"></i> <span>Search</span></router-link></li>
 						</ul>
 					</li>
+
 					<li class="has-children">
 						<a href="#"><i class="fa fa-paint-brush"></i> <span>Social</span> <i class="fa fa-angle-right arrow"></i></a>
 						<ul class="child-nav">

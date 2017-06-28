@@ -8,7 +8,7 @@ import Users from '../components/pages/Users.vue'
 import UserSettings from '../components/pages/user/Settings.vue'
 import Performance from '../components/pages/social/Performance.vue'
 import Overview from '../components/pages/social/Overview'
-import FacebookCampaignEditor from '../components/pages/social/facebook/CampaignEditor'
+import SocialCampaignEditor from '../components/pages/social/CampaignEditor'
 import FacebookReporting from '../components/pages/social/facebook/Reporting'
 import Test from '../components/pages/Test.vue'
 import setupAdGroups from '../components/search/adgroups/setupAdGroups.vue'
@@ -64,12 +64,12 @@ export default new Router({
 			component: Overview
 		},
 		{
-			path: '/social/facebook/campaigns/create',
-			component: FacebookCampaignEditor
+			path: '/social/campaigns/create',
+			component: SocialCampaignEditor
 		},
 		{
-			path: '/social/facebook/campaigns/:id',
-			component: FacebookCampaignEditor
+			path: '/social/campaigns/:id',
+			component: SocialCampaignEditor
 		},
 		{
 			path: '/social/facebook/reporting/',

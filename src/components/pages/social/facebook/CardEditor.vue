@@ -3,15 +3,15 @@
 		<div class="row mb-10">
 			<div class="col-xs-4"><label for="">Upload</label></div>
 			<div class="col-xs-8">
-				<label class="box-label"> <input :name="'uploadType-' + index" type="radio" v-model="card.upload.type" value="image">Image</label>
-				<label class="box-label"> <input :name="'uploadType-' + index" type="radio" v-model="card.upload.type" value="video">Video</label>
+				<label class="box-label"> <input :name="'uploadType-' + index" type="radio" v-model="item.upload.type" value="image">Image</label>
+				<label class="box-label"> <input :name="'uploadType-' + index" type="radio" v-model="item.upload.type" value="video">Video</label>
 				<div class="panel bg-gray-700 center-block" >
-					<div class="text-center" v-if="card.upload.thumbnail_url">
-						<template v-if="card.upload.type == 'image'">
-							<img :src="card.upload.thumbnail_url" width="100%"> </img>
+					<div class="text-center" v-if="item.upload.thumbnail_url">
+						<template v-if="item.upload.type == 'image'">
+							<img :src="item.upload.thumbnail_url" width="100%"> </img>
 						</template>
-						<template v-else-if="card.upload.type == 'video'">
-							<video :src="card.upload.thumbnail_url" width="100%" controls="controls" style="max-height: 300px"></video>
+						<template v-else-if="item.upload.type == 'video'">
+							<video :src="item.upload.thumbnail_url" width="100%" controls="controls" style="max-height: 300px"></video>
 						</template>
 					</div>
 					<div v-else class="text-center">Upload preview</div>
@@ -36,21 +36,21 @@
 		<div class="row">
 			<div class="col-xs-4"><label for="">Headline</label></div>
 			<div class="col-xs-8">
-				<input type="text" class="form-control" required v-model="card.name">
+				<input type="text" class="form-control" required v-model="item.name">
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-xs-4"><label for="">Description</label></div>
 			<div class="col-xs-8">
-				<input type="text" class="form-control" required v-model="card.description">
+				<input type="text" class="form-control" required v-model="item.description">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-xs-4"><label for="">Website URL</label></div>
 			<div class="col-xs-8">
-				<input required type="text" class="form-control" required v-model="card.link">
+				<input required type="text" class="form-control" required v-model="item.link">
 			</div>
 		</div>
 	</div>
@@ -62,10 +62,10 @@
 	import Vue from 'vue'
 
 	export default {
-		props: ['value'],
+		props: ['value', 'index'],
 		components: {Uploader},
 		data: () => ({
-			card: {
+			item: {
 				call_to_action: {
 					type: "LEARN_MORE"
 				},
@@ -79,17 +79,18 @@
 		methods: {
 			handleUpload(data) {
 				if(!data) return;
-				this.card.upload = Object.assign({}, this.card.upload, data);
+				this.item.upload = Object.assign({}, this.item.upload, data);
 			}
 		},
 		mounted() {
-			this.card = Object.assign({}, this.card, this.value);
+			this.item = Object.assign({}, this.item, this.value);
 		},
 		watch: {
-			card: {
+			item: {
 				deep: true,
-				handler(card) {
-					this.$emit('update:value', card);
+				handler(item) {
+					console.log('item updated', clone(item))
+					this.$emit('update:value', item);
 				}
 			}
 		}

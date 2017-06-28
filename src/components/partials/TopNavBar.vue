@@ -30,9 +30,8 @@
               <a href="#" class="dropdown-toggle bg-primary" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false"><i class="fa fa-plus-circle"></i> Add New <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="/campaign/add"><i class="fa fa-plus-square-o"></i>Campaign</a></li>
-				<li><a href="/users/settings"><i class="fa fa-plus-square-o"></i> Facebook account</a></li>
-				<li><a href="/users/settings"><i class="fa fa-plus-square-o"></i> Custom audience</a></li>
+                <li><router-link to="#/social/campaigns/create"><i class="fa fa-plus-square-o"></i>Social Campaign</router-link></li>
+				<li><router-link to="#/user/settings"><i class="fa fa-plus-square-o"></i> Facebook account</router-link></li>
 				<li role="separator" class="divider"></li>
 				<li><a href="#trackerModal" data-toggle="modal">Generate Tracking Code</a></li>
               </ul>

@@ -259,7 +259,7 @@
 										<div :class="{'col-xs-11': idx > 0, 'col-xs-12': idx ===0}">
 											<multi-select 
 												label="name" track-by="id"
-												v-model="audience" 
+												v-model="facebook.data.flexible_targeting[idx]" 
 												placeholder="Search audience types" 
 												@search-change="query => search({
 													url: `${fbApi.baseUrl}/act_${fbApi.accountId}/targetingsearch?q={query}&access_token=${fbApi.accessToken}`,
@@ -472,10 +472,11 @@
 </template>
 <script>
 import Vue from 'vue'
+import {mapGetters} from 'vuex'
 import MultiSelect from 'vue-multiselect'
 import {vUtils} from '@/components/Mixins'
 import {request} from '@/config/default/request'
-import CreativeEditor from './CreativeEditor'
+import CreativeEditor from './facebook/CreativeEditor'
 
 export default {
 	components: {MultiSelect, CreativeEditor},
@@ -630,6 +631,7 @@ export default {
 					delete item[i];
 				}
 			}
+			return item;
 		},
 		submitCampaign(event) {
 			event.preventDefault();
@@ -640,8 +642,9 @@ export default {
 			event.preventDefault();
 			if(!event.currentTarget.checkValidity()) return;
 			var campaign = clone(this.item);
-			if(campaign._id) this.removeUnchangedFields(campaign, ['id']);
+			if(campaign._id) campaign = this.removeUnchangedFields(campaign, ['_id']);
 			if (Object.keys(campaign).length <= 1) return this.message('Nothing changed', 'info');
+
 			console.log(clone(campaign));
 			if(campaign.services) {
 				var facebook = campaign.facebook;
@@ -703,23 +706,23 @@ export default {
 			return goals.map(goal => this.details.optimization_goals.find(el => el.id === goal));
 		}
 	},
-	mounted() {
+	beforeMount() {
 		this.gotoStep('platform');
 		console.log('campaign editor');
 		if(this.$route && this.$route.params.id) {
-			request.get('/api/campaigns/' + this.$route.params.id, ({data}) => {
+			request.get('/api/campaigns/' + this.$route.params.id).then(({data}) => {
 				if(!data.result) return this.message('Error fetching campaign data');
 				Vue.set(this, 'steps', ['fb_campaign', 'fb_ads']);
 				this.gotoStep('fb_campaign');
 				var campaign = data.result;
 				var facebook = campaign.facebook;
 				var targeting = campaign.targeting_rules;
-				for (i in {geo_includes:0, geo_excludes:0}) {
+				for (var i in {geo_includes:0, geo_excludes:0}) {
 					this.details.geo = this.details.geo.concat(targeting[i]);
-					targeting[i] = targeting[i].map(item => item._id);
+					// targeting[i] = targeting[i].map(item => item._id);
 				}
-				this.details.advertisers = this.details.advertisers.concat(campaign.advertiser);
-				campaign.advertiser = campaign.advertiser._id;
+				// this.details.advertisers = this.details.advertisers.concat(campaign.advertiser);
+				// campaign.advertiser = campaign.advertiser._id;
 				if(facebook.campaign_id && facebook.data) {
 					facebook.enabled = true;
 					Vue.set(this.details, 'locales', clone(facebook.data.locales || []));
@@ -737,9 +740,10 @@ export default {
 		});
 	},
 	computed: {
+		...mapGetters('session', ['currency']),
 		currency_symbol() {
-			console.log('currency_symbol', this.details.currency[this.item.advertiser.currency]);
-			return this.details.currency[this.item.advertiser.currency];
+			let currency = this.currency.find(el => el.name == this.item.advertiser.currency);
+			return currency && currency.symbol || '';
 		},
 		facebook() {
 			return this.item.facebook;

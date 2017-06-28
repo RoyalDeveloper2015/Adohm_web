@@ -27,17 +27,19 @@
 
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="btn-group">
-							<button type="button" class="btn btn-info" data-toggle="dropdown"><span class="fa fa-plus"></span>Create 
-							</button>
-							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<!--<div class="btn-group">-->
+							<router-link to="/social/campaigns/create">
+								<button type="button" class="btn btn-info" data-toggle="dropdown"><span class="fa fa-plus"></span>Create 
+								</button>
+							</router-link>
+							<!--<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li> <router-link to="/social/facebook/campaigns/create">Facebook Campaign</router-link> </li>
+								<li> <router-link to="/social/campaigns/create">Facebook Campaign</router-link> </li>
 								<li> <router-link to="">Twitter Campaign (coming soon)</router-link> </li>
 							</ul>
-						</div>
+						</div>-->
 					</div>
 				</div>
 				<div class="row">
@@ -101,7 +103,7 @@
 									<th>CPM</th>
 									<th>Results</th>
 									<th>Cost per result</th>
-									<th>Actions</th>
+									<th style="width: 90px">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -133,10 +135,9 @@
 										<td>
 											<div class="actions">
 												<div class="noselect sub-actions" stop-propagate="">
-													<a v-show="canRun(campaign.state)" @click="updateState(campaign._id, C_STATE_ACTIVE)"><span class="glyphicon glyphicon-play" ></span></a>
+													<a v-show="campaign.state != C_STATE_ACTIVE" @click="updateState(campaign._id, C_STATE_ACTIVE)"><span class="glyphicon glyphicon-play" ></span></a>
 													<a v-show="campaign.state == C_STATE_ACTIVE" @click="updateState(campaign._id, C_STATE_INACTIVE)"><span class="glyphicon glyphicon-stop" ></span></a>
-													<a data-toggle="collapse" :href="'#campaign-' + campaign._id"><span class="glyphicon glyphicon-plus"></span></a>
-													<router-link :to="'/social/facebook/campaigns/' + campaign._id"><span class="glyphicon glyphicon-pencil"></span></router-link>
+													<router-link :to="'/social/campaigns/' + campaign._id"><span class="glyphicon glyphicon-pencil"></span></router-link>
 													<a @click="remove(campaign._id)"><span class="glyphicon glyphicon-trash"></span></a>
 												</div>
 											</div>
@@ -201,7 +202,6 @@
 						if(idx === -1) return;
 						this.items.splice(idx, 1, Object.assign(this.items[idx], {insight}));
 					});
-					console.log(clone(this.items))
 				});
 			}
 		},
