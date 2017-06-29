@@ -621,7 +621,7 @@ export default {
 			if(data.success) {
 				this.message('Success');
 				// location.href = '/campaigns/';
-			} else this.message('Error saving campaign', 'danger');
+			} else this.message('Failed to submit campain: ' + data.error, 'danger');
 		},
 		removeUnchangedFields(item, preserveFields) {
 			var original = this.originalItem;

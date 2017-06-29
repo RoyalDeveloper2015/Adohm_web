@@ -99,10 +99,10 @@
 											<div class="text-center">
 												<span @click="$set(item, 'upload', {})" class="glyphicon glyphicon-remove" style="position: absolute; top: 3px; right: 40px"></span>
 												<template v-if="item.adformat === 'image'">
-													<img :src="item.upload.thumbnail_url" style="width: calc(100% - 5px)">
+													<img :src="options.baseURL + item.upload.thumbnail_url" style="width: calc(100% - 5px)">
 												</template>
 												<template v-else-if="item.adformat === 'video'">
-													<video :src="item.upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
+													<video :src="options.baseURL + item.upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
 												</template>
 											</div>
 										</template>
@@ -117,10 +117,10 @@
 											<div class="text-center">
 												<span @click="item.slideshow.images.splice(item.slideshow.images.findIndex(el => el.uploadId === upload.uploadId), 1)" class="glyphicon glyphicon-remove" style="position: absolute; top: 5px; right: 5px"></span>
 												<template v-if="['image', 'slideshow'].includes(item.adformat)">
-													<img :src="upload.thumbnail_url" style="width: calc(100% - 5px)"></img>
+													<img :src="options.baseURL + upload.thumbnail_url" style="width: calc(100% - 5px)"></img>
 												</template>
 												<template v-else-if="item.adformat === 'video'">
-													<video :src="upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
+													<video :src="options.baseURL + upload.thumbnail_url" style="width: calc(100% - 5px)" controls="controls"></video>
 												</template>
 											</div>
 										</template>
@@ -232,9 +232,7 @@
 					<div class="row" v-if="meta.objective != 'VIDEO_VIEWS'">
 						<div class="col-xs-4"><label for="">Call To Action</label></div>
 						<div class="col-xs-8">
-							<multi-select class="mb-10" v-model="item.object_story_spec.link_data.call_to_action.type" :options="getCallToAction()" 
-								track-by="id" label="name">
-							</multi-select>
+							<multi-select class="mb-10" label="name" track-by="type" v-model="item.object_story_spec.link_data.call_to_action" :options="getCallToAction()"></multi-select>
 						</div>
 					</div>
 					<div class="row"  v-if="item.adformat != 'carousel'">
@@ -281,7 +279,8 @@ import MultiSelect from 'vue-multiselect'
 import CarouselAd from './CarouselAd'
 import LeadgenFormEditor from './LeadgenFormEditor'
 import Vue from 'vue'
-
+import {baseURL} from '@/config/default/request'
+	
 export default {
 	mixins: [vUtils],
 	props: ['value', 'meta'],
@@ -327,7 +326,10 @@ export default {
 			posts: [],
 			pages: [],
 			forms: [],
-			calltoaction: [{'id':'OPEN_LINK', 'name':'Open link'}, {'id':'LIKE_PAGE', 'name':'Like page'}, {'id':'SHOP_NOW', 'name':'Shop now'}, {'id':'PLAY_GAME', 'name':'Play game'}, {'id':'INSTALL_APP', 'name':'Install app'}, {'id':'USE_APP', 'name':'Use app'}, {'id':'INSTALL_MOBILE_APP', 'name':'Install mobile app'}, {'id':'USE_MOBILE_APP', 'name':'Use mobile app'}, {'id':'BOOK_TRAVEL', 'name':'Book travel'}, {'id':'LISTEN_MUSIC', 'name':'Listen music'}, {'id':'LEARN_MORE', 'name':'Learn more'}, {'id':'SIGN_UP', 'name':'Sign up'}, {'id':'DOWNLOAD', 'name':'Download'}, {'id':'WATCH_MORE', 'name':'Watch more'}, {'id':'NO_BUTTON', 'name':'No button'}, {'id':'CALL_NOW', 'name':'Call now'}, {'id':'APPLY_NOW', 'name':'Apply now'}, {'id':'BUY_NOW', 'name':'Buy now'}, {'id':'GET_OFFER', 'name':'Get offer'}, {'id':'GET_OFFER_VIEW', 'name':'Get offer view'}, {'id':'GET_DIRECTIONS', 'name':'Get directions'}, {'id':'MESSAGE_PAGE', 'name':'Message page'}, {'id':'MESSAGE_USER', 'name':'Message user'}, {'id':'SUBSCRIBE', 'name':'Subscribe'}, {'id':'SELL_NOW', 'name':'Sell now'}, {'id':'DONATE_NOW', 'name':'Donate now'}, {'id':'GET_QUOTE', 'name':'Get quote'}, {'id':'CONTACT_US', 'name':'Contact us'}, {'id':'RECORD_NOW', 'name':'Record now'}, {'id':'VOTE_NOW', 'name':'Vote now'}, {'id':'REGISTER_NOW', 'name':'Register now'}, {'id':'REQUEST_TIME', 'name':'Request time'}, {'id':'SEE_MENU', 'name':'See menu'}, {'id':'EMAIL_NOW', 'name':'Email now'}, {'id':'OPEN_MOVIES', 'name':'Open movies'}]
+			calltoaction: [{'type':'OPEN_LINK', 'name':'Open link'}, {'type':'LIKE_PAGE', 'name':'Like page'}, {'type':'SHOP_NOW', 'name':'Shop now'}, {'type':'PLAY_GAME', 'name':'Play game'}, {'type':'INSTALL_APP', 'name':'Install app'}, {'type':'USE_APP', 'name':'Use app'}, {'type':'INSTALL_MOBILE_APP', 'name':'Install mobile app'}, {'type':'USE_MOBILE_APP', 'name':'Use mobile app'}, {'type':'BOOK_TRAVEL', 'name':'Book travel'}, {'type':'LISTEN_MUSIC', 'name':'Listen music'}, {'type':'LEARN_MORE', 'name':'Learn more'}, {'type':'SIGN_UP', 'name':'Sign up'}, {'type':'DOWNLOAD', 'name':'Download'}, {'type':'WATCH_MORE', 'name':'Watch more'}, {'type':'NO_BUTTON', 'name':'No button'}, {'type':'CALL_NOW', 'name':'Call now'}, {'type':'APPLY_NOW', 'name':'Apply now'}, {'type':'BUY_NOW', 'name':'Buy now'}, {'type':'GET_OFFER', 'name':'Get offer'}, {'type':'GET_OFFER_VIEW', 'name':'Get offer view'}, {'type':'GET_DIRECTIONS', 'name':'Get directions'}, {'type':'MESSAGE_PAGE', 'name':'Message page'}, {'type':'MESSAGE_USER', 'name':'Message user'}, {'type':'SUBSCRIBE', 'name':'Subscribe'}, {'type':'SELL_NOW', 'name':'Sell now'}, {'type':'DONATE_NOW', 'name':'Donate now'}, {'type':'GET_QUOTE', 'name':'Get quote'}, {'type':'CONTACT_US', 'name':'Contact us'}, {'type':'RECORD_NOW', 'name':'Record now'}, {'type':'VOTE_NOW', 'name':'Vote now'}, {'type':'REGISTER_NOW', 'name':'Register now'}, {'type':'REQUEST_TIME', 'name':'Request time'}, {'type':'SEE_MENU', 'name':'See menu'}, {'type':'EMAIL_NOW', 'name':'Email now'}, {'id':'OPEN_MOVIES', 'name':'Open movies'}]
+		},
+		options: {
+			baseURL
 		}
 	}),
 	mounted() {
@@ -367,7 +369,7 @@ export default {
 				case 'PRODUCT_CATALOG_SALES':
 					break;
 			}
-			return items.map(item => this.details.calltoaction.find(el => el.id === item));
+			return items.map(item => this.details.calltoaction.find(el => el.type === item));
 		},
 		getSupportedAdFormats() {
 			switch(this.meta.objective) {

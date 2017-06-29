@@ -8,10 +8,10 @@
 				<div class="panel bg-gray-700 center-block" >
 					<div class="text-center" v-if="item.upload.thumbnail_url">
 						<template v-if="item.upload.type == 'image'">
-							<img :src="item.upload.thumbnail_url" width="100%"> </img>
+							<img :src="options.baseURL + item.upload.thumbnail_url" width="100%"> </img>
 						</template>
 						<template v-else-if="item.upload.type == 'video'">
-							<video :src="item.upload.thumbnail_url" width="100%" controls="controls" style="max-height: 300px"></video>
+							<video :src="options.baseURL + item.upload.thumbnail_url" width="100%" controls="controls" style="max-height: 300px"></video>
 						</template>
 					</div>
 					<div v-else class="text-center">Upload preview</div>
@@ -60,6 +60,7 @@
 <script>
 	import Uploader from '@/components/partials/Uploader'
 	import Vue from 'vue'
+	import {baseURL} from '@/config/default/request'
 
 	export default {
 		props: ['value', 'index'],
@@ -74,6 +75,9 @@
 				name: null,
 				picture: null,
 				upload: {type: null}
+			},
+			options: {
+				baseURL
 			}
 		}),
 		methods: {
