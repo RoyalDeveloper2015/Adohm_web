@@ -353,13 +353,13 @@
                           <div class="col-sm-10">
                             <select v-model="newCampaign.adType" class="form-control" id="adType"
                                     name="adType">
-                              <option value="Standard">
+                              <option value="AD_SERVING_STANDARD_AD">
                                 Standard
                               </option>
-                              <option value="Standard">
+                              <option value="AD_SERVING_CLICK_TRACKER">
                                 Click tracker
                               </option>
-                              <option value="Standard">
+                              <option value="AD_SERVING_TRACKING">
                                 Tracking
                               </option>
                             </select>
