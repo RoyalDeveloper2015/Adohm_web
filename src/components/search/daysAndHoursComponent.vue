@@ -7,10 +7,10 @@
         <option value="specific">Other</option>
       </select>
     </div>
-    <div class="col-sm-4">
-      <input type="time" class="form-control" v-bind="fTime">
+    <div class="col-sm-4" style="display:inline-flex">
+      <input type="time" class="form-control" v-bind="fTime"> <span style="line-height:30px">&nbsp;&nbsp;&nbsp;To</span>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 pl-n">
       <input type="time" class="form-control" v-bind="eTime">
     </div>
   </div>

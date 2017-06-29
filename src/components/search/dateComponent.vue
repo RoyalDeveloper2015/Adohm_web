@@ -1,9 +1,13 @@
 <template>
-  <div style="display:inline">
-    <input type="radio" id="date-none" value="none" v-model="type">
-    <span for="date-none">None</span> <br>
-    <input type="radio" id="date-sel" value="date" v-model="type">
-    <span for="date-sel"><input type="date" class="form-control" style="width:80%" v-model="date"></span><br>
+  <div >
+    <form>
+      <label class="radio-inline">
+        <input type="radio" id="date-none" value="none" v-model="type"> None
+      </label><br>
+      <label class="radio-inline">
+        <input type="radio" style="height:25px;" id="date-sel" value="date" v-model="type"> <input type="date" class="form-control" v-model="date">
+      </label><br>
+    </form>
   </div>
 </template>
 
