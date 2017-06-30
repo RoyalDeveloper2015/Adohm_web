@@ -306,5 +306,5 @@ var vInsights = {
 		});
 	}
 }
-export {vItems, vListMethods, vUtils, vInsights, functions as filters};
+export {vItems, vListMethods, vUtils, vInsights, filters};
 </script>
