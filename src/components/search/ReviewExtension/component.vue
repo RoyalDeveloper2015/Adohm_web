@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  import checkbox from '../checkboxComponent.vue'
+  import checkbox from '../Gneral/checkboxComponent.vue'
   import CreateReview from './newComponent.vue'
   import Vue from 'Vue'
   export default {

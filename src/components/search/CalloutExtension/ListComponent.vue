@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import checkbox from '../checkboxComponent.vue'
+  import checkbox from '../General/checkboxComponent.vue'
   import CreateCallout from './newComponent.vue'
   import Vue from 'Vue'
   export default {

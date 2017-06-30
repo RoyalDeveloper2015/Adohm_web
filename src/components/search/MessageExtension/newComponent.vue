@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import countryList from '../countryListComponent.vue'
+  import countryList from '../General/countryListComponent.vue'
   import Option from './advancedOption.vue'
   export default {
     name: 'createReview',

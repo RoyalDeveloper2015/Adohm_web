@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import MainPage from '../components/MainPage.vue'
 import CampaignList from '../components/campaign/CampaignList.vue'
 import AddCampaign from '../components/campaign/AddCampaign.vue'
-import setupAdGroups from '../components/search/setupAdGroups.vue'
-import AdRotation from '../components/search/campaignUrlOptionComponent.vue'
+import setupAdGroups from '../components/search/createAds/setupAdGroups.vue'
+import extension from '../components/search/createAds/createAds/createAds.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -30,9 +30,9 @@ export default new Router({
       component: setupAdGroups
     },
     {
-      path: '/test',
-      name: 'test',
-      component: AdRotation
+      path: '/demo',
+      name: 'calloutExtension',
+      component: extension
     }
   ]
 })

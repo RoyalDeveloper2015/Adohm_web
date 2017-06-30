@@ -1,14 +1,14 @@
 <template>
   <div class="row ml-n mr-n bg-white">
     <div class="col-sm-3">
-      App extensions
+      Promotion extensions
     </div>
     <div class="col-sm-9 pl-n">
-      <p class="my-gray"> Select or create campaign level app extensions </p>
+      <p class="my-gray"> Select or create promotion extensions </p>
       <div class="row ml-n mr-n bg-white">
         <div class="panel panel-default mb-n" >
           <div class="panel-body p-n">
-            <table class="table table-bordered mb-n" v-show="!flgNewApp">
+            <table class="table table-bordered mb-n" v-show="!flgNewPromotion">
               <tbody >
                 <tr>
                   <td class="p-n">
@@ -24,21 +24,21 @@
                     </div>
                   </td>
                   <td class="pl-n pr-n bg-gray" rowspan="4" style="vertical-align:middle;text-align:center">
-                    <span>PApp</span>
+                    <span>PREVIEW</span>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-n" >
                     <div class="col-sm-12">
                       <div class="checkbox checkbox-primary">
-                        <input id="checkbox1" class="styled" type="checkbox" v-on:click="selectAll">
-                        <label for="checkbox1">3 App extensions</label>
+                        <input id="checkbox1" class="styled" type="checkbox" v-on:click="selectAll" v-model="flgSelectAll">
+                        <label for="checkbox1">{{promotionArray.length}} promotion extensions</label>
                       </div>
                     </div>
                   </td>
                   <td rowspan="2">
                     <div class="col-sm-12 pr-n">
-                      <li v-for="item in snippetArray" v-show="item.flag">{{item.title}}</li>
+                      <li v-for="item in promotionArray" v-show="item.flag">{{item.title}}</li>
                     </div>
                   </td>
                 </tr>
@@ -52,14 +52,14 @@
                 </tr>
                 <tr>
                   <td class="p-n bg-gray" colspan="2">
-                    <button class="btn btn-link" v-on:click="newApp">
-                      <i class="fa fa-plus-circle"></i> NEW APP EXTENSION
+                    <button class="btn btn-link" v-on:click="newPromotion">
+                      <i class="fa fa-plus-circle"></i> NEW PROMOTION EXTENSION
                     </button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <new-App @save="addNewApp" @cancel="closeApp" v-if="flgNewApp"></new-App>
+            <new-promotion @save="addNewPromotion" @cancel="closePromotion" v-if="flgNewPromotion"></new-promotion>
           </div>
         </div>
       </div>
@@ -71,15 +71,16 @@
 </template>
 
 <script>
-  import checkbox from '../General/checkboxComponent.vue'
-  import CreateApp from './newComponent.vue'
+  import checkbox from '../Gneral/checkboxComponent.vue'
+  import CreatePromotion from './newComponent.vue'
   import Vue from 'Vue'
   export default {
-    name: 'AppExtension',
+    name: 'PromotionExtension',
     data: function () {
       return {
-        flgNewApp: false,
-        snippetArray: [{
+        flgSelectAll: false,
+        flgNewPromotion: false,
+        promotionArray: [{
           title: 'Amenities: Children Play Area, Swimming Pool, Multi Purpose Hall, Gym, Table Tennis, Tennis Billiard Room, Golf Puting Green, indoor Badminton, Squash Court',
           flag: false
         }, {
@@ -99,28 +100,28 @@
       fArray: function () {
         var temp = []
         var i = 0
-        for (i = 0; i < this.snippetArray.length; i++) {
+        for (i = 0; i < this.promotionArray.length; i++) {
           temp.push({
-            title: this.snippetArray[i].title,
-            flag: this.snippetArray[i].flag
+            title: this.promotionArray[i].title,
+            flag: this.promotionArray[i].flag
           })
         }
-        for (i = 0; i < this.snippetArray.length; i++) {
-          if (this.snippetArray[i].title.toLowerCase().indexOf(this.fString) !== -1) {
-            if (this.snippetArray[i].flag === false) {
+        for (i = 0; i < this.promotionArray.length; i++) {
+          if (this.promotionArray[i].title.toLowerCase().indexOf(this.fString) !== -1) {
+            if (this.promotionArray[i].flag === false) {
               Vue.set(temp, i, {
-                title: this.snippetArray[i].title,
+                title: this.promotionArray[i].title,
                 flag: false
               })
             } else {
               Vue.set(temp, i, {
-                title: this.snippetArray[i].title,
+                title: this.promotionArray[i].title,
                 flag: true
               })
             }
           } else {
             Vue.set(temp, i, {
-              title: this.snippetArray[i].title,
+              title: this.promotionArray[i].title,
               flag: true
             })
           }
@@ -131,22 +132,22 @@
     watch: {
       fString: function (nFilter) {
         var i = 0
-        for (i = 0; i < this.snippetArray.length; i++) {
-          if (this.snippetArray[i].title.toLowerCase().indexOf(nFilter) !== -1) {
-            if (this.snippetArray[i].flag === false) {
+        for (i = 0; i < this.promotionArray.length; i++) {
+          if (this.promotionArray[i].title.toLowerCase().indexOf(nFilter) !== -1) {
+            if (this.promotionArray[i].flag === false) {
               Vue.set(this.fArray, i, {
-                title: this.snippetArray[i].title,
+                title: this.promotionArray[i].title,
                 flag: false
               })
             } else {
               Vue.set(this.fArray, i, {
-                title: this.snippetArray[i].title,
+                title: this.promotionArray[i].title,
                 flag: true
               })
             }
           } else {
             Vue.set(this.fArray, i, {
-              title: this.snippetArray[i].title,
+              title: this.promotionArray[i].title,
               flag: true
             })
           }
@@ -154,34 +155,41 @@
       }
     },
     methods: {
-      newApp: function () {
-        this.flgNewApp = true
+      newPromotion: function () {
+        this.flgNewPromotion = true
       },
-      addNewApp: function () {
-        this.flgNewApp = false
+      addNewPromotion: function () {
+        this.flgNewPromotion = false
       },
-      closeApp: function () {
-        this.flgNewApp = false
+      closePromotion: function () {
+        this.flgNewPromotion = false
       },
       onChangeItem: function (val) {
-        var temp = this.snippetArray[val.index]
+        var temp = this.promotionArray[val.index]
         temp.flag = val.flag
-        Vue.set(this.snippetArray, val.index, temp)
+        Vue.set(this.promotionArray, val.index, temp)
       },
       selectAll: function () {
-        for (var i = 0; i < this.snippetArray.length; i++) {
-          Vue.set(this.snippetArray, i, {title: this.snippetArray[i].title, flag: true})
+        if (this.flgSelectAll) {
+          for (var i = 0; i < this.promotionArray.length; i++) {
+            Vue.set(this.promotionArray, i, {title: this.promotionArray[i].title, flag: true})
+          }
+        } else {
+          for (i = 0; i < this.promotionArray.length; i++) {
+            Vue.set(this.promotionArray, i, {title: this.promotionArray[i].title, flag: false})
+          }
         }
       },
       clearAll: function () {
-        for (var i = 0; i < this.snippetArray.length; i++) {
-          Vue.set(this.snippetArray, i, {title: this.snippetArray[i].title, flag: false})
+        for (var i = 0; i < this.promotionArray.length; i++) {
+          Vue.set(this.promotionArray, i, {title: this.promotionArray[i].title, flag: false})
         }
+        this.flgSelectAll = false
       }
     },
     components: {
       'check-box': checkbox,
-      'new-App': CreateApp
+      'new-promotion': CreatePromotion
     }
   }
 </script>

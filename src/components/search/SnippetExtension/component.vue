@@ -64,7 +64,7 @@
 </template>
 
 <script>
-  import checkbox from '../checkboxComponent.vue'
+  import checkbox from '../Gneral/checkboxComponent.vue'
   import CreateSnippet from './newSnippetComponent.vue'
   import Vue from 'Vue'
   export default {

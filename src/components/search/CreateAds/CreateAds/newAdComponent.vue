@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import urlOption from './newAdUrlOptionComponent.vue'
+  import urlOption from '../../General/newAdUrlOptionComponent.vue'
   export default {
     name: 'newAdComponent',
     components: {

@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  import countryList from '../countryListComponent.vue'
+  import countryList from '../General/countryListComponent.vue'
   import advanceOpt from './advanceOption.vue'
   export default {
     name: 'NewCallExtension',

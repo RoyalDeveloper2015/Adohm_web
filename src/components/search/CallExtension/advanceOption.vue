@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import dateComponent from '../dateComponent.vue'
-  import daysAndHours from '../daysAndHoursComponent.vue'
+  import dateComponent from '../General/dateComponent.vue'
+  import daysAndHours from '../General/daysAndHoursComponent.vue'
   export default {
     name: 'CallExtensionAdvanceOption',
     data: function () {

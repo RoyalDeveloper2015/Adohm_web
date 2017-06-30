@@ -28,9 +28,9 @@
 </template>
 
 <script>
-  import dateComponent from '../dateComponent.vue'
-  import daysAndHours from '../daysAndHoursComponent.vue'
-  import timezoneString from '../basedTimeZoneComponent.vue'
+  import dateComponent from '../General/dateComponent.vue'
+  import daysAndHours from '../General/daysAndHoursComponent.vue'
+  import timezoneString from '../General/basedTimezoneComponent.vue'
   export default {
     name: 'advanceOption',
     data: function () {
