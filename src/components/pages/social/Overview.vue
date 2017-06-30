@@ -96,10 +96,10 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">Devices Breakdown</h3>
 						</div>
-					</div>
 
-					<div class="chart-panel">
-						<highcharts :options="devices.chartOptions" ref="highcharts"></highcharts>
+						<div class="chart-panel">
+							<highcharts :options="devices.chartOptions" ref="highcharts"></highcharts>
+						</div>
 					</div>
 				</div>
 				<div class="col-xs-6">
@@ -107,10 +107,16 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">Days and Hours</h3>
 						</div>
-					</div>
-
-					<div class="chart-panel">
-						<highcharts :options="devices.chartOptions" ref="highcharts"></highcharts>
+					
+						<div class="block-report text-center">
+							<select v-model="heatmap.options.selectedFields[0]" class="center-block"> 
+								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
+							</select> 
+						</div>
+						
+						<div class="chart-panel">
+							<highcharts :options="heatmap.chartOptions" ref="highcharts"></highcharts>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -123,11 +129,16 @@
 	import Vue from 'vue'
 	import VueHighCharts from 'vue-highcharts'
 	import * as Highcharts from 'highcharts'
+	import loadHeatMaps from 'highcharts/modules/heatmap'
 	import {vInsights} from '@/components/Mixins'
 	import {request} from '@/config/default/request'
 	import axios from 'axios'
 	import {mapGetters} from 'vuex'
-	Vue.use(VueHighCharts)
+	
+	loadHeatMaps(Highcharts);
+	import Boost from "highcharts/modules/boost";
+	Boost(Highcharts);
+	Vue.use(VueHighCharts, {Highcharts})
 
 	export default {
 		mixins: [vInsights],
@@ -196,7 +207,9 @@
 				}
 			},
 			heatmap: {
-				options: {},
+				options: {
+					selectedFields: ['impressions']
+				},
 				chartOptions: {
 					chart: {
 						type: 'heatmap',
@@ -205,20 +218,20 @@
 						plotBorderWidth: 1
 					},
 					title: {
-						text: 'Impressions'
+						text: ''
 					},
 					xAxis: {
 						categories: [],
 						title: 'Day times'
 					},
 					yAxis: {
-						categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+						categories: [],
 						title: 'Weekdays'
 					},
 					colorAxis: {
 						min: 0,
 						minColor: '#FFFFFF',
-						maxColor: Highcharts.getOptions().colors[0]
+						maxColor: Highcharts.getOptions().colors[3]
 					},
 					legend: {
 						align: 'right',
@@ -228,20 +241,17 @@
 						y: 25,
 						symbolHeight: 280
 					},
-					series: [{
-						name: 'Sales per employee',
-						borderWidth: 1,
-						data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
-						dataLabels: {
-							enabled: true,
-							color: '#000000'
-						}
-					}]
-
+					series: [],
+					    tooltip: {
+							formatter: function () {
+								return `<strong>${this.point.value.toFixed(2)}</strong> ${this.series.name} on 
+								<strong>${this.series.yAxis.categories[this.point.y]}, ${this.series.xAxis.categories[this.point.x]}'O clock </strong>`;
+							}
+						},
 				}
 			}
 		}),
-		mounted() {
+		beforeMount() {
 
 		},
 		methods: {
@@ -289,9 +299,9 @@
 					}
 				});
 			},
-			refreshChartFB(chart) {
+			refreshDevicesChart() {
 				var time_range = {since: moment().subtract(7, 'days').format('YYYY-MM-DD'), until: moment().format('YYYY-MM-DD')};
-				var options = this[chart].options;
+				var options = this.devices.options;
 				axios.get(`${this.fbApi.baseUrl}/act_${this.fbApi.accountId}/insights`, {
 					params: {
 						access_token: this.fbApi.accessToken,
@@ -303,8 +313,8 @@
 					var insights = data.data;
 					var series = [];
 					var seriesIndex = 0;
-					for(let j in this[chart].options.selectedFields) {
-						var field = this[chart].options.selectedFields[j];
+					for(let j in this.devices.options.selectedFields) {
+						var field = this.devices.options.selectedFields[j];
 						insights.forEach(insight => {
 							seriesIndex = series.findIndex(el => el.name == insight.impression_device);
 							if(seriesIndex == -1) return series.push({name: insight.impression_device, data: [Number(insight[field])]});
@@ -312,10 +322,51 @@
 						});
 					}
 					// debugger
-					Vue.set(this[chart].chartOptions.xAxis, 'categories', options.selectedFields);
-					Vue.set(this[chart].chartOptions, 'series', series);
+					Vue.set(this.devices.chartOptions.xAxis, 'categories', options.selectedFields);
+					Vue.set(this.devices.chartOptions, 'series', series);
 				});
-			}
+			},
+			refreshHeatmap() {
+				var {time_ranges, labels} = this.getTimeRanges(moment().subtract(7, 'days'), moment(), 'day', 'ddd');
+				var options = this.heatmap.options;
+				var map = [];
+				for(let i = 0; i < 24; i++) map.push(i);
+				Vue.set(this.heatmap.chartOptions.xAxis, 'categories', map);
+				Vue.set(this.heatmap.chartOptions.yAxis, 'categories', labels);
+				axios.get(`${this.fbApi.baseUrl}/act_${this.fbApi.accountId}/insights`, {
+					params: {
+						limit: 168,
+						access_token: this.fbApi.accessToken,
+						time_ranges,
+						time_increment: 1,
+						fields: options.selectedFields && options.selectedFields.join(','),
+						breakdowns: 'hourly_stats_aggregated_by_audience_time_zone'
+					}
+				}).then(({data}) => {
+					var insights = data.data;
+					var series = [];
+					var seriesIndex = 0;
+					for(let j in time_ranges) {
+						var date = time_ranges[j].since;
+						var day_insights = insights.filter(el => el.date_start == date);
+						for(let h = 0; h < 24; h++) {
+							var insight = day_insights.find(el => el.hourly_stats_aggregated_by_audience_time_zone.match(new RegExp(`^0?${h}\:`)));
+							for(let f in this.heatmap.options.selectedFields) {
+								let field = this.heatmap.options.selectedFields[f];
+								seriesIndex = series.findIndex(el => el.name == field);
+								if(seriesIndex == -1) { 
+									series.push({name: field, data: [[Number(h), Number(j), Number(insight[field])]] });
+									continue;
+								}
+								series[seriesIndex].data.push([Number(h), Number(j), Number(insight[field])]);
+							}
+						}
+					}
+					Vue.set(this.heatmap.chartOptions, 'series', series);
+					console.log(clone(this.heatmap.chartOptions))
+				});
+			},
+			
 		},
 		computed: {
 			...mapGetters('session', ['fbApi'])
@@ -324,7 +375,13 @@
 			'devices.options.selectedFields': {
 				immediate: true,
 				handler() {
-					this.refreshChartFB('devices');
+					this.refreshDevicesChart();
+				}
+			},
+			'heatmap.options.selectedFields': {
+				immediate: true,
+				handler() {
+					this.refreshHeatmap();
 				}
 			},
 			'overview.options.selectedFields': {

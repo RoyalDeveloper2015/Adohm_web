@@ -4,6 +4,13 @@ import {request} from '@/config/default/request'
 import axios from 'axios'
 import Vue from 'vue'
 
+const filters = {
+	humanize (value) {
+		if(!value) return;
+		return value[0].toUpperCase() + value.substr(1).replace(/\_/g, ' ');
+	}
+}
+
 var vUtils = {
 	methods: {
 		message(message, type) {
@@ -38,10 +45,7 @@ var vUtils = {
 		formatDate(value) {
 			return moment(value).format('YYYY-MM-DD');
 		},
-		humanize (value) {
-			if(!value) return;
-			return value[0].toUpperCase() + value.substr(1).replace(/\_/g, ' ');
-		}
+		...filters
 	}
 }
 
@@ -302,5 +306,5 @@ var vInsights = {
 		});
 	}
 }
-export {vItems, vListMethods, vUtils, vInsights};
+export {vItems, vListMethods, vUtils, vInsights, functions as filters};
 </script>
