@@ -13,7 +13,7 @@
 					</span>
 				</div>
 				<div class="allcard-height">
-					<router-link to="/search/addcampaign/searchnetwork" id="card" class="card-item">
+					<router-link @click="setAdvertisingChannelType('SEARCH')" to="/search/addcampaign/searchnetwork" id="card" class="card-item">
 						<div class="content-text-title">
 							<span><i class="fa fa-search network" aria-hidden="true"></i>
 										Search Network</span>
@@ -78,8 +78,15 @@
 </template>
 
 <script>
+	import {mapGetters, mapMutations} from 'vuex'
 	export default {
-		name: 'AddSearchCampagin'
+		name: 'AddSearchCampaign',
+		computed: {
+			...mapGetters('adwords/campaign', ['item', 'details'])
+		},
+		methods: {
+			...mapMutations('adwords/campaign', ['setAdvertisingChannelType'])
+		}
 	}
 </script>
 <style>

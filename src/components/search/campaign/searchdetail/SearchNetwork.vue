@@ -8,18 +8,16 @@
         <div class="title-area">
           <span class="pannel-title">Goals</span>
         </div>
-      <!-- End Title -->
-      <!-- Sub Title -->
+
         <div class="items-area">
           <div>
-            <span><input type="checkbox"></span>
+            <span><input v-model="item.goals.enabled" type="checkbox"></span>
             <span class="beside-checkbox">Use Goals</span>
             <span class="pannel-title beside-checkbox">Select a campaign type
                 <i class="fa fa-question-circle" aria-hidden="true"></i></span>
           </div>        
-      <!-- End Sub Title -->        
-      <!-- Cards -->
-          <div class="allcard-height">
+
+          <div class="allcard-height" v-if="item.goals.enabled">
             <div class="card-container">
               <div>
                 <span class="card-title">Influence consideration
@@ -44,19 +42,19 @@
               <div> 
                 <div id="card" class="influence-card">               
                   <div class="bottom-line">
-                    <span><i class="fa fa-television ic-padding" aria-hidden="true"></i></i>
+                    <span><i class="fa fa-television ic-padding" aria-hidden="true"></i>
                           Express interest on your site</span>
                   </div>
                   <div class="bottom-line">
-                    <span><i class="fa fa-credit-card ic-padding" aria-hidden="true"></i></i></i>
+                    <span><i class="fa fa-credit-card ic-padding" aria-hidden="true"></i>
                           Buy on your website</span>
                   </div>
                   <div class="bottom-line">
-                    <span><i class="fa fa-phone ic-padding" aria-hidden="true"></i></i></i>
+                    <span><i class="fa fa-phone ic-padding" aria-hidden="true"></i>
                           Call your business</span>
                   </div>
                   <div class="bottom-line disabled-text">
-                    <span><i class="fa fa-cc-paypal ic-padding" aria-hidden="true"></i></i></i>
+                    <span><i class="fa fa-cc-paypal ic-padding" aria-hidden="true"></i>
                           Visit your business</span>
                   </div>          
                 </div>
@@ -93,6 +91,7 @@
 </template>
 <script>
 import SearchDetail from '../SearchDetail'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: 'SearchNetwork',
@@ -114,6 +113,9 @@ export default {
       this.isBuy = false
       this.isCall = false
     }
+  },
+  computed: {
+	  ...mapGetters('adwords/campaign', ['item'])
   }
 }
 </script>

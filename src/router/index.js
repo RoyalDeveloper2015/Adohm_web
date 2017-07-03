@@ -107,12 +107,6 @@ export default new Router({
 							name: 'DetailNetwork'
 						},
 						{
-							path: '/search/addcampaign/searchdetail',
-							component: SearchDetail,
-							name: 'SearchDetail',
-						
-						},
-						{
 							path: '/search/adgroup',
 							name: 'SetupAdGroup',
 							component: SetupAdGroup

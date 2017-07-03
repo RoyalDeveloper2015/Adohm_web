@@ -18,13 +18,16 @@ import platformTypeActions from './actions/platformTypeActions'
 import operatingSystemActions from './actions/operatingSystemActions'
 import browserActions from './actions/browserActions'
 import adActions from './actions/adActions'
+import adwords from './modules/adwords'
 
 Vue.use(Vuex)
+console.log(adwords);
 
 const store = new Vuex.Store({
 	modules: {
 		session: session,
-		user: user
+		user: user,
+		adwords: adwords
 	},
   state: {
     campaigns: [],
