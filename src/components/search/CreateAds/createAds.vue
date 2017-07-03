@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import newAdComponent from './newAdComponent.vue'
+  import newAdComponent from './createAds/newAdComponent.vue'
   export default {
     name: 'createAds',
     data: function () {

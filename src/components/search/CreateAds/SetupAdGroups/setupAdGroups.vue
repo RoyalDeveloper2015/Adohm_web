@@ -22,8 +22,8 @@
   import Vue from 'vue'
   import {FormWizard, TabContent} from 'vue-form-wizard'
   import Router from 'vue-router'
-  import setupAdGroupForm from './SetupAdGroups/setupAdGroupForm.vue'
-  import createAds from './CreateAds/createAds.vue'
+  import setupAdGroupForm from '../setupAdGroupForm.vue'
+  import createAds from '../createAds.vue'
   const router = new Router({
     mode: 'history',
     routes: [
