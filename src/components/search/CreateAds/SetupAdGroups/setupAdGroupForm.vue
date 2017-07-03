@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import adGroupElement from './AdGroupElement.vue'
+  import adGroupElement from './adGroupElement.vue'
   export default {
     name: 'setupAdGroupForm',
     data: function () {

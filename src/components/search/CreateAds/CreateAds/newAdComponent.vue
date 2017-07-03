@@ -50,14 +50,14 @@
       </div>
     </div>
     <div class="panel-footer">
-      <button type="button" class="btn btn-link"> DONE </button>
-      <button type="button" class="btn btn-link"> CANCEL </button>
+      <button type="button" class="btn btn-link" v-on:click="save()"> DONE </button>
+      <button type="button" class="btn btn-link" v-on:click="cancel()"> CANCEL </button>
     </div>
   </div>
 </template>
 
 <script>
-  import urlOption from './newAdUrlOptionComponent.vue'
+  import urlOption from '../../General/newAdUrlOptionComponent.vue'
   export default {
     name: 'newAdComponent',
     components: {
@@ -72,6 +72,13 @@
       showUrlOption: function () {
         this.flg_urlOption = !this.flg_urlOption
         console.log(this.flg_urlOption)
+      },
+      save: function () {
+        console.log('aa')
+        this.$emit('save')
+      },
+      cancel: function () {
+        this.$emit('cancel')
       }
     }
   }

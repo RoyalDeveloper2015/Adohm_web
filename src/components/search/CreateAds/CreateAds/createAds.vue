@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <add-new-component v-if="showNewAd"></add-new-component>
+    <add-new-component v-if="showNewAd" @save="onAddNew" @cancel="onCancelNew"></add-new-component>
     <div class="panel mt-20 p-20">
       <div class="">
         <div><b>Improve your ads by adding extensions to this campaign</b></div>
@@ -57,6 +57,14 @@
     },
     components: {
       'add-new-component': newAdComponent
+    },
+    methods: {
+      onAddNew: function () {
+        this.showNewAd = false
+      },
+      onCancelNew: function () {
+        this.showNewAd = false
+      }
     }
   }
 </script>
