@@ -13,14 +13,17 @@ import Overview from '../components/pages/social/Overview'
 import SocialCampaignEditor from '../components/pages/social/CampaignEditor'
 import FacebookReporting from '../components/pages/social/facebook/Reporting'
 
-import setupAdGroups from '../components/search/CreateAds/setupAdGroups.vue'
-import AdRotation from '../components/search/CampaignUrlOption/component.vue'
 import Search from '../components/search/Search.vue'
 import SearchCampaign from '../components/search/campaign/SearchCampaigns.vue'
+import SearchCampaignWizard from '../components/search/campaign/SearchCampaignWizard.vue'
 import AddSearchCampaign from '../components/search/campaign/AddSearchCampaign.vue'
 import SearchDetail from '../components/search/campaign/SearchDetail.vue'
 import SearchNetwork from '../components/search/campaign/searchdetail/SearchNetwork.vue'
 import DetailNetwork from '../components/search/campaign/DetailNetwork.vue'
+
+import SetupAdGroup from '../components/search/CreateAds/setupAdGroupForm.vue'
+import CreateAd from '../components/search/CreateAds/createAds.vue'
+
 import Report from '../components/search/overview/Report.vue'
 Vue.use(Router)
 
@@ -73,49 +76,60 @@ export default new Router({
 			path: '/social/facebook/reporting/',
 			component: FacebookReporting
 		},
-    {
-      path: '/search/adgroups',
-      name: 'setupAdGroups',
-      component: setupAdGroups
-    },
-    {
-      path: '/search',
-      name: 'Search',
-      component: Search,
-      children: [
-        {
-          path: '/search/campaigns',
-          component: SearchCampaign,
-          name: 'SearchCampaign'
-        },
-        {
-          path: '/search/addcampaign',
-          component: AddSearchCampaign,
-          name: 'AddSearchCampagin'
-        },
-        {
-          path: '/search/addcampaign/searchnetwork/detail',
-          component: DetailNetwork,
-          name: 'DetailNetwork'
-        },
-        {
-          path: '/search/addcampaign/searchdetail',
-          component: SearchDetail,
-          name: 'SearchDetail',
-          children: [
-            {
-              path: '/search/addcampaign/searchnetwork',
-              component: SearchNetwork,
-              name: 'SearchNetwork'
-            }
-          ]
-        },
-        {
-          path: '/search/overview',
-          component: Report,
-          name: 'Report'
-        }
-      ]
-    }
-  ]
+		{
+			path: '/search',
+			name: 'Search',
+			component: Search,
+			children: [
+				{
+					path: '/search/campaigns',
+					component: SearchCampaign,
+					name: 'SearchCampaign'
+				},
+				{
+					path: '/search/addcampaign',
+					component: SearchCampaignWizard,
+					name: 'SearchCampaignWizard',
+			 		children: [
+						{
+							path: '/search/addcampaign',
+							component: AddSearchCampaign,
+							name: 'AddSearchCampaign'
+						},
+						{
+							path: '/search/addcampaign/searchnetwork',
+							component: SearchNetwork,
+							name: 'SearchNetwork'
+						},
+						{
+							path: '/search/addcampaign/searchnetwork/detail',
+							component: DetailNetwork,
+							name: 'DetailNetwork'
+						},
+						{
+							path: '/search/addcampaign/searchdetail',
+							component: SearchDetail,
+							name: 'SearchDetail',
+						
+						},
+						{
+							path: '/search/adgroup',
+							name: 'SetupAdGroup',
+							component: SetupAdGroup
+						},
+						{
+							path: '/search/ads',
+							name: 'CreateAd',
+							component: CreateAd
+						}
+					]
+				},
+				{
+					path: '/search/overview',
+					component: Report,
+					name: 'Report'
+				}
+			]
+		}
+	]
 })

@@ -1,5 +1,6 @@
 <template>
   <div>
+	<search-detail class="campaign-panel"></search-detail>
     <div class="search-network">
       <div id="card" class="campaign-pannel">
 
@@ -91,8 +92,13 @@
   </div>
 </template>
 <script>
+import SearchDetail from '../SearchDetail'
+
 export default {
   name: 'SearchNetwork',
+  components: {
+	  SearchDetail
+  },
   data: function () {
     return {
       isVisit: false,
