@@ -231,3 +231,8 @@ tr.selected td {
 .glyphicon {
 	position: initial;
 }
+
+label.no-style {
+	display: inline-block;
+	font-weight: normal;
+}
