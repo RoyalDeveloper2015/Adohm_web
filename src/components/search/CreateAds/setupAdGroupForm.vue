@@ -5,12 +5,10 @@
     <div class="row">
       <div class="col-md-7 col-sm-7 mb-20">
         <ad-group-element
-          v-for="element in lstGroup" v-bind:strGroupName="element.strGroupName"
-          v-bind:strDefaultBid="element.strDefaultBid" v-bind:lstKeyword="element.lstKeyword"
-        ></ad-group-element>
+          v-for="item, idx in items" :data.sync="items[idx]" @save="save(idx)"></ad-group-element>
 
         <div type="button" class="panel row ">
-          <div class="col-sm-12" style="font-size:x-large; line-height : 60px" v-on:click="addNewGroup">
+          <div class="col-sm-12" style="font-size:x-large; line-height : 60px" @click="addNewGroup">
             <a style="color:blue"><i class="fa fa-plus-circle" ></i> NEW AD GROUP</a>
             <span class="pull-right"><i class="fa fa-angle-down"></i></span>
           </div>
@@ -41,26 +39,30 @@
 
 <script>
   import adGroupElement from './SetupAdGroups/adGroupElement.vue'
+  import {mapState} from 'vuex'
+  import {utils} from '@/components/Mixins'
+
   export default {
     name: 'setupAdGroupForm',
     data: function () {
       return {
-        lstGroup: [{
-          'strGroupName': '',
-          'strDefaultBid': '',
-          'lstKeyword': ''
-        }]
+        items: []
       }
     },
     methods: {
       addNewGroup: function () {
-        this.lstGroup.push({
-          'strGroupName': '',
-          'strDefaultBid': '',
-          'lstKeyword': ''
-        })
-      }
+        this.items.push(utils.clone(this.item))
+      },
+	  save(idx) {
+		  this.$store.dispatch('adwords/adgroup/save', this.items[idx]);
+	  }
     },
+	mounted() {
+		this.addNewGroup();
+	},
+	computed: {
+		...mapState('adwords/adgroup', ['item'])
+	},
     components: {
       'ad-group-element': adGroupElement
     }

@@ -9,11 +9,15 @@
       </div >
       <div class="row">
         <div class="col-sm-3">
-          <button v-on:click="showNewAd=!showNewAd" class="btn btn-default form-control" style="height: 150px; font-size: large; color:blue"><i class="fa fa-plus-circle"> NEW AD</i></button>
+        	<button v-on:click="showNewAd =! showNewAd" class="btn btn-default form-control" style="height: 150px; font-size: large; color: #4285f4"><span class="fa fa-plus-circle"></span>  NEW AD </button>
         </div>
       </div>
     </div>
-    <add-new-component v-if="showNewAd" @save="onAddNew" @cancel="onCancelNew"></add-new-component>
+	<div class="row mt-10">
+		<div class="col-xs-4">
+		    <add-new-component v-if="showNewAd" @save="onAddNew" @cancel="onCancelNew"></add-new-component>
+		</div>
+	</div>
     <div class="panel mt-20 p-20">
       <div class="">
         <div><b>Improve your ads by adding extensions to this campaign</b></div>

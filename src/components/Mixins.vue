@@ -11,6 +11,12 @@ const filters = {
 	}
 }
 
+const utils = {
+	clone(object) {
+		return JSON.parse(JSON.stringify(object));
+	}
+};
+
 var vUtils = {
 	methods: {
 		message(message, type) {
@@ -23,7 +29,8 @@ var vUtils = {
 			var req = request;
 			if(url.substr(0, 4) === 'http') {req = axios}
 			req.get(url).then(response => {
-				var list = eval('response.data' + (listSource || '.result'));
+				if(listSource == undefined) listSource = '.result';
+				var list = eval('response.data' + listSource);
 				if(Array.isArray(list) && list.length) {
 					this.isLoading = false;
 					listTarget[0][listTarget[1]] = list;
@@ -306,5 +313,5 @@ var vInsights = {
 		});
 	}
 }
-export {vItems, vListMethods, vUtils, vInsights, filters};
+export {vItems, vListMethods, vUtils, vInsights, filters, utils};
 </script>

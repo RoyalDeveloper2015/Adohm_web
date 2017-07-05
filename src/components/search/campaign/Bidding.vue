@@ -475,7 +475,6 @@
 			}
 		},
 		mounted() {
-			debugger
 			Vue.set(this.strategy, 'type', this.value.type);
 			Vue.set(this, 'data', this.value.data);
 		},

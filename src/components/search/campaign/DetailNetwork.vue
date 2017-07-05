@@ -131,7 +131,7 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input v-model="options.location" value="all" type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="item.location.setting" value="all" type="radio" name="location" class="margin-top-5" id="partner">
 									All countries and territories
 								</label>
 							</span>
@@ -139,7 +139,7 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input v-model="options.location" value="home" type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="item.location.setting" value="home" type="radio" name="location" class="margin-top-5" id="partner">
 									India
 								</label>
 							</span>
@@ -147,14 +147,23 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input v-model="options.location" value="custom" type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="item.location.setting" value="custom" type="radio" name="location" class="margin-top-5" id="partner">
 									Enter another location
 								</label>
 							</span>
 						</div>
 						<div class="margin-top-20 margin-left-25">						
-							<span class="left-span"><i class="fa fa-search left-icon" aria-hidden="true"></i></span>
-							<input type="text" class="bottom-line-input width-40" placeholder="Enter a location to target or exclude">
+							<multi-select v-model="item.location" :options="details.locations" label="name"
+								track-by="id"
+								@search-change="query => search({
+									url: baseURL + '/get_location/' + encodeURI(query),
+									listSource: '',
+									listTarget: [details, 'locations']
+								})"
+								:multiple="true" :close-on-select="false"
+								:clear-on-select="false" :hide-selected="true" :option-height="10"
+								placeholder="Enter a location to target or exclude">
+							</multi-select>
 							<span class="margin-left-25"><a class="blue">Advanced search</a></span>									 
 						</div>
 					</div>
@@ -333,7 +342,7 @@
 							<div><span>Select the language of this Dynamic Search Ad campaign</span></div>
 							<div class="margin-top-10">
 								<select class="form-control">
-									<option v-for="language in languages" value="language.dcId">{{language.name}}</option>
+									<!--<option v-for="language in languages" value="language.dcId">{{language.name}}</option>-->
 								</select>
 							</div>
 						</div>
@@ -397,10 +406,8 @@
 			selected: '',
 			select_end_date: false,
 			details: {
-				languages: []
-			},
-			options: {
-				location: 'all'
+				languages: [],
+				locations: []
 			},
 			baseURL
 		}),
@@ -423,9 +430,6 @@
 			PromotionExtension,
 		},
 		computed: {
-			...mapState([
-				'languages'
-			]),
 			...mapState('adwords/campaign', [
 				'item'
 			]),

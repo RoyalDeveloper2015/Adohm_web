@@ -3,7 +3,7 @@
     <div class="form-group">
       <div class="col-sm-7 col-md-7">
         <label for="group-name" class="control-label">Ad group name</label>
-        <input type="text" id="group-name" v-model="strGroupName" class="form-control">
+        <input type="text" id="group-name" v-model="item.name" class="form-control">
       </div>
     </div>
     <div class="form-group">
@@ -11,11 +11,11 @@
         <label for="default-bid" class="control-label">Default bid
           <i class="fa fa-question-circle-o"></i>
         </label>
-        <input type="text" id="default-bid" v-model="strDefaultBid" class="form-control">
+        <input type="text" id="default-bid" v-model="item.defaultBid" class="form-control">
       </div>
     </div>
     <div class="form-group col-md-12 col-sm-12">
-      <textarea class="form-control" rows="7" v-model="lstKeyword" placeholder="Enter or paste your keywords, one word or phrase per line">
+      <textarea class="form-control" rows="7" v-model="item.keywords" placeholder="Enter or paste your keywords, one word or phrase per line">
       </textarea>
     </div>
     <div class="form-group col-md-12 col-sm-12">
@@ -29,10 +29,20 @@
 
   export default {
     name: 'adGroupElement',
-    props: [
-      'strGroupName',
-      'strDefaultBid',
-      'lstKeyword'
-    ]
+    props: ['data'],
+	data: () => ({
+		item: {}
+	}),
+	mounted() {
+		Vue.set(this, 'item', this.data);
+	},
+	watch: {
+		item: {
+			deep: true,
+			handler(item) {
+				this.$emit('update:data', item);
+			}
+		}
+	}
   }
 </script>
