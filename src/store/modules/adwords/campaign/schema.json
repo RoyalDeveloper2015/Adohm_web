@@ -1,0 +1,62 @@
+{
+	"advertisingChannelType": {
+		"type": "string",
+		"enum": ["UNKNOWN", "SEARCH", "DISPLAY", "SHOPPING", "MULTI_CHANNEL"]
+	},
+	"name": {
+		"type": "string"
+	},
+	"status": {
+		"type": "string",
+		"enum": ["ENABLED"]
+	},
+	"servingStatus": {
+		"type": "string",
+		"enum": ["PAUSED"]
+	},
+	"startDate": {
+		"type": "string"
+	},
+	"endDate": {
+		"type": "string"
+	},
+	"budget": {
+		"type": "object",
+		"properties": {
+			"amount":{
+				"microamount":32000000
+			},
+			"deliveryMethod":"Standard"
+		}
+	},
+	"settings":[	
+		{	
+			"targetingSetting":{	
+				"settingType":"TargettingType",
+				"TargetingSettingDetail":{	
+					"criterionTypeGroup":"KEYWORD",
+					"targetAll":true
+				}
+			}
+		}
+	],
+	"advertisingChannelType":"SEARCH",
+	"networkSetting":{	
+		"targetGoogleSearch":true,
+		"targetSerchNetwork":true,
+		"targetContentNetwork":true,
+		"targetPartnerSerchNetwork":true
+	},
+	"biddingStrategyService":{	
+		"biddingStrategyId":1454,
+		"BiddingStrategyName":"",
+		"BiddingStrategyType":"",
+		"status":"",
+		"biddingStrategySource":"",
+		"biddingScheme":{	
+			"manualCpcBiddingScheme":{	
+				"biddingSchemeType":""
+			}
+		}
+	}
+}
