@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import advanceOption from '../calloutExtension/advanceOption.vue'
+  import advanceOption from '../CalloutExtension/advanceOption.vue'
   export default {
     name: 'CreateSnippet',
     data: function () {

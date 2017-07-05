@@ -131,7 +131,7 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input  type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="options.location" value="all" type="radio" name="location" class="margin-top-5" id="partner">
 									All countries and territories
 								</label>
 							</span>
@@ -139,7 +139,7 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input  type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="options.location" value="home" type="radio" name="location" class="margin-top-5" id="partner">
 									India
 								</label>
 							</span>
@@ -147,7 +147,7 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="options.location" value="custom" type="radio" name="location" class="margin-top-5" id="partner">
 									Enter another location
 								</label>
 							</span>
@@ -357,13 +357,16 @@
 			</div>
 		</div>
 
-		<!-- Sitelink Extensions -->
 		<site-link-extensions></site-link-extensions>
-
-		<!--<div class="margin-top-20 width-100 right">
-			<router-link to="/search/adgroups" class="gmd gmd-1 gmd-blue">SAVE AND CONTINUE</router-link>
-		</div>-->
-
+		<callout-extension></callout-extension>
+		<app-extension class="mt-20"></app-extension>
+		<call-extension class="mt-20"></call-extension>
+		<add-schedule class="mt-20"></add-schedule>
+		<ad-rotation class="mt-20"></ad-rotation>
+		<message-extension class="mt-20"></message-extension>
+		<review-extension class="mt-20"></review-extension>
+		<snippet-extension class="mt-20"></snippet-extension>
+		<promotion-extension class="mt-20"></promotion-extension>
 	</div>
 </template>
 <script>
@@ -375,42 +378,32 @@
 	import {baseURL} from '@/config/adwords/request'
 	import {vUtils} from '@/components/Mixins'
 	import SiteLinkExtensions from './SiteLinkExtensions.vue'
+	import CalloutExtension from '../CalloutExtension/component'
+	import AppExtension from '../AppExtension/component'
+	import CallExtension from '../CallExtension/component'
+	import AddSchedule from '../AddSchedule/component'
+	import AdRotation from '../adRotation/component'
+	import MessageExtension from '../MessageExtension/component'
+	import ReviewExtension from '../ReviewExtension/component'
+	import SnippetExtension from '../SnippetExtension/component'
+	import PromotionExtension from '../promotionExtension/component'
 
 	export default {
 		name: 'DetailNetwork',
 		mixins: [vUtils],
-		data: function () {
-			return {
-				expanded: false,
-				network: false,
-				selected: '',
-				select_end_date: false,
-				biddatas: [
-					{
-						name: 'Automated bid strategies',
-						values: [
-							'Target CPA',
-							'Target ROAS',
-							'Maximize clicks',
-							'Maximize conversions',
-							'Target search page location',
-							'Target outranking share',
-							'Enhanced CPC'
-						]
-					},
-					{
-						name: 'Manual Bid Strategies',
-						values: [
-							'Manual CPC'
-						]
-					}
-				],
-				details: {
-					languages: []
-				},
-				baseURL
-			}
-		},
+		data: () => ({
+			expanded: false,
+			network: false,
+			selected: '',
+			select_end_date: false,
+			details: {
+				languages: []
+			},
+			options: {
+				location: 'all'
+			},
+			baseURL
+		}),
 		mounted: function () {
 			this.loadLanguages();
 			for(var i = 1; i < 11; i++) this.expand('trans-' + i, 'row-' + i);
@@ -418,7 +411,16 @@
 		components: {
 			MultiSelect,
 			Bidding,
-			SiteLinkExtensions
+			SiteLinkExtensions, 
+			CalloutExtension,
+			AppExtension,
+			CallExtension,
+			AddSchedule,
+			AdRotation,
+			MessageExtension,
+			ReviewExtension,
+			SnippetExtension,
+			PromotionExtension,
 		},
 		computed: {
 			...mapState([

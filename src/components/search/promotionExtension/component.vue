@@ -71,9 +71,9 @@
 </template>
 
 <script>
-  import checkbox from '../Gneral/checkboxComponent.vue'
+  import checkbox from '../General/checkboxComponent.vue'
   import CreatePromotion from './newComponent.vue'
-  import Vue from 'Vue'
+  import Vue from 'vue'
   export default {
     name: 'PromotionExtension',
     data: function () {

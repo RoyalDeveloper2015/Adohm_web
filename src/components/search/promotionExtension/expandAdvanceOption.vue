@@ -37,9 +37,9 @@
 </template>
 
 <script>
-  import dateComponent from './dateComponent.vue'
-  import dayshours from './daysAndHoursComponent.vue'
-  import TimezoneString from './basedTimeZoneComponent.vue'
+  import dateComponent from '../General/dateComponent.vue'
+  import dayshours from '../General/daysAndHoursComponent.vue'
+  import TimezoneString from '../General/basedTimezoneComponent.vue'
   export default {
     name: 'ExpandAdvanceOption',
     data: function () {

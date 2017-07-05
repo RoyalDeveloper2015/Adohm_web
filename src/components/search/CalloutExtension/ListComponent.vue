@@ -69,7 +69,7 @@
 <script>
   import checkbox from '../General/checkboxComponent.vue'
   import CreateCallout from './newComponent.vue'
-  import Vue from 'Vue'
+  import Vue from 'vue'
   export default {
     name: 'CampaignCalloutExtension',
     data: function () {

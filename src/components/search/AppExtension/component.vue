@@ -73,7 +73,7 @@
 <script>
   import checkbox from '../General/checkboxComponent.vue'
   import CreateApp from './newComponent.vue'
-  import Vue from 'Vue'
+  import Vue from 'vue'
   export default {
     name: 'AppExtension',
     data: function () {

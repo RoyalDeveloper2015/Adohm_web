@@ -80,7 +80,7 @@
 <script>
   import newCallExtension from './newComponent.vue'
   import checkbox from '../General/checkboxComponent.vue'
-  import Vue from 'Vue'
+  import Vue from 'vue'
   export default {
     name: 'CallExtension',
     data: function () {

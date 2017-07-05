@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import occation from '../General/occationComponent.vue'
+  import occation from './occationComponent.vue'
   import currency from '../General/currencyTypeComponent.vue'
   import promotion from './promotionTypeComponent.vue'
   import detail from './promotionDetailTypeComponent.vue'

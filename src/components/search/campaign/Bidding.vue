@@ -14,7 +14,7 @@
 					<div>
 						<multi-select class="selectpicker margin-top-20"
 								v-model="strategy"
-								:options="biddatas"
+								:options="details.biddatas"
 								label="name" track-by="type"
 								group-label="name"
 								group-values="values"
@@ -411,57 +411,59 @@
 				empty: true,
 				use_portfolio: false,
 				use_existing_portfolio: false,
-				biddatas: [
-					{
-						name: 'Automated bid strategies',
-						values: [
-							{type: 'targetCPA', name: 'Target CPA'},
-							{type: 'targetROAS', name: 'Target ROAS'},
-							{type: 'maximizeClicks', name: 'Maximize clicks'},
-							{type: 'maximizeConversions', name: 'Maximize conversions'},
-							{type: 'targetSearchPageLocation', name: 'Target search page location'},
-							{type: 'targetOutRankingShare', name: 'Target outranking share'},
-							{type: 'enhancedCPC', name: 'Enhanced CPC'}
-						]
-					},
-					{
-						name: 'Manual Bid Strategies',
-						values: [
-							{type: 'manualCPC', name: 'Manual CPC'}
-						]
-					}
-				],
 				strategy: {
 					type: null
 				},
 				data: {},
-				strategies: {
-					targetCPA: {
-						cpa: null
-					},
-					targetROAS: {
-						roas: null
-					},
-					maximizeClicks: {
-						maxCPC: null,
-						enableEnhancedCPC: true
-					},
-					maximizeConversions: {},
-					targetSearchPageLocation: {
-						location: null,
-						name: null
-					},
-					targetOutRankingShare: {
-						domainName: null,
-						targetPercentage: null,
-						maxBid: null,
-						name: null
-					},
-					enhancedCPC: {
-						name: null
-					},
-					manualCPC: {
-						enableEnhancedCPC: true
+				details: {
+					biddatas: [
+						{
+							name: 'Automated bid strategies',
+							values: [
+								{type: 'targetCPA', name: 'Target CPA'},
+								{type: 'targetROAS', name: 'Target ROAS'},
+								{type: 'maximizeClicks', name: 'Maximize clicks'},
+								{type: 'maximizeConversions', name: 'Maximize conversions'},
+								{type: 'targetSearchPageLocation', name: 'Target search page location'},
+								{type: 'targetOutRankingShare', name: 'Target outranking share'},
+								{type: 'enhancedCPC', name: 'Enhanced CPC'}
+							]
+						},
+						{
+							name: 'Manual Bid Strategies',
+							values: [
+								{type: 'manualCPC', name: 'Manual CPC'}
+							]
+						}
+					],
+					strategies: {
+						targetCPA: {
+							cpa: null
+						},
+						targetROAS: {
+							roas: null
+						},
+						maximizeClicks: {
+							maxCPC: null,
+							enableEnhancedCPC: true
+						},
+						maximizeConversions: {},
+						targetSearchPageLocation: {
+							location: null,
+							name: null
+						},
+						targetOutRankingShare: {
+							domainName: null,
+							targetPercentage: null,
+							maxBid: null,
+							name: null
+						},
+						enhancedCPC: {
+							name: null
+						},
+						manualCPC: {
+							enableEnhancedCPC: true
+						}
 					}
 				}
 			}
@@ -480,7 +482,7 @@
 		watch: {
 			'strategy.type': {
 				handler(type) {
-					Vue.set(this, 'data', this.strategies[type]);
+					Vue.set(this, 'data', this.details.strategies[type]);
 					this.$emit('update:value', {type: type, data: this.data})
 				}
 			},
