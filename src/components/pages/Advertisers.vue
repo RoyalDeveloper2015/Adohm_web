@@ -70,7 +70,8 @@
 	import vBus from '@/components/Bus'
 	import AdvertiserEditor from './advertiser/AdvertiserEditor'
 	import {mapGetters} from 'vuex'
-
+	import Vue from 'vue'
+	
 	export default {
 		mixins: [vListMethods],
 		components: {

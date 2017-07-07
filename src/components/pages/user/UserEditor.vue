@@ -1,5 +1,5 @@
 <template>
-	<div id="editUser" class="modal fade" role="dialog">
+	<div id="editUser" class="modal fade in" role="dialog">
 		<div class="modal-dialog">
 			<form @submit.prevent="submit">
 				<div class="modal-content">

@@ -1,6 +1,7 @@
 import axios from 'axios'
+import appConfig from './app'
 
-var baseURL = 'http://localhost:3000'
+var baseURL = appConfig.baseURL + ':3000';
 
 var request = axios.create({
   baseURL,

@@ -1,19 +1,18 @@
 <template>
 <div>
 	<div class="add-campaign">
-		<div id="card" class="campaign-pannel">
+		<div id="card" class="campaign-pannel" :style="item.channelType ? ({'max-height': '100px', 'overflow-y': 'hidden'}) : null">
 			<div class="title-area">
 				<span class="pannel-title">Campaign type</span>
 			</div>
-
 			<div class="items-area">
 				<div>
-					<span class="pannel-title">Select a campaign type
-						<i class="fa fa-question-circle" aria-hidden="true"></i>
+					<span class="pannel-title">
+						Select a campaign type <i class="fa fa-question-circle" aria-hidden="true"></i>
 					</span>
 				</div>
 				<div class="allcard-height">
-					<router-link @click="setAdvertisingChannelType('SEARCH')" to="/search/addcampaign/searchnetwork" id="card" class="card-item">
+					<div @click="toggleChannelType('Search')" :class="{activetab: item.channelType == 'Search'}" id="card" class="card-item">
 						<div class="content-text-title">
 							<span><i class="fa fa-search network" aria-hidden="true"></i>
 										Search Network</span>
@@ -24,8 +23,8 @@
 										interested in your product<br />
 										or service with text ads</span>
 						</div>
-					</router-link>
-					<router-link to="/search/addcampaign/detail" id="card" class="card-item">
+					</div>
+					<div @click="toggleChannelType('Display')" :class="{activetab: item.channelType == 'Display'}" id="card" class="card-item">
 						<div class="content-text-title">
 							<span><i class="fa fa-tags network" aria-hidden="true"></i>
 										Display Network</span>
@@ -35,8 +34,8 @@
 							<span>Run different kinds of<br />									 
 										ads across the web</span>
 						</div>
-					</router-link>
-					<router-link to="/search/addcampaign/detail" id="card" class="card-item">
+					</div>
+					<div @click="toggleChannelType('Shopping')" :class="{activetab: item.channelType == 'Shopping'}" id="card" class="card-item">
 						<div class="content-text-title">
 							<span><i class="fa fa-tags network" aria-hidden="true"></i>
 										Shopping</span>
@@ -46,8 +45,8 @@
 							<span>Promote your products<br />									 
 										with Shopping ads</span>
 						</div>
-					</router-link>
-					<router-link to="/search/addcampaign/detail" id="card" class="card-item">
+					</div>
+					<div @click="toggleChannelType('Video')" :class="{activetab: item.channelType == 'Video'}" id="card" class="card-item">
 						<div class="content-text-title">
 							<span><i class="fa fa-video-camera network" aria-hidden="true"></i>
 										Video</span>
@@ -58,8 +57,8 @@
 										viewers on YouTube and<br />
 										across the web</span>
 						</div>
-					</router-link>
-					<router-link to="/search/addcampaign/detail" id="card" class="card-item">
+					</div>					
+					<div @click="toggleChannelType('Universal')" :class="{activetab: item.channelType == 'Universal'}" id="card" class="card-item">
 						<div class="content-text-title">
 							<span><i class="fa fa-android network" aria-hidden="true"></i>
 										Universal App</span>
@@ -69,23 +68,34 @@
 							<span>Drive app installs across<br />										
 										Google`s networks</span>
 						</div>
-					</router-link>
+					</div>
 				</div>
 			</div>
 		</div>
+		<search-network> </search-network>
 	</div>
+
 </div>
 </template>
 
 <script>
 	import {mapGetters, mapMutations} from 'vuex'
+	import SearchNetwork from './searchdetail/SearchNetwork.vue'
+	import Vue from 'vue'
+
 	export default {
 		name: 'AddSearchCampaign',
+		components: {
+			SearchNetwork
+		},
 		computed: {
 			...mapGetters('adwords/campaign', ['item', 'details'])
 		},
 		methods: {
-			...mapMutations('adwords/campaign', ['setAdvertisingChannelType'])
+			...mapMutations('adwords/campaign', ['setAdvertisingChannelType']),
+			toggleChannelType(type) {
+				Vue.set(this.item, 'channelType', this.item.channelType == type ? null : type);
+			}
 		}
 	}
 </script>
@@ -144,6 +154,12 @@
 	.advertise {
 		 padding: 10px 0px 10px 0px;
 	}
+	.activetab, .activetab:hover {
+		color: #ffffff !important;
+		background-color: #1e72de !important;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+  	}
 	@media (max-width: 1350px){
 		.allcard-height {
 			display: inherit;
@@ -154,5 +170,7 @@
 			float: left;
 		}
 	}
-	
+	#card {
+		transition: max-height .5s, box-shadow ;
+	}
 </style>

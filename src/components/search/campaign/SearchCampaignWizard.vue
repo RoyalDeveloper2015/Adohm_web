@@ -6,7 +6,7 @@
 			@on-loading="state => loading = state">
           <tab-content title="Select Campain Settings" route="/search/addcampaign" :before-change="saveCampaign">
           </tab-content>
-          <tab-content title="Set up and groups" route="/search/adgroup">
+          <tab-content title="Set up ad groups" route="/search/adgroup">
           </tab-content>
           <tab-content title="Create ads" route="/search/ads">
           </tab-content>
@@ -37,7 +37,7 @@
 	methods: {
 		saveCampaign() {
 			return new Promise((resolve, reject) => {
-				this.$store.dispatch('adwords/campaign/save')
+				this.$store.dispatch('adwords/campaign/save').then(resolve).catch(reject);
 			});
 		}
 		// ...mapActions('adwords/campaign', ['save'])

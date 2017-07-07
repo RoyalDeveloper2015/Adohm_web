@@ -1,31 +1,51 @@
 import {request} from '@/config/adwords/request'
+import {utils} from '@/components/Mixins'
+import moment from 'moment'
 
 function getDataStructure() {
 	return {
 		item: {
 			name: null,
-			channelType: 'SEARCH',
+			channelType: null,
 			// website: null,
 			startDate: null,
 			endDate: null,
-			location: {
+			locations: {
 				setting: null,
 				targeted: [],
 				excluded: []
 			},
 			languages: [],
-			dailyBudget: {
-				amount: 0,
-				// sharedLibrary: "CampaignNAme,Amount",
-				deliveryMethod: 'standard'
+			budget: {
+				amount: null,
+				sharedLibrary: null,
+				deliveryMethod: 'Standard'
 			},
 			networkSetting:{	
 				targetSearchNetwork: true,
 				targetContentNetwork: true
 			},
-			biddingStrategy: {
+			bidStrategy: {
 				type: 'targetCPA',
 				data: { cpa: null }
+			},
+			siteLinkExtension: [
+			],
+			callOutExtension: {
+			},
+			callExtensions: [
+			],
+			structuredSnippetExtensions: {
+				accountLevelCallOut: "accountLevelCallOut",
+				campaignLevelCallOutExtension: [
+				]
+			},
+			adRotation: "Rotate Evenly",
+			adSchedule: [
+			],
+			locationOptions: {
+				target: null,
+				exclude: null
 			},
 			goals: {
 				enabled: false
@@ -78,11 +98,20 @@ const mutations = {
 
 const actions = {
 	save(context, payload) {
-		debugger
-		return request.post('/add_searchcampaign', context.state.item)
-			.then(({data}) => {
-
-			});
+		var item = utils.clone(context.state.item);
+		var bidStrategy = item.bidStrategy;
+		item.bidStrategy = {[bidStrategy.type]: bidStrategy.data};
+		item.startDate = moment(item.startDate).format('YYYYMMDD');
+		item.endDate = moment(item.endDate).format('YYYYMMDD');
+		delete item.goals;
+		return request.post('/add_searchcampaign', item)
+	},
+	getAll(context) {
+		return new Promise((resolve, reject) => {
+			request.get('/get_campaigns').then(({data}) => {
+				resolve(data);
+			}).catch(reject);
+		});
 	}
 };
 

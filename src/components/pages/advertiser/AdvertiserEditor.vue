@@ -1,5 +1,5 @@
 <template>
-	<div class="modal fade" id="editAccount" style="overflow: auto">
+	<div class="modal fade in" id="editAccount" style="overflow: auto">
 		<div class="modal-dialog">
 			<form @submit.prevent="submit">
 				<div class="modal-content">

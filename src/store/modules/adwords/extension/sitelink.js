@@ -1,15 +1,16 @@
-import {request} from '@/config/adwords/request'
+import {request} from '@/config/default/request'
 
 function getDataStructure() {
 	return {
 		item: {
-			advertiserId: null,
-			name: null,
-			campaignId: null,
-			defaultBid: null,
-			keywords: null	
+			id: null,
+			sitelinkText: null,
+    		descriptionLine1: null,
+    		descriptionLine2: null,
+    		finalUrl: null
 		},
 		details: {
+
 		}
 	};
 }

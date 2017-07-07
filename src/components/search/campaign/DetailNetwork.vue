@@ -4,12 +4,12 @@
 		<!-- search network campaign -->
 		<div id="card" class="detail-pannel">
 			<div class="top-card">
-				<div class="col-md-3 align-left">
+				<div class="col-md-4 align-left">
 					<span class="type">Type:</span>
 					<span class="title-content black">Search Network Campaign</span>
 				</div>
-				<div class="col-md-3 align-left">
-					<span class="type margin-left-50">Goals:</span>
+				<div class="col-md-4 align-left">
+					<span class="type">Goals:</span>
 					<span class="title-content black">Visit your website</span>
 				</div>
 				<div class="col-md-6 right">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="trans-1">
-						<input v-model="item.name" type="text" class="bottom-line-input width-100">
+						<input v-model="item.name" type="text" class="bottom-line-input width-100" placeholder="Campaign name">
 					</div>
 				</div>
 				<div class="col-md-6 right">
@@ -131,7 +131,7 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input v-model="item.location.setting" value="all" type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="item.locations.setting" value="All" type="radio" name="location" class="margin-top-5" id="partner">
 									All countries and territories
 								</label>
 							</span>
@@ -139,21 +139,21 @@
 						<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input v-model="item.location.setting" value="home" type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="item.locations.setting" value="Home" type="radio" name="location" class="margin-top-5" id="partner">
 									India
 								</label>
 							</span>
 						</div>
-						<div class="margin-top-5">
+						<!--<div class="margin-top-5">
 							<span>
 								<label class="no-style vertical margin-left-10">
-									<input v-model="item.location.setting" value="custom" type="radio" name="location" class="margin-top-5" id="partner">
+									<input v-model="item.locations.setting" value="custom" type="radio" name="location" class="margin-top-5" id="partner">
 									Enter another location
 								</label>
 							</span>
 						</div>
 						<div class="margin-top-20 margin-left-25">						
-							<multi-select v-model="item.location" :options="details.locations" label="name"
+							<multi-select v-model="item.locations.targeted" :options="details.locations" label="name"
 								track-by="id"
 								@search-change="query => search({
 									url: baseURL + '/get_location/' + encodeURI(query),
@@ -165,7 +165,7 @@
 								placeholder="Enter a location to target or exclude">
 							</multi-select>
 							<span class="margin-left-25"><a class="blue">Advanced search</a></span>									 
-						</div>
+						</div>-->
 					</div>
 				</div>
 				<div class="col-md-1 right">
@@ -210,7 +210,7 @@
 		</div>
 
 		<!-- Bidding -->
-		<bidding :value.sync="item.biddingStrategy"></bidding>
+		<bidding :value.sync="item.bidStrategy"></bidding>
 
 		<!-- Daily budget -->
 		<div id="card" class="detail-pannel margin-top-20">
@@ -223,7 +223,7 @@
 						<div><span>Enter a daily budget</span></div>					
 						<div class="margin-top-10">						
 							<span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>
-							<input v-model="item.dailyBudget.amount" type="number" min="0" class="bottom-line-input width-40">								 
+							<input v-model="item.budget.amount" type="number" min="0" class="bottom-line-input width-40">								 
 						</div>
 						<div class="margin-top-20"><span class="cursor blue">Apply from Shared library</span></div>
 						<div class="margin-top-20">
@@ -232,13 +232,13 @@
 							<div class="trans-7 margin-top-20">
 								<div>
 									<label class="no-style margin-left-10">
-										<input v-model="item.dailyBudget.deliveryMethod" value="standard" type="radio" name="daily-bid-mode">
+										<input v-model="item.budget.deliveryMethod" value="standard" type="radio" name="daily-bid-mode">
 										Standard
 									</label>
 								</div>
 								<div class="margin-top-20">
 									<label class="no-style margin-left-10">
-										<input v-model="item.dailyBudget.deliveryMethod" value="accelerated" type="radio" name="daily-bid-mode">
+										<input v-model="item.budget.deliveryMethod" value="accelerated" type="radio" name="daily-bid-mode">
 										Accelerated
 									</label>
 								</div>
@@ -280,18 +280,22 @@
 							<input v-model="item.startDate" type="date" class="bottom-line-input width-40" placeholder="Start date">
 						</div>
 						<div class="margin-top-20">
-							<input type="radio" name="select_end_date"
-								v-model="select_end_date"
-								v-bind:value="false"
-								checked>
-							<span class="margin-left-10">None</span>
+							<label class="no-style margin-left-10">
+								<input type="radio" name="select_end_date"
+									v-model="select_end_date"
+									v-bind:value="false"
+									checked>
+								None
+							</label>
 						</div>
 						<div class="margin-top-20">
-							<input type="radio" name="select_end_date"
-								v-model="select_end_date"
-								v-bind:value="true"
-								checked>
-							<span class="margin-left-10">Select a date</span>
+							<label class="no-style margin-left-10">
+								<input type="radio" name="select_end_date"
+									v-model="select_end_date"
+									v-bind:value="true"
+									checked>
+								Select a date
+							</label>
 						</div>
 						<div class="margin-top-10" v-show="select_end_date">
 							<input v-model="item.endDate" type="date" class="bottom-line-input width-40">								 
@@ -366,16 +370,16 @@
 			</div>
 		</div>
 
-		<site-link-extensions></site-link-extensions>
-		<callout-extension></callout-extension>
-		<app-extension class="mt-20"></app-extension>
-		<call-extension class="mt-20"></call-extension>
-		<add-schedule class="mt-20"></add-schedule>
-		<ad-rotation class="mt-20"></ad-rotation>
-		<message-extension class="mt-20"></message-extension>
-		<review-extension class="mt-20"></review-extension>
-		<snippet-extension class="mt-20"></snippet-extension>
-		<promotion-extension class="mt-20"></promotion-extension>
+		<extension-view extension="sitelink-extension" label="Site link extensions"></extension-view> 
+		<extension-view extension="callout-extension" label="Callout extensions"></extension-view>
+		<extension-view extension="call-extension" label="Call extensions"></extension-view> 
+		<extension-view extension="app-extension" label="App extensions"></extension-view> 
+		<extension-view extension="ad-schedule" label="Ad schedule"></extension-view>
+		<extension-view extension="ad-rotation" label="Ad rotation"></extension-view> 
+		<extension-view extension="message-extension" label="Messages extension"></extension-view>
+		<extension-view extension="review-extension" label="Review extension"></extension-view>
+		<extension-view extension="snippet-extension" label="Snippet extension"></extension-view> 
+		<extension-view extension="promotion-extension" label="Promotion extension"></extension-view>
 	</div>
 </template>
 <script>
@@ -386,16 +390,7 @@
 	import Bidding from './Bidding.vue'
 	import {baseURL} from '@/config/adwords/request'
 	import {vUtils} from '@/components/Mixins'
-	import SiteLinkExtensions from './SiteLinkExtensions.vue'
-	import CalloutExtension from '../CalloutExtension/component'
-	import AppExtension from '../AppExtension/component'
-	import CallExtension from '../CallExtension/component'
-	import AddSchedule from '../AddSchedule/component'
-	import AdRotation from '../adRotation/component'
-	import MessageExtension from '../MessageExtension/component'
-	import ReviewExtension from '../ReviewExtension/component'
-	import SnippetExtension from '../SnippetExtension/component'
-	import PromotionExtension from '../promotionExtension/component'
+	import ExtensionView from './ExtensionView.vue'
 
 	export default {
 		name: 'DetailNetwork',
@@ -418,21 +413,10 @@
 		components: {
 			MultiSelect,
 			Bidding,
-			SiteLinkExtensions, 
-			CalloutExtension,
-			AppExtension,
-			CallExtension,
-			AddSchedule,
-			AdRotation,
-			MessageExtension,
-			ReviewExtension,
-			SnippetExtension,
-			PromotionExtension,
+			ExtensionView
 		},
 		computed: {
-			...mapState('adwords/campaign', [
-				'item'
-			]),
+			...mapState('adwords/campaign', ['item']),
 		},
 		methods: {
 			...mapActions({
@@ -553,5 +537,9 @@
 	}
 	.left-border {
 		border-left: 1px solid rgba(0,0,0,0.5);
+	}
+	.bottom-line-input:focus {
+		outline: 0;
+		border-bottom: solid 2px #4285f4;
 	}
 </style>

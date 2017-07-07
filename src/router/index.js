@@ -17,8 +17,6 @@ import Search from '../components/search/Search.vue'
 import SearchCampaign from '../components/search/campaign/SearchCampaigns.vue'
 import SearchCampaignWizard from '../components/search/campaign/SearchCampaignWizard.vue'
 import AddSearchCampaign from '../components/search/campaign/AddSearchCampaign.vue'
-import SearchDetail from '../components/search/campaign/SearchDetail.vue'
-import SearchNetwork from '../components/search/campaign/searchdetail/SearchNetwork.vue'
 import DetailNetwork from '../components/search/campaign/DetailNetwork.vue'
 
 import SetupAdGroup from '../components/search/CreateAds/setupAdGroupForm.vue'
@@ -97,12 +95,7 @@ export default new Router({
 							name: 'AddSearchCampaign'
 						},
 						{
-							path: '/search/addcampaign/searchnetwork',
-							component: SearchNetwork,
-							name: 'SearchNetwork'
-						},
-						{
-							path: '/search/addcampaign/searchnetwork/detail',
+							path: '/search/addcampaign/detail',
 							component: DetailNetwork,
 							name: 'DetailNetwork'
 						},

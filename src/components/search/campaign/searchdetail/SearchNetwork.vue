@@ -1,6 +1,5 @@
 <template>
 	<div>
-	<search-detail class="campaign-panel"></search-detail>
 		<div class="search-network">
 			<div id="card" class="campaign-pannel">
 
@@ -11,10 +10,14 @@
 
 				<div class="items-area">
 					<div>
-						<span><input v-model="item.goals.enabled" type="checkbox"></span>
-						<span class="beside-checkbox">Use Goals</span>
-						<span class="pannel-title beside-checkbox">Select a campaign type
-								<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+						<label class="no-style">
+							<input v-model="item.goals.enabled" type="checkbox">
+							Use Goals
+						</label>
+						<span class="pannel-title beside-checkbox">
+							Select a campaign type
+							<i class="fa fa-question-circle" aria-hidden="true"></i>
+						</span>
 					</div>				
 
 					<div class="allcard-height" v-if="item.goals.enabled">
@@ -84,20 +87,18 @@
 			</div>
 		</div>
 		<div class="margin-top-30">
-			<router-link to="/search/addcampaign/searchnetwork/detail" class="gmd gmd-1 gmd-blue margin-right-20">CONTINUE</router-link>
+			<router-link to="/search/addcampaign/detail" class="gmd gmd-1 gmd-blue margin-right-20">CONTINUE</router-link>
 			<router-link to="" class="gmd gmd-1 gmd-white">CANCEL</router-link>
 		</div>
 	</div>
 
 </template>
 <script>
-import SearchDetail from '../SearchDetail'
 import {mapGetters, mapMutations} from 'vuex'
 
 export default {
 	name: 'SearchNetwork',
 	components: {
-		SearchDetail
 	},
 	data: function () {
 		return {

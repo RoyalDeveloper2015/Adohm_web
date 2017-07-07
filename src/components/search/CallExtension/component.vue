@@ -1,80 +1,60 @@
 <template>
-  <div class="row mr-n ml-n bg-white">
-    <div class="col-sm-2">
-      Call extensions
-    </div>
-    <div class="col-sm-10 pl-n">
-      <div class="row mr-n ml-n">
-        <div class="row">
-          <div class="col-sm-12 my-gray pl-n">
-            Select or Create campaign level call extensions
-          </div>
-        </div>
-        <div class="row bg-gray">
-          <div class="col-sm-10 pr-n pl-n">
-            <div class="panel panel-default mb-n" v-show="!flgNewCall">
-              <div class="panel-body p-n">
-                <table class="table table-bordered mb-n">
-                  <tbody>
-                    <tr>
-                      <td class="p-n">
-                        <div class="" style="position:relative">
-                          <input type="text" class="form-control mb-n my-border-radius-n" placeholder="search" v-model="fString">
-                          <span class="fa fa-search form-control-feedback border-radius-n" style="line-height:34px"> </span>
-                        </div>
-                      </td>
-                      <td class="pt-n pb-n">
-                        <div>
-                          <span style="line-height:34px;">None Selected</span>
-                          <button class="btn btn-link pull-right" v-on:click="clearAll">CLEAR ALL</button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr >
-                      <td class="p-n" width="50%">
-                        <div class="col-sm-12">
-                          <div class="checkbox checkbox-primary">
-                            <input id="checkbox1" class="styled" type="checkbox" v-on:click="selectAll">
-                            <label for="checkbox1">2 call extensions</label>
-                          </div>
-                        </div>
-                      </td>
-                      <td rowspan="2">
-                        <div class="col-sm-12 pr-n">
-                          <li v-for="item in callArray" v-show="item.flag">{{item.title}}</li>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-n" >
-                        <div class="col-sm-12 p-n" style="min-height:100px">
-                          <div class="col-sm-12 pr-n">
-                            <check-box v-for="(item, index) in fArray" v-show="!item.flag" @onChange="onChangeItem" v-bind:title="item.title" v-bind:flag="item.flag" v-bind:id="index" ></check-box>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="bg-gray p-n" colspan="2">
-                        <button class="btn btn-link" v-on:click="onNewCallExtension">
-                          <i class="fa fa-plus-circle"></i> NEW CALL EXTENSION
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <new-call-extension v-if="flgNewCall" @save="addExtension" @cancel="cancelExtension"></new-call-extension>
-          </div>
-          <div class="col-sm-2 pl-n text-center">
-            <span>PREVIEW</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div>
+	<p class="my-gray"> Select or Create campaign level call extensions</p>
+	<table class="table table-bordered mb-n">
+		<tbody>
+			<tr>
+				<td class="p-n">
+					<div class="" style="position:relative">
+						<input type="text" class="form-control mb-n my-border-radius-n" placeholder="search" v-model="fString">
+						<span class="fa fa-search form-control-feedback border-radius-n" style="line-height:34px"> </span>
+					</div>
+				</td>
+				<td class="pt-n pb-n">
+					<div>
+						<span style="line-height:34px;">None Selected</span>
+						<button class="btn btn-link pull-right" v-on:click="clearAll">CLEAR ALL</button>
+					</div>
+				</td>
+				<td class="pl-n pr-n bg-gray" rowspan="4" style="vertical-align:middle;text-align:center">
+					<span>Preview</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="p-n" width="50%">
+					<div class="col-sm-12">
+						<div class="checkbox checkbox-primary">
+							<input id="checkbox1" class="styled" type="checkbox" v-on:click="selectAll">
+							<label for="checkbox1">2 call extensions</label>
+						</div>
+					</div>
+				</td>
+				<td rowspan="2">
+					<div class="col-sm-12 pr-n">
+						<li v-for="item in callArray" v-show="item.flag">{{item.title}}</li>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="p-n" >
+				<div class="col-sm-12 p-n" style="min-height:100px">
+					<div class="col-sm-12 pr-n">
+					<check-box v-for="(item, index) in fArray" v-show="!item.flag" @onChange="onChangeItem" v-bind:title="item.title" v-bind:flag="item.flag" v-bind:id="index" ></check-box>
+					</div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="bg-gray p-n" colspan="2">
+				<button class="btn btn-link" v-on:click="onNewCallExtension">
+					<i class="fa fa-plus-circle"></i> NEW CALL EXTENSION
+				</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<new-call-extension v-if="flgNewCall" @save="addExtension" @cancel="cancelExtension"></new-call-extension>
+</div>
 </template>
 
 <script>

@@ -1,15 +1,21 @@
-import {request} from '@/config/adwords/request'
+import {request} from '@/config/default/request'
 
 function getDataStructure() {
 	return {
 		item: {
-			advertiserId: null,
-			name: null,
-			campaignId: null,
-			defaultBid: null,
-			keywords: null	
+			countryCode: null,
+			phoneNumber: null,
+			callReporting: true,
+			reportCoversion: null,
+			devices: [],
+			startDate: null,
+			endDate: null,
+			schedules: []
 		},
 		details: {
+			device: {
+				mobile: true
+			}
 		}
 	};
 }
