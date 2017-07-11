@@ -30,7 +30,7 @@
 					<div class="block-report">
 						<div class="padding-15 fixed-block bg-blue white">
 						<div class="line-bottom width-60">
-							<select v-model="overview.options.selectedFields[0]"> 
+							<select v-model="overview.options.selectedFields[0]">
 								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
 							</select>
 						</div>
@@ -44,7 +44,7 @@
 					<div class="block-report">
 						<div class="padding-15 fixed-block bg-danger white">
 						<div class="line-bottom width-60">
-							<select v-model="overview.options.selectedFields[1]"> 
+							<select v-model="overview.options.selectedFields[1]">
 								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
 							</select>
 						</div>
@@ -58,7 +58,7 @@
 					<div class="block-report">
 						<div class="padding-15 fixed-block bg-warning black">
 						<div class="line-bottom width-85">
-							<select v-model="overview.options.selectedFields[2]"> 
+							<select v-model="overview.options.selectedFields[2]">
 								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
 							</select>
 						</div>
@@ -73,7 +73,7 @@
 					<div class="block-report">
 						<div class="padding-15 fixed-block black bg-success thin-bordered">
 						<div class="line-bottom width-60">
-							<select v-model="overview.options.selectedFields[3]"> 
+							<select v-model="overview.options.selectedFields[3]">
 								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
 							</select>
 						</div>
@@ -89,14 +89,18 @@
 					<highcharts :options="overview.chartOptions" ref="highcharts"></highcharts>
 				</div>
      		</div>
-			
+
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="panel mt-20">
 						<div class="panel-heading">
 							<h3 class="panel-title">Devices Breakdown</h3>
 						</div>
-
+						<div class="block-report text-center">
+							<select v-model="devices.options.selectedFields[0]" class="center-block">
+								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
+							</select>
+						</div>
 						<div class="chart-panel">
 							<highcharts :options="devices.chartOptions" ref="highcharts"></highcharts>
 						</div>
@@ -107,13 +111,13 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">Days and Hours</h3>
 						</div>
-					
+
 						<div class="block-report text-center">
-							<select v-model="heatmap.options.selectedFields[0]" class="center-block"> 
+							<select v-model="heatmap.options.selectedFields[0]" class="center-block">
 								<option v-for="field in options.availableFields" :value="field" :key="field">{{details.fields.find(el => el.id == field).name}}</option>
-							</select> 
+							</select>
 						</div>
-						
+
 						<div class="chart-panel">
 							<highcharts :options="heatmap.chartOptions" ref="highcharts"></highcharts>
 						</div>
@@ -134,7 +138,7 @@
 	import {request} from '@/config/default/request'
 	import axios from 'axios'
 	import {mapGetters} from 'vuex'
-	
+
 	loadHeatMaps(Highcharts);
 	import Boost from "highcharts/modules/boost";
 	Boost(Highcharts);
@@ -208,7 +212,8 @@
 			},
 			heatmap: {
 				options: {
-					selectedFields: ['impressions']
+					selectedFields: ['impressions'],
+					breakdowns: ['hourly_stats_aggregated_by_audience_time_zone']
 				},
 				chartOptions: {
 					chart: {
@@ -244,7 +249,7 @@
 					series: [],
 					    tooltip: {
 							formatter: function () {
-								return `<strong>${this.point.value.toFixed(2)}</strong> ${this.series.name} on 
+								return `<strong>${this.point.value.toFixed(2)}</strong> ${this.series.name} on
 								<strong>${this.series.yAxis.categories[this.point.y]}, ${this.series.xAxis.categories[this.point.x]}'O clock </strong>`;
 							}
 						},
@@ -299,74 +304,76 @@
 					}
 				});
 			},
-			refreshDevicesChart() {
-				var time_range = {since: moment().subtract(7, 'days').format('YYYY-MM-DD'), until: moment().format('YYYY-MM-DD')};
-				var options = this.devices.options;
-				axios.get(`${this.fbApi.baseUrl}/act_${this.fbApi.accountId}/insights`, {
-					params: {
-						access_token: this.fbApi.accessToken,
-						time_range,
-						fields: options.selectedFields && options.selectedFields.join(','),
-						breakdowns: options.breakdowns && options.breakdowns.join(',') || ''
-					}
-				}).then(({data}) => {
-					var insights = data.data;
-					var series = [];
-					var seriesIndex = 0;
-					for(let j in this.devices.options.selectedFields) {
-						var field = this.devices.options.selectedFields[j];
-						insights.forEach(insight => {
-							seriesIndex = series.findIndex(el => el.name == insight.impression_device);
-							if(seriesIndex == -1) return series.push({name: insight.impression_device, data: [Number(insight[field])]});
-							series[seriesIndex].data.push(Number(insight[field]));
-						});
-					}
-					// debugger
-					Vue.set(this.devices.chartOptions.xAxis, 'categories', options.selectedFields);
-					Vue.set(this.devices.chartOptions, 'series', series);
+			refreshDevicesChart(chart) {
+				var time_range = {since: moment().subtract(7, 'days').format('MM-DD-YYYY'), until: moment().format('MM-DD-YYYY')};
+				// debugger
+				request.post('/api/breakdowns',{
+					field : this.devices.options.selectedFields[0],
+					time_range,
+					breakdown: this.devices.options.breakdowns[0]
+ 				}).then(({data}) => {
+					if(data.success) {
+						console.log(data);
+						var labels = [];
+						var series = [{
+							color: '#4285F4',
+							data: [],
+							name: 'devices'
+						}]
+						for (var key in data.result ){
+							labels.push(key);
+							console.log(data.result[key]);
+							series[0].data.push(parseInt(data.result[key]));
+						}
+						Vue.set(this[chart].chartOptions.xAxis, 'categories', labels);
+						Vue.set(this[chart].chartOptions, 'series', series);
+ 					}
 				});
 			},
-			refreshHeatmap() {
-				var {time_ranges, labels} = this.getTimeRanges(moment().subtract(7, 'days'), moment(), 'day', 'ddd');
-				var options = this.heatmap.options;
-				var map = [];
-				for(let i = 0; i < 24; i++) map.push(i);
-				Vue.set(this.heatmap.chartOptions.xAxis, 'categories', map);
-				Vue.set(this.heatmap.chartOptions.yAxis, 'categories', labels);
-				axios.get(`${this.fbApi.baseUrl}/act_${this.fbApi.accountId}/insights`, {
-					params: {
-						limit: 168,
-						access_token: this.fbApi.accessToken,
-						time_ranges,
-						time_increment: 1,
-						fields: options.selectedFields && options.selectedFields.join(','),
-						breakdowns: 'hourly_stats_aggregated_by_audience_time_zone'
-					}
-				}).then(({data}) => {
-					var insights = data.data;
-					var series = [];
-					var seriesIndex = 0;
-					for(let j in time_ranges) {
-						var date = time_ranges[j].since;
-						var day_insights = insights.filter(el => el.date_start == date);
-						for(let h = 0; h < 24; h++) {
-							var insight = day_insights.find(el => el.hourly_stats_aggregated_by_audience_time_zone.match(new RegExp(`^0?${h}\:`)));
-							for(let f in this.heatmap.options.selectedFields) {
-								let field = this.heatmap.options.selectedFields[f];
-								seriesIndex = series.findIndex(el => el.name == field);
-								if(seriesIndex == -1) { 
-									series.push({name: field, data: [[Number(h), Number(j), Number(insight[field])]] });
-									continue;
-								}
-								series[seriesIndex].data.push([Number(h), Number(j), Number(insight[field])]);
-							}
+			refreshHeatmap(chart) {
+				var time_range = {since: moment().subtract(7, 'days').format('MM-DD-YYYY'), until: moment().format('MM-DD-YYYY')};
+				var field = this.heatmap.options.selectedFields[0];
+				// debugger
+				request.post('/api/breakdowns',{
+					field : this.heatmap.options.selectedFields[0],
+					time_range,
+					breakdown: this.heatmap.options.breakdowns[0]
+ 				}).then(({data}) => {
+					for ( var i=0;i<7;i++) {
+						series[i] = [];
+						for ( var k =0 ;k<24;k++) {
+							series[i][k] = 0;
 						}
 					}
-					Vue.set(this.heatmap.chartOptions, 'series', series);
-					console.log(clone(this.heatmap.chartOptions))
+					if(data.success) {
+						var d1 = new Date(time_range.since);
+						if ( data == null) return;
+						for ( var key in data.result ) {
+							for ( var j=0; j<data[key].length;j++) {
+								var st = data[key][j];
+								st = st.substr(0,2);
+								var ind = parseInt(st);
+								var d2 = new Date(key);
+								var index = (d2.getTime() - d1.getTime())/3600/24;
+								series[index][ind] = data[key][j][field]
+							}
+						}
+
+						var xAxis = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+						var yAxis = ['SU','MO','TU','WE','TH','FR','SA'];
+						var series = [{
+							color: '#4285F4',
+							data: [],
+							name: 'devices'
+						}]
+						Vue.set(this[chart].chartOptions.xAxis, 'categories', xAxis);
+						Vue.set(this[chart].chartOptions.yAxis, 'categories', yAxis);
+						console.log(series);
+						Vue.set(this[chart].chartOptions, 'series', series);
+					}
 				});
 			},
-			
+
 		},
 		computed: {
 			...mapGetters('session', ['fbApi'])
@@ -421,7 +428,7 @@
 		width: 100%;
 	}
 	.line-bottom {
-		border-bottom: 1px solid;    
+		border-bottom: 1px solid;
 	}
 	.font-xlarge {
 		font-size: x-large;
