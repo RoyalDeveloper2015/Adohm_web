@@ -48,7 +48,9 @@ function getDataStructure() {
 				exclude: null
 			},
 			goals: {
-				enabled: false
+				enabled: false,
+				influenceConsiderations: [],
+				driveActions: []
 			}
 		},
 		details: {

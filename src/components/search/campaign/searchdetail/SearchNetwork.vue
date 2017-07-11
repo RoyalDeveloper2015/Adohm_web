@@ -23,42 +23,33 @@
 					<div class="allcard-height" v-if="item.goals.enabled">
 						<div class="card-container">
 							<div>
-								<span class="card-title">Influence consideration
-									<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+								<span class="card-title">Influence consideration <i class="fa fa-question-circle" aria-hidden="true"></i></span>
 							</div>
 							<div> 
 								<div id="card" class="influence-card">						
-									<div class="bottom-line"
-										v-on:click="removeActive(); isVisit = !isVisit"
-										v-bind:class="{activemenu: isVisit}">
-										<span><i class="fa fa-television ic-padding" aria-hidden="true"></i>
-													Visit your website</span>
-									</div>														
+									<label class="bottom-line" @click="toggle(item.goals.influenceConsiderations, 'visit', 'influenceConsiderations')" :class="{activemenu: item.goals.influenceConsiderations.includes('visit')}">
+										<span><i class="fa fa-television ic-padding" aria-hidden="true"></i> Visit your website</span>
+									</label>														
 								</div>
 							</div>
 						</div>
 						<div class="card-container">
 							<div>
-								<span class="card-title">Drive Action
-									<i class="fa fa-question-circle" aria-hidden="true"></i></span>
+								<span class="card-title">Drive Action <i class="fa fa-question-circle" aria-hidden="true"></i></span>
 							</div>
 							<div> 
 								<div id="card" class="influence-card">							 
-									<div class="bottom-line">
-										<span><i class="fa fa-television ic-padding" aria-hidden="true"></i>
-													Express interest on your site</span>
+									<div class="bottom-line" @click="toggle(item.goals.driveActions, 'interest', 'driveActions')" :class="{activemenu: item.goals.driveActions.includes('interest')}">
+										<span><i class="fa fa-television ic-padding" aria-hidden="true"></i>Express interest on your site</span>
 									</div>
-									<div class="bottom-line">
-										<span><i class="fa fa-credit-card ic-padding" aria-hidden="true"></i>
-													Buy on your website</span>
+									<div class="bottom-line" @click="toggle(item.goals.driveActions, 'buy', 'driveActions')" :class="{activemenu: item.goals.driveActions.includes('buy')}">
+										<span><i class="fa fa-credit-card ic-padding" aria-hidden="true"></i>Buy on your website</span>
 									</div>
-									<div class="bottom-line">
-										<span><i class="fa fa-phone ic-padding" aria-hidden="true"></i>
-													Call your business</span>
+									<div class="bottom-line" @click="toggle(item.goals.driveActions, 'call', 'driveActions')" :class="{activemenu: item.goals.driveActions.includes('call')}">
+										<span><i class="fa fa-phone ic-padding" aria-hidden="true"></i>Call your business</span>
 									</div>
 									<div class="bottom-line disabled-text">
-										<span><i class="fa fa-cc-paypal ic-padding" aria-hidden="true"></i>
-													Visit your business</span>
+										<span><i class="fa fa-cc-paypal ic-padding" aria-hidden="true"></i>Visit your business</span>
 									</div>					
 								</div>
 							</div>
@@ -68,7 +59,7 @@
 				</div>			
 			</div>		
 		</div>
-		<div v-show="isVisit">
+		<div v-show="isVisit || isCall">
 			<div id="card" class="campaign-pannel">
 				<!-- left title -->
 				<div class="title-area">
@@ -82,6 +73,15 @@
 						<input id="url" type="url" name="url" class="bottom-line-input width-40" placeholder="Your business website">											 
 					</div>
 					<div class="margin-top-10">Enter a URL to see keyword ideas when you set up your ad groups.</div>
+					<div class="row mt-20" v-show="isCall">						
+						<div class="col-xs-4"> 
+							<select class="form-control"> </select>
+						</div>
+						<div class="col-xs-8">
+							<input type="phone" class="bottom-line-input width-40" placeholder="Phone number">
+							<div class="margin-top-10">Example: ‪(201) 555-0123‬</div>
+						</div>
+					</div>
 				</div>
 				<!-- End Right div -->
 			</div>
@@ -95,29 +95,31 @@
 </template>
 <script>
 import {mapGetters, mapMutations} from 'vuex'
+import Vue from 'vue'
 
 export default {
 	name: 'SearchNetwork',
 	components: {
 	},
-	data: function () {
-		return {
-			isVisit: false,
-			isExpress: false,
-			isBuy: false,
-			isCall: false
-		}
-	},
+	data: () => ({
+	}),
 	methods: {
-		removeActive: function () {
-			this.isVisit = false
-			this.isExpress = false
-			this.isBuy = false
-			this.isCall = false
+		toggle(array, item, name) {
+			if(array.includes(item)) array.splice(array.indexOf(item), 1);
+			else array.push(item);
+			if(name == 'influenceConsiderations') Vue.set(this.item.goals, 'driveActions', []);
+			else Vue.set(this.item.goals, 'influenceConsiderations', []);
 		}
 	},
 	computed: {
-		...mapGetters('adwords/campaign', ['item'])
+		...mapGetters('adwords/campaign', ['item']),
+		isVisit() {
+			return this.item.goals.influenceConsiderations.includes('visit') || 
+				this.item.goals.driveActions.includes('interest') || this.item.goals.driveActions.includes('buy')
+		},
+		isCall() {
+			return !this.item.goals.enabled || this.item.goals.driveActions.includes('call')
+		}
 	}
 }
 </script>

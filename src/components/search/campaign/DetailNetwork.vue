@@ -319,7 +319,7 @@
 		</div>
 
 		<!-- Dynamic Search Ads -->
-		<div id="card" class="detail-pannel margin-top-20">
+		<div v-if="extensionEnabled('dynamic-searchads')" id="card" class="detail-pannel margin-top-20">
 			<div class="top-card">
 				<div class="col-md-3">					
 					<span class="black">Dynamic Search Ads</span>
@@ -370,16 +370,19 @@
 			</div>
 		</div>
 
-		<extension-view extension="sitelink-extension" label="Site link extensions"></extension-view> 
-		<extension-view extension="callout-extension" label="Callout extensions"></extension-view>
-		<extension-view extension="call-extension" label="Call extensions"></extension-view> 
-		<extension-view extension="app-extension" label="App extensions"></extension-view> 
+		<extension-view v-if="extensionEnabled('sitelink-extension')" extension="sitelink-extension" label="Site link extensions"></extension-view> 
+		<extension-view v-if="extensionEnabled('callout-extension')" extension="callout-extension" label="Callout extensions"></extension-view>
+		<extension-view v-if="extensionEnabled('call-extension')" extension="call-extension" label="Call extensions"></extension-view> 
+		<extension-view v-if="extensionEnabled('app-extension')" extension="app-extension" label="App extensions"></extension-view> 
 		<extension-view extension="ad-schedule" label="Ad schedule"></extension-view>
 		<extension-view extension="ad-rotation" label="Ad rotation"></extension-view> 
-		<extension-view extension="message-extension" label="Messages extension"></extension-view>
-		<extension-view extension="review-extension" label="Review extension"></extension-view>
-		<extension-view extension="snippet-extension" label="Snippet extension"></extension-view> 
-		<extension-view extension="promotion-extension" label="Promotion extension"></extension-view>
+		<extension-view v-if="extensionEnabled('message-extension')" extension="message-extension" label="Messages extension"></extension-view>
+		<extension-view v-if="extensionEnabled('review-extension')" extension="review-extension" label="Review extension"></extension-view>
+		<extension-view v-if="extensionEnabled('snippet-extension')" extension="snippet-extension" label="Snippet extension"></extension-view> 
+		<extension-view v-if="extensionEnabled('promotion-extension')" extension="promotion-extension" label="Promotion extension"></extension-view>
+		<extension-view extension="location-options" label="Location options"></extension-view>
+		<extension-view extension="campaign-url-options" label="Campaign URL options"></extension-view>
+
 	</div>
 </template>
 <script>
@@ -402,7 +405,13 @@
 			select_end_date: false,
 			details: {
 				languages: [],
-				locations: []
+				locations: [],
+				goalToExtensions: {
+					interest: [],
+					visit: [],
+					buy: [],
+					call: [ 'sitelink-extension', 'callout-extension', 'call-extension', 'app-extension', 'message-extension', 'review-extension', 'snippet-extension', 'promotion-extension', 'dynamic-searchads' ]
+				}
 			},
 			baseURL
 		}),
@@ -416,7 +425,7 @@
 			ExtensionView
 		},
 		computed: {
-			...mapState('adwords/campaign', ['item']),
+			...mapState('adwords/campaign', ['item'])
 		},
 		methods: {
 			...mapActions({
@@ -425,6 +434,12 @@
 			expand: function (tar1, tar2) {
 				$('.' + tar1).slideToggle('slow')
 				$('.' + tar2).toggleClass('rotate')
+			},
+			extensionEnabled(name) {
+				var extensionsForCall = this.details.goalToExtensions.call;
+				if(this.item.goals.enabled && !this.item.goals.influenceConsiderations.length && this.item.goals.driveActions.length == 1 && this.item.goals.driveActions[0] == 'call' )
+					return !extensionsForCall.includes(name);
+				else return true;
 			}
 		}
 	}

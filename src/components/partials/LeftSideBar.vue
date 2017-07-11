@@ -10,27 +10,27 @@
 
 			<div class="sidebar-nav">
 				<ul class="side-nav color-gray">
-					<li class="has-children">
-						<router-link to="/"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-right arrow"></i></router-link>
-						<ul class="child-nav">
-							<li><router-link to="/campaign"><i class="fa fa-bolt"></i> <span>Campaigns</span></router-link></li>
-							<li><router-link to="/search"><i class="fa fa-search"></i> <span>Search</span></router-link></li>
-						</ul>
+					<li>
+						<router-link to="/"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> </router-link>
 					</li>
-
+					<li class="has-children">
+						<li><router-link to="/search"><i class="fa fa-search"></i> <span>Search</span></router-link></li>
+					</li>
+					<li class="has-children">
+						<li><router-link to="/campaign"><i class="fa fa-bolt"></i> <span>Programmatic</span></router-link></li>
+					</li>
 					<li class="has-children">
 						<a href="#"><i class="fa fa-paint-brush"></i> <span>Social</span> <i class="fa fa-angle-right arrow"></i></a>
 						<ul class="child-nav">
 							<li><router-link to="/social/overview"><i class="fa fa-bank"></i> <span>Overview</span></router-link></li>
-							<li><router-link to="/social/performance" name="social-performance"><i class="fa fa-check"></i> <span> Performance</span></router-link></li>
+							<li><router-link to="/social/performance" name="social-performance"><i class="fa fa-check"></i> <span> Campaigns</span></router-link></li>
 						</ul>
 					</li>
 					<li class="has-children">
 						<a href="#"><i class="fa fa-map-signs"></i> <span>Visual Campaigns</span> <i class="fa fa-angle-right arrow"></i></a>
 						<ul class="child-nav">
 							<li><a href="color-primary.html"><i class="fa fa-bank"></i> <span>Overview</span></a></li>
-							<li><a href="color-danger.html"><i class="fa fa-bell"></i> <span>Brand</span></a></li>
-							<li><a href="color-success.html"><i class="fa fa-check"></i> <span> Performance</span></a></li>
+							<li><a href="color-success.html"><i class="fa fa-check"></i> <span>Campaigns</span></a></li>
 						</ul>
 					</li>
 

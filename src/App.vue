@@ -17,7 +17,7 @@
 			<!-- /.left-sidebar -->
 
 			<router-view></router-view>
- 
+			<create-pixel></create-pixel>
 		</template>
 		<template v-else> 
 			<login-page></login-page>
@@ -38,7 +38,7 @@
 	import MainPage from './components/MainPage.vue'
 	import LoginPage from './components/LoginPage.vue'
 	import {mapGetters} from 'vuex'
-
+	import CreatePixel from './components/partials/modals/CreatePixel.vue'
 	export default {
 		components: {
 			TopNavBar,
@@ -46,11 +46,20 @@
 			RightSideBar,
 			LoginPage,
 			MainPage,
-			GlobalMessage
+			GlobalMessage,
+			CreatePixel
 		},
 		name: 'app',
 		computed: {
 			...mapGetters('session', ['user'])
+		},
+		mounted() {
+			$('.has-children').not('.open').find('.child-nav').slideUp('100');
+			$('.has-children>a').on('click', function(event){
+				event.preventDefault();
+				$(this).parent().toggleClass('open');
+				$(this).parent().find('.child-nav').slideToggle('500');
+			});
 		}
 	}
 </script>

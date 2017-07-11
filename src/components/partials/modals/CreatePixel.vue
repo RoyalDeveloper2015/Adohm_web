@@ -1,5 +1,5 @@
 <template>
-	<div modal-render="true" id="trackerModal" role="dialog" class="modal fade tracker-modal">
+	<div modal-render="true" id="trackerModal" role="dialog" class="modal tracker-modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -12,22 +12,15 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label>Select advertiser</label>
-							<!--<selectize v-model="item.advertiser" :options="{preload: true, ajax: { url: '/api/advertisers/get'}}"></selectize>-->
+							<multi-select label="name" track-by="id" v-model="item.advertiser" :options="details.advertisers" @search-change="query => search({
+								url: '/api/advertisers',
+								listTarget: [details, 'advertisers']
+							})"></multi-select>
 						</div>
 						<div class="form-group col-md-6">
 							<label>Select Event</label>
-							<selectize v-model="item.event">
-								<option value="PageView">PageView</option>
-								<option value="ViewContent">ViewContent</option>
-								<option value="Search">Search</option>
-								<option value="AddToCart">AddToCart</option>
-								<option value="AddToWishlist">AddToWishlist</option>
-								<option value="InitiateCheckout">InitiateCheckout</option>
-								<option value="AddPaymentInfo">AddPaymentInfo</option>
-								<option value="Purchase">Purchase</option>
-								<option value="Lead">Lead</option>
-								<option value="CompleteRegistration">CompleteRegistration</option>
-							</selectize>
+							<multi-select v-model="item.event" :options="details.events">
+							</multi-select>
 						</div>
 					</div>
 				
@@ -56,9 +49,12 @@
 </template>
 
 <script>
-	import Selectize from '@/components/partials/Selectize.vue'
+	import MultiSelect from 'vue-multiselect'
+	import {vUtils} from '@/components/Mixins'
+
 	export default {
-		components: {Selectize},
+		components: {MultiSelect},
+		mixins: [vUtils],
 		data: () => ({
 			item: {
 				pixel_id: null,
@@ -88,7 +84,8 @@
 				'	</div>\n' +
 				'</noscript>',
 			details: {
-				advertisers: []
+				advertisers: [],
+				events: ['PageView','ViewContent','Search','AddToCart','AddToWishlist','InitiateCheckout','AddPaymentInfo','Purchase','Lead','CompleteRegistration']
 			},
 			options: {
 			}

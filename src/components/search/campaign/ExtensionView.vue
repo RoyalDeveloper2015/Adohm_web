@@ -17,16 +17,18 @@
 </template>
 
 <script>
-	import SitelinkExtension from './SitelinkExtension.vue'
-	import CalloutExtension from '../CalloutExtension/component'
-	import AppExtension from '../AppExtension/component'
-	import CallExtension from '../CallExtension/component'
-	import AdSchedule from '../AdSchedule/component'
-	import AdRotation from '../adRotation/component'
-	import MessageExtension from '../MessageExtension/component'
-	import ReviewExtension from '../ReviewExtension/component'
-	import SnippetExtension from '../SnippetExtension/component'
-	import PromotionExtension from '../promotionExtension/component'
+	import SitelinkExtension from '../extensions/SitelinkExtension/component'
+	import CalloutExtension from '../extensions/CalloutExtension/component'
+	import AppExtension from '../extensions/AppExtension/component'
+	import CallExtension from '../extensions/CallExtension/component'
+	import MessageExtension from '../extensions/MessageExtension/component'
+	import ReviewExtension from '../extensions/ReviewExtension/component'
+	import SnippetExtension from '../extensions/SnippetExtension/component'
+	import PromotionExtension from '../extensions/PromotionExtension/component'
+	import LocationOptions from './LocationOptions/component'
+	import CampaignUrlOptions from './CampaignUrlOptions/component'
+	import AdSchedule from './AdSchedule/component'
+	import AdRotation from './AdRotation/component'
 	
 export default {
 	components: {
@@ -39,7 +41,9 @@ export default {
 		MessageExtension,
 		ReviewExtension,
 		SnippetExtension,
-		PromotionExtension
+		PromotionExtension,
+		LocationOptions,
+		CampaignUrlOptions
 	},
 	props: ['label', 'extension'],
 	data: () => ({

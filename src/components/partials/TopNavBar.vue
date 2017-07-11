@@ -6,6 +6,7 @@
           <a class="navbar-brand" href="index.html">
             <img src="static/images/logo.png" alt="Adohm" class="logo">
           </a>
+		  <span class="small-nav-handle"><i class="fa fa-outdent"></i></span>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                   data-target="#navbar-collapse-1"
                   aria-expanded="false">

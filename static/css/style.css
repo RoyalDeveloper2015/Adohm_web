@@ -236,3 +236,7 @@ label.no-style {
 	display: inline-block;
 	font-weight: normal;
 }
+
+.bottom-line {
+	font-weight: normal;
+}

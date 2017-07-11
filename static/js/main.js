@@ -9,20 +9,20 @@ $(function($) {
 	"use strict";
 
 	// Toggle user info on sidebar
-	$('.user-info-handle').on('click', function(event){
+	$(document).on('click', '.user-info-handle', function(event){
 		event.preventDefault();
 		$('.user-info').toggleClass('closed');
 	});
 
 	// Toggle small sidebar
-	$('.small-nav-handle').on('click', function(event){
+	$(document).on('click', '.small-nav-handle', function(event){
 		event.preventDefault();
 		$('.left-sidebar').toggleClass('small-nav');
 		$('.navbar-header').toggleClass('small-nav-header');
 	});
 
 	// Toggle Mobile Nav
-	$('.mobile-nav-toggle').on('click', function(event){
+	$(document).on('click', '.mobile-nav-toggle', function(event){
 		event.preventDefault();
 		$('.left-sidebar').toggle();
 	})
@@ -51,20 +51,6 @@ $(function($) {
 	// Initialize panel controls
 	$('[data-panel-control]').lobiPanel();
 
-	// Visibility of source code button
-	$('.src-btn').hide();
-	$('.toggle-help-handle').on('click', function(event){
-		event.preventDefault();
-		$('.src-btn').toggle();
-	});
-
-	// Visibility of source code button
-	$('.src-code').hide();
-	$('.toggle-code-handle').on('click', function(event){
-		event.preventDefault();
-		$('.src-code').toggle();
-	});
-
 	// Toggle full screen
 	$('.full-screen-handle').on('click', function(event){
 		event.preventDefault();
@@ -89,12 +75,7 @@ $(function($) {
 	});
 
 	// Toggle sidebar dropdown
-	$('.has-children').not('.open').find('.child-nav').slideUp('100');
-	$('.has-children>a').on('click', function(event){
-		event.preventDefault();
-		$(this).parent().toggleClass('open');
-		$(this).parent().find('.child-nav').slideToggle('500');
-	});
+
 
 	// For Dropdown menu animation
 	var dropdownSelectors = $('.dropdown, .dropup');
