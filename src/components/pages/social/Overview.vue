@@ -306,7 +306,6 @@
 			},
 			refreshDevicesChart(chart) {
 				var time_range = {since: moment().subtract(7, 'days').format('MM-DD-YYYY'), until: moment().format('MM-DD-YYYY')};
-				// debugger
 				request.post('/api/breakdowns',{
 					field : this.devices.options.selectedFields[0],
 					time_range,
@@ -315,18 +314,52 @@
 					if(data.success) {
 						console.log(data);
 						var labels = [];
-						var series = [{
-							color: '#4285F4',
-							data: [],
-							name: 'devices'
-						}]
+						var series = []
+						var seriesKeyArray = [];
 						for (var key in data.result ){
 							labels.push(key);
-							console.log(data.result[key]);
-							series[0].data.push(parseInt(data.result[key]));
+							if ( Array.isArray(data.result[key])) {
+							    for ( var i = 0 ;i<data.result[key].length; i++ ) {
+								if ( seriesKeyArray.length == 0 ) {
+								    seriesKeyArray.push(data.result[key][i]['impression_device']);
+								    series.push({ 
+									name : data.result[key][i]['impression_device'],
+									data : []
+								     });
+								} else if ( seriesKeyArray.indexOf(data.result[key][i]['impression_device']) == -1) {
+								    seriesKeyArray.push(data.result[key][i]['impression_device']);
+								    series.push({ 
+									name : data.result[key][i]['impression_device'],
+									data : []
+								     });
+								}
+							    }
+							    if ( seriesKeyArray.length == 0 ) {
+								
+							    }
+							}
+														
 						}
-						Vue.set(this[chart].chartOptions.xAxis, 'categories', labels);
-						Vue.set(this[chart].chartOptions, 'series', series);
+						var insightStr = this.devices.options.selectedFields[0];
+						for ( key in data.result ) {
+						    if ( Array.isArray(data.result[key])) {
+							for ( var j = 0 ;j<series.length;j++) {
+							    series[j].data.push(0);
+							}
+							for ( j = 0 ;j<data.result[key].length;j++) {
+							
+							    var indx = seriesKeyArray.indexOf(data.result[key][j]['impression_device']);
+							    series[indx].data[series[indx].data.length-1] = parseInt(data.result[key][j][insightStr]);
+							}
+						    } else {
+							for ( var j = 0 ;j<series.length;j++) {
+							    series[j].data.push(0);
+							}
+						    }
+						    
+						}
+						Vue.set(this.devices.chartOptions.xAxis, 'categories', labels);
+						Vue.set(this.devices.chartOptions, 'series', series);
  					}
 				});
 			},
@@ -334,42 +367,58 @@
 				var time_range = {since: moment().subtract(7, 'days').format('MM-DD-YYYY'), until: moment().format('MM-DD-YYYY')};
 				var field = this.heatmap.options.selectedFields[0];
 				// debugger
-				request.post('/api/breakdowns',{
+				request.post('/api/breakdownsDH',{
 					field : this.heatmap.options.selectedFields[0],
 					time_range,
 					breakdown: this.heatmap.options.breakdowns[0]
  				}).then(({data}) => {
-					for ( var i=0;i<7;i++) {
-						series[i] = [];
-						for ( var k =0 ;k<24;k++) {
-							series[i][k] = 0;
-						}
-					}
+ 				    console.log(data);
+ 				    var series = [{
+ 					name: 'Days and Hours',
+ 					borderWidth : 1,
+ 					data:[],
+ 					dataLabels: {
+ 					    endabled: true,
+ 					    color: '#000000'
+ 					}
+ 				    }];
+// 					debugger;
 					if(data.success) {
+					    console.log(data);
+					    var field = this.heatmap.options.selectedFields[0];
 						var d1 = new Date(time_range.since);
-						if ( data == null) return;
-						for ( var key in data.result ) {
-							for ( var j=0; j<data[key].length;j++) {
-								var st = data[key][j];
-								st = st.substr(0,2);
-								var ind = parseInt(st);
-								var d2 = new Date(key);
-								var index = (d2.getTime() - d1.getTime())/3600/24;
-								series[index][ind] = data[key][j][field]
-							}
-						}
-
+						var yAxis = [];
 						var xAxis = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
-						var yAxis = ['SU','MO','TU','WE','TH','FR','SA'];
-						var series = [{
-							color: '#4285F4',
-							data: [],
-							name: 'devices'
-						}]
-						Vue.set(this[chart].chartOptions.xAxis, 'categories', xAxis);
-						Vue.set(this[chart].chartOptions.yAxis, 'categories', yAxis);
+						for ( var key in data.result ) {
+						    yAxis.push(key);
+						}	
+						var firstDay = false;
+						for ( key in data.result ) {
+						    for ( var k=0;k<24;k++) {
+							series[0].data.push([k,yAxis.indexOf(key),0]);
+						    }
+						    for ( var j=0;j<data.result[key].length;j++) {
+							var yPos = yAxis.indexOf(key);
+							var xPos = 0;
+							var strTemp = data.result[key][j]['hourly_stats_aggregated_by_audience_time_zone'];
+							var xTvalue = strTemp.substring(0,2);
+							xPos = xAxis.indexOf(xTvalue);
+							var temp = [];
+							temp.push(xPos);
+							temp.push(yPos);
+							if ( yPos == 0 ) firstDay = true;
+							temp.push(parseInt(data.result[key][j][field]));
+							series[0].data.push(temp);
+						    }
+						}
+						if ( firstDay == false ) series[0].data.push([0,1,0]);
+//						series[0].data.push([1,1,100]);					
+						Vue.set(this.heatmap.chartOptions.xAxis, 'categories', xAxis);
+						Vue.set(this.heatmap.chartOptions.yAxis, 'categories', yAxis);
 						console.log(series);
-						Vue.set(this[chart].chartOptions, 'series', series);
+						console.log(yAxis);
+						console.log(xAxis);
+						Vue.set(this.heatmap.chartOptions, 'series', series);
 					}
 				});
 			},
