@@ -306,19 +306,19 @@
 			},
 			refreshDevicesChart(chart) {
 				var time_range = {since: moment().subtract(7, 'days').format('MM-DD-YYYY'), until: moment().format('MM-DD-YYYY')};
-				request.post('/api/breakdowns',{
+				request.post('/api/mbreakdowns',{
 					field : this.devices.options.selectedFields[0],
 					time_range,
 					breakdown: this.devices.options.breakdowns[0]
  				}).then(({data}) => {
 					if(data.success) {
-						console.log(data);
+						//console.log(data);
 						var labels = [];
 						var series = []
 						var seriesKeyArray = [];
 						for (var key in data.result ){
 							labels.push(key);
-							if ( Array.isArray(data.result[key])) {
+/*							if ( Array.isArray(data.result[key])) {
 							    for ( var i = 0 ;i<data.result[key].length; i++ ) {
 								if ( seriesKeyArray.length == 0 ) {
 								    seriesKeyArray.push(data.result[key][i]['impression_device']);
@@ -337,10 +337,25 @@
 							    if ( seriesKeyArray.length == 0 ) {
 								
 							    }
+							}*/
+							for ( var j in data.result[key] ) {
+							    if ( seriesKeyArray.indexOf(j) == -1 ) {
+								seriesKeyArray.push(j);
+							    }
 							}
 														
 						}
-						var insightStr = this.devices.options.selectedFields[0];
+						for ( var i = 0 ; i< seriesKeyArray.length ; i++) {
+						    series.push({ name : seriesKeyArray[i] , data : [] });
+						    for ( var j = 0 ; j< labels.length; j++ ) {
+							if ( data.result[labels[j]].hasOwnProperty(seriesKeyArray[i])){
+							    series[i].data.push(parseInt(data.result[labels[j]][seriesKeyArray[i]]));
+							} else {
+							    series[i].data.push(0);
+							}
+						    }
+						}
+/*						var insightStr = this.devices.options.selectedFields[0];
 						for ( key in data.result ) {
 						    if ( Array.isArray(data.result[key])) {
 							for ( var j = 0 ;j<series.length;j++) {
@@ -357,7 +372,9 @@
 							}
 						    }
 						    
-						}
+						}*/
+					//	console.log(labels);
+					//	console.log(series);
 						Vue.set(this.devices.chartOptions.xAxis, 'categories', labels);
 						Vue.set(this.devices.chartOptions, 'series', series);
  					}
@@ -367,16 +384,16 @@
 				var time_range = {since: moment().subtract(7, 'days').format('MM-DD-YYYY'), until: moment().format('MM-DD-YYYY')};
 				var field = this.heatmap.options.selectedFields[0];
 				// debugger
-				request.post('/api/breakdownsDH',{
+				request.post('/api/mbreakdownsDH',{
 					field : this.heatmap.options.selectedFields[0],
 					time_range,
 					breakdown: this.heatmap.options.breakdowns[0]
  				}).then(({data}) => {
- 				    console.log(data);
+ 				    console.log("here",data);
  				    var series = [{
  					name: 'Days and Hours',
  					borderWidth : 1,
- 					data:[],
+ 					data:[[0,1,0]],
  					dataLabels: {
  					    endabled: true,
  					    color: '#000000'
@@ -384,9 +401,9 @@
  				    }];
 // 					debugger;
 					if(data.success) {
-					    console.log(data);
+					//    console.log(data);
 					    var field = this.heatmap.options.selectedFields[0];
-						var d1 = new Date(time_range.since);
+/*						var d1 = new Date(time_range.since);
 						var yAxis = [];
 						var xAxis = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
 						for ( var key in data.result ) {
@@ -410,9 +427,21 @@
 							temp.push(parseInt(data.result[key][j][field]));
 							series[0].data.push(temp);
 						    }
+						}*/
+						var yAxis = [];
+						var xAxis = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+						for ( var key in data.result ) {
+						    yAxis.push(key);
 						}
-						if ( firstDay == false ) series[0].data.push([0,1,0]);
-//						series[0].data.push([1,1,100]);					
+						for( key in data.result ) {
+						    for ( var i in data.result[key] ) {
+							var xPos = parseInt(i);
+							var yPos = yAxis.indexOf(key);
+							series[0].data.push([xPos,yPos,parseInt(data.result[key][i])]);
+						    }
+						}
+		//				if ( firstDay == false ) series[0].data.push([0,1,0]);
+//		//				series[0].data.push([1,1,100]);					
 						Vue.set(this.heatmap.chartOptions.xAxis, 'categories', xAxis);
 						Vue.set(this.heatmap.chartOptions.yAxis, 'categories', yAxis);
 						console.log(series);
