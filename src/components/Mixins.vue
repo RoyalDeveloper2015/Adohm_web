@@ -52,6 +52,14 @@ var vUtils = {
 		formatDate(value) {
 			return moment(value).format('YYYY-MM-DD');
 		},
+		formatAmount(value, currency) {
+			var formatter = new Intl.NumberFormat('en-US', {
+				style: 'currency',
+				currency,
+				minimumFractionDigits: 2,
+			});
+			return formatter.format(value);
+		},
 		...filters
 	}
 }
