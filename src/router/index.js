@@ -2,18 +2,19 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import searchRoutes from './search';
 
-import MainPage from '../components/MainPage.vue'
-import CampaignList from '../components/campaign/CampaignList.vue'
-import AddCampaign from '../components/campaign/AddCampaign.vue'
-import Advertisers from '../components/pages/Advertisers.vue'
-import Users from '../components/pages/Users.vue'
-import UserSettings from '../components/pages/user/Settings.vue'
-import Performance from '../components/pages/social/Performance.vue'
+import MainPage from '../components/MainPage'
+import CampaignList from '../components/campaign/CampaignList'
+import AddCampaign from '../components/campaign/AddCampaign'
+import Advertisers from '../components/pages/Advertisers'
+import Users from '../components/pages/Users'
+import UserSettings from '../components/pages/user/Settings'
+import Performance from '../components/pages/social/Performance'
 import Overview from '../components/pages/social/Overview'
 import SocialCampaignEditor from '../components/pages/social/CampaignEditor'
 import FacebookReporting from '../components/pages/social/facebook/Reporting'
+import Account from '../components/pages/Account'
 
-import Search from '../components/search/Search.vue'
+import Search from '../components/search/Search'
 
 Vue.use(Router)
 
@@ -37,6 +38,10 @@ export default new Router({
 		{
 			path: '/advertisers',
 			component: Advertisers
+		},
+		{
+			path: '/user/account',
+			component: Account
 		},
 		{
 			path: '/users',
