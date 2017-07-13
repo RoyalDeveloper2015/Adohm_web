@@ -3,7 +3,12 @@ import {request} from '@/config/default/request'
 function getDataStructure() {
 	return {
 		item: {
-
+			platform: null,
+			appId: null,
+			linkText: null,
+			devicePreferences: {
+				excludeTablets: false
+			}
 		},
 		details: {
 

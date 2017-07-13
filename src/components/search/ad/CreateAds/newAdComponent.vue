@@ -9,7 +9,7 @@
 				</svg>
 			</div>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" v-if="adType == 'textAd'">
 			<div style="display:inline-flex; width:100%;">
 				<input v-model="item.finalUrl" class="form-control bottom-border-no-outline" type="url" placeholder="Final URL">
 				<i class="fa fa-question-circle-o" style="line-height:30px;"></i>
@@ -50,7 +50,7 @@
 
 <script>
 	import urlOption from '../../extensions/General/newAdUrlOptionComponent.vue'
-	import {mapState} from 'vuex'
+	import {mapState, mapMutations} from 'vuex'
 
 	export default {
 		name: 'newAdComponent',
@@ -72,10 +72,19 @@
 			},
 			cancel: function () {
 				this.$emit('cancel')
-			}
+			},
+			...mapMutations('adwords/ad', ['setupAdParams'])
 		},
 		computed: {
-			...mapState('adwords/ad', ['item'])
+			...mapState('adwords/ad', ['adType', 'item'])
+		},
+		watch: {
+			adType: {
+				immediate: true,
+				handler(type) {
+					this.setupAdParams();
+				}
+			}
 		}
 	}
 </script>

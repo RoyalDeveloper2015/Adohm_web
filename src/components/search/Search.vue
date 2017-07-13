@@ -34,11 +34,10 @@
 					</li>
 					<li><hr/></li>					
 			
-					<li class="item">Ads & Extensions</li>
-					<li class="item" :class="{activemenu: $route.name == 'Keywords'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'Keywords'}"
-							to="/search/keywords">
-							<span>Keywords</span>
+					<li class="item" :class="{activemenu: $route.name == 'Ads'}">
+						<router-link class="item-link" :class="{deactivelink: $route.name == 'Ads'}"
+							to="/search/ads">
+							<span>Ads & Extensions</span>
 						</router-link>
 					</li>
 					<li><hr/></li>
@@ -62,7 +61,7 @@
 
 					<li class="item" :class="{activemenu: $route.name == 'Settings'}">
 						<router-link class="item-link" :class="{deactivelink: $route.name == 'Settings'}"
-							to="/search/settings">
+							to="/search/campaigns/settings">
 							<span>Settings</span>
 						</router-link>
 					</li>

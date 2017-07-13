@@ -3,28 +3,10 @@ import {request} from '@/config/default/request'
 function getDataStructure() {
 	return {
 		item: {
-			header: {
-				language: null,
-				type: null
-			},
-			values: [null, null, null],
-			advanced: {}
+
 		},
 		details: {
-			headerTypes: [
-				'Brands',
-				'Courses',
-				'Degree programs',
-				'Destinations',
-				'Featured hotels',
-				'Insurance coverage',
-				'Models',
-				'Neighborhoods',
-				'Service catalog',
-				'Shows',
-				'Styles',
-				'Types'
-			]
+
 		}
 	};
 }

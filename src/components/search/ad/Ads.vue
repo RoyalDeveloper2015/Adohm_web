@@ -1,16 +1,15 @@
 <template>
 	<div class="search-campaign">
 		<nav class="navbar bg-white box-shadow sub-nav">
-			<ul class="nav subnav active-bottom">Age</ul>
-			<ul class="nav subnav ">Gender</ul>
-			<ul class="nav subnav ">Parental Status</ul>
-			<ul class="nav subnav ">Household Income</ul>
+			<ul class="nav subnav active-bottom">Ads</ul>
+			<ul class="nav subnav ">Extensions</ul>
 			<ul class="nav subnav"> 
 				<span>More</span>
 				<i class="fa fa-angle-down arrow"></i>
 			</ul>
 		</nav>
-		<div class="line-group">
+		<create-ad v-if="showCreateAdForm"></create-ad>
+		<div v-else class="line-group">
 			<div class="line-item">
 				<span>100</span><hr/>
 			</div>
@@ -21,7 +20,7 @@
 				<span>0</span><hr/>
 			</div>
 		</div>
-		
+		<router-link to="/search/ads/new"><a class="round-button"><i class="fa fa-plus"></i></a></router-link>
 		<div class="content-table">
 			<table id="example" class="display table table-striped table-bordered" cellspacing="0">
 				<thead>
@@ -35,17 +34,18 @@
 							</div>
 						</th>
 						<th><i class="fa fa-circle black"></i></th>
-						<th>Age</th>
-						<th>Campaign</th>
 						<th>AdGroup</th>
+						<th>Campaign</th>
 						<th>Status</th>
+						<th>Default Max. CPC</th>
 						<th>Max. CPV</th>
-						<th>Impr.</th>
+						<th>Target CPA</th>			
+						<th>Impressions</th>
 						<th>Interactions</th>
 						<th>Interaction rate</th>
 						<th>Avg. Cost</th>
 						<th>Cost</th>
-						<th>Conversions</th>
+						<th>Adgroup Type</th>
 					</tr>					
 				</thead>
 				<tfoot>
@@ -121,58 +121,17 @@
 <script>
 	import $ from 'jquery'
 	import {mapActions} from 'vuex'
+	import CreateAd from './createAds'
 
 	require('datatables.net')
 	require('datatables.net-bs')
 
 export default {
 	name: 'searchCampaign',
+	components: {CreateAd},
 	data: function () {
 		return {
-			campaigns: [
-				{
-					name: 'trial campaign',
-					client_account_name: 'test',
-					budget: {
-						type: '',
-						amount: 5000
-					},
-					status: 'Eligible',
-					impr: 0,
-					clicks: 0,
-					ctr: 0,
-					avg_cpc: 0,
-					cost: 0
-				},
-				{
-					name: 'test#1496232938768',
-					client_account_name: 'test',
-					budget: {
-						type: 'camp2#1496232937417',
-						amount: 5000
-					},
-					status: 'Paused',
-					impr: 0,
-					clicks: 0,
-					ctr: 0,
-					avg_cpc: 0,
-					cost: 0
-				},
-				{
-					name: 'test1#1496232938822',
-					client_account_name: 'test',
-					budget: {
-						type: 'camp2#1496232937417',
-						amount: 5000
-					},
-					status: 'Eligible',
-					impr: 0,
-					clicks: 0,
-					ctr: 0,
-					avg_cpc: 0,
-					cost: 0
-				}
-			],
+			showCreateAdForm: false,
 			totalbudget: 0
 		}
 	},

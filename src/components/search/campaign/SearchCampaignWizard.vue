@@ -6,9 +6,9 @@
 			@on-loading="state => loading = state">
           <tab-content title="Select Campain Settings" route="/search/addcampaign" :before-change="saveCampaign">
           </tab-content>
-          <tab-content title="Set up ad groups" route="/search/adgroup">
+          <tab-content title="Set up ad groups" route="/search/addcampaign/adgroup">
           </tab-content>
-          <tab-content title="Create ads" route="/search/ads">
+          <tab-content title="Create ads" route="/search/addcampaign/ads">
           </tab-content>
           <transition name="fade" mode="out-in">
             <router-view></router-view>

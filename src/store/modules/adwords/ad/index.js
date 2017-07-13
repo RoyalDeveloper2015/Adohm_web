@@ -3,6 +3,7 @@ import {request} from '@/config/default/request'
 function getDataStructure() {
 	return {
 		adType: 'textAd',
+		item: {},
 		textAd: {
 			campaignId: null,
 			adGroupId: null,
@@ -35,11 +36,15 @@ function getDataStructure() {
 const state = getDataStructure();
 
 const getters = {
-	item: state => state[state.adType]
+	item: state => state.item,
+	adType: state => state.adType,
+	textAd: state => state.textAd,
+	callOnlyAd: state => state.callOnlyAd
 };
 
 const mutations = {
-	clear: state => state.item = getDataStructure()
+	clear: state => state.item = getDataStructure(),
+	setupAdParams: state => state.item = state[state.adType]
 };
 
 const actions = {

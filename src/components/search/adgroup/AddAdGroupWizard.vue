@@ -4,9 +4,9 @@
       <div class="row">
         <form-wizard title="" subtitle="" shape="circle" color="#4285F4" nextButtonText="Save and Continue"
 			@on-loading="state => loading = state">
-          <tab-content title="Set up ad groups" route="/search/adgroup">
+          <tab-content title="Set up ad groups" route="/search/adgroups/new">
           </tab-content>
-          <tab-content title="Create ads" route="/search/ads">
+          <tab-content title="Create ads" route="/search/adgroups/new/ads">
           </tab-content>
           <transition name="fade" mode="out-in">
             <router-view></router-view>

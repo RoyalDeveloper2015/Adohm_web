@@ -7,10 +7,12 @@ import SetupAdGroup from '../components/search/adgroup/setupAdGroupForm'
 import CreateAd from '../components/search/ad/createAds'
 
 import Report from '../components/search/overview/Report'
+import Ads from '../components/search/ad/Ads'
 import AdGroups from '../components/search/adgroup/AdGroups'
-import NewAdGroup from '../components/search/adgroup/setupAdGroupForm'
+import AdGroupWizard from '../components/search/adgroup/AddAdGroupWizard'
 import Keywords from '../components/search/keyword/Keywords'
 import Demographics from '../components/search/demographics/Demographics'
+// import Settings from '../components/search/settings/Settings'
 
 export default [
 	{
@@ -24,22 +26,22 @@ export default [
 		name: 'SearchCampaignWizard',
 		children: [
 			{
-				path: '/search/addcampaign',
+				path: '',
 				component: AddSearchCampaign,
 				name: 'AddSearchCampaign'
 			},
 			{
-				path: '/search/addcampaign/detail',
+				path: 'detail',
 				component: DetailNetwork,
 				name: 'DetailNetwork'
 			},
 			{
-				path: '/search/adgroup',
+				path: 'adgroup',
 				name: 'SetupAdGroup',
 				component: SetupAdGroup
 			},
 			{
-				path: '/search/ads',
+				path: 'ads',
 				name: 'CreateAd',
 				component: CreateAd
 			}
@@ -55,7 +57,20 @@ export default [
 		component: AdGroups,
 		name: 'AdGroups'
 	},
-	{path: 'adgroups/new', component: SetupAdGroup},
+	{
+		path: 'ads',
+		component: Ads,
+		name: 'Ads'
+	},
+	{path: 'ads/new', component: CreateAd},
+	{
+		path: 'adgroups/new', 
+		component: AdGroupWizard,
+		children: [
+			{path: '', component: SetupAdGroup},
+			{path: 'ads', component: CreateAd},
+		]
+	},
 	{
 		path: 'keywords',
 		component: Keywords,
@@ -70,5 +85,10 @@ export default [
 		path: 'demographics',
 		component: Demographics,
 		name: 'Demographics'
+	},
+	{
+		path: 'campaigns/settings',
+		component: DetailNetwork,
+		name: 'Settings'
 	}
 ]
