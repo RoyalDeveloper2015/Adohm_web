@@ -175,11 +175,11 @@ export default {
 		...mapActions('adwords/campaign', ['getAll'])
 	},
 	mounted: function () {
-		this.$nextTick(function () {
-			$('#example').DataTable({
-				'paging': false
-			})
-		});
+		// this.$nextTick(function () {
+		// 	$('#example').DataTable({
+		// 		'paging': false
+		// 	})
+		// });
 		this.getAll().then(campaigns => {
 			Vue.set(this, 'campaigns', campaigns);
 		});

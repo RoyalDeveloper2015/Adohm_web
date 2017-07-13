@@ -18,7 +18,7 @@
 				<span>0</span><hr/>
 			</div>
 		</div>
-		<router-link to="/search/addcampaign"><a class="round-button"><i class="fa fa-plus"></i></a></router-link>
+		<router-link to="/search/adgroups/new"><a class="round-button"><i class="fa fa-plus"></i></a></router-link>
 		<div class="content-table">
 			<table id="example" class="display table table-striped table-bordered" cellspacing="0">
 				<thead>

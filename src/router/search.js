@@ -1,15 +1,16 @@
 
-import SearchCampaign from '../components/search/campaign/SearchCampaigns.vue'
-import SearchCampaignWizard from '../components/search/campaign/SearchCampaignWizard.vue'
-import AddSearchCampaign from '../components/search/campaign/AddSearchCampaign.vue'
-import DetailNetwork from '../components/search/campaign/DetailNetwork.vue'
-import SetupAdGroup from '../components/search/adgroup/setupAdGroupForm.vue'
-import CreateAd from '../components/search/ad/createAds.vue'
+import SearchCampaign from '../components/search/campaign/SearchCampaigns'
+import SearchCampaignWizard from '../components/search/campaign/SearchCampaignWizard'
+import AddSearchCampaign from '../components/search/campaign/AddSearchCampaign'
+import DetailNetwork from '../components/search/campaign/DetailNetwork'
+import SetupAdGroup from '../components/search/adgroup/setupAdGroupForm'
+import CreateAd from '../components/search/ad/createAds'
 
-import Report from '../components/search/overview/Report.vue'
-import AdGroups from '../components/search/adgroup/AdGroups.vue'
-import Keywords from '../components/search/keyword/Keywords.vue'
-import Demographics from '../components/search/demographics/Demographics.vue'
+import Report from '../components/search/overview/Report'
+import AdGroups from '../components/search/adgroup/AdGroups'
+import NewAdGroup from '../components/search/adgroup/setupAdGroupForm'
+import Keywords from '../components/search/keyword/Keywords'
+import Demographics from '../components/search/demographics/Demographics'
 
 export default [
 	{
@@ -54,6 +55,7 @@ export default [
 		component: AdGroups,
 		name: 'AdGroups'
 	},
+	{path: 'adgroups/new', component: SetupAdGroup},
 	{
 		path: 'keywords',
 		component: Keywords,
