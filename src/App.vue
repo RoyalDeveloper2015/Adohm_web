@@ -11,17 +11,17 @@
     <!-- ========== WRAPPER FOR BOTH SIDEBARS & MAIN CONTENT ========== -->
     <div class="content-wrapper">
       <div class="content-container">
-	  	<template  v-if="user._id">
+	  	<!-- <template  v-if="user._id"> -->
 			<!-- ========== LEFT SIDEBAR ========== -->
 			<left-side-bar></left-side-bar>
 			<!-- /.left-sidebar -->
 
 			<router-view></router-view>
 			<create-pixel></create-pixel>
-		</template>
-		<template v-else> 
+		<!-- </template>
+			<template v-else> 
 			<login-page></login-page>
-		</template>
+		</template>-->
 		<global-message> </global-message>
       </div>
       <!-- /.content-container -->

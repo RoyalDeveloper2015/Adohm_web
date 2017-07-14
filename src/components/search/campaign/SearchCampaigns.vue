@@ -20,16 +20,11 @@
 		</div>
 		<router-link to="/search/addcampaign"><a class="round-button"><i class="fa fa-plus"></i></a></router-link>
 		<div class="content-table">
-			<table id="example" class="display table table-striped table-bordered" cellspacing="0">
+			<table id="example" class="display table table-striped" cellspacing="0">
 				<thead>
 					<tr>
 						<th>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
-							</div>
+							<input type="checkbox" value="">
 						</th>
 						<th><i class="fa fa-circle black"></i></th>
 						<th>Campaign</th>
@@ -85,20 +80,29 @@
 					</tr>
 				</tfoot>
 				<tbody>				
-					<tr class="content-row"v-for="campaign in campaigns">
+					<tr class="content-row" v-for="campaign in campaigns">
 						<td>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
+							<input type="checkbox" value=""> 
+						</td>
+						<td>
+							<div class="btn-group">
+								<div class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-circle green" v-if="campaign.status==='Eligible'"></i>
+									<i class="fa fa-pause red" v-else></i>
+									<span class="caret"></span>
+								</div>
+								<ul class="dropdown-menu">
+									<li><a><i class="fa fa-circle green"></i>Enable</a></li>
+									<li><a><i class="fa fa-circle gray"></i>Pause</a></li>
+								</ul>
 							</div>
 						</td>
-						<td><i class="fa fa-circle green" v-if="campaign.status==='Eligible'"></i>
-								<i class="fa fa-pause red" v-else></i></td>
-						<td>{{campaign.name}}</td>
+						<td>
+							<router-link :to="'/search/adgroups/?campaign_id=' + campaign._id"> {{campaign.name}} </router-link> &nbsp;
+							<span class="fa fa-pencil"></span>
+						</td>
 						<td>{{campaign.client_account_name}}</td>
-						<td class="amount">{{campaign.budget.type}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.budget.amount}}/day</td>
+						<td class="amount">{{campaign.budget.deliveryMethod}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.budget.amount}}/day</td>
 						<td>{{campaign.status}}</td>
 						<td class="amount">{{campaign.impr}}</td>
 						<td class="amount">{{campaign.clicks}}</td>
@@ -125,47 +129,139 @@ export default {
 	data: function () {
 		return {
 			campaigns: [
-				{
-					name: 'trial campaign',
-					client_account_name: 'test',
-					budget: {
-						type: '',
-						amount: 5000
-					},
-					status: 'Eligible',
-					impr: 0,
-					clicks: 0,
-					ctr: 0,
-					avg_cpc: 0,
-					cost: 0
+			  {
+				"name": "Campaign #173",
+				"channelType": "Search",
+				"startDate": "2017-10-26T20:02:57.315Z",
+				"endDate": "2018-07-11T04:29:18.081Z",
+				"locations": {
+					"setting": "all",
+					"targeted": [
+						67123097,
+						4687351,
+						58310731,
+						43914574
+					],
+					"excluded": [
+						47271249,
+						67446473
+					]
+				},
+				"languages": [
+					29248543,
+					37963776,
+					60838095,
+					13829766
+				],
+				"budget": {
+					"amount": 38842,
+					"deliveryMethod": "Accelerated"
+				},
+				"networkSetting": {
+					"targetSearchNetwork": true,
+					"targetContentNetwork": false
+				},
+				"bidStrategy": {
+					"type": "targetROAS",
+					"data": {}
+				},
+				"extensions": {},
+				"goals": {
+					"enabled": true
+				}
 				},
 				{
-					name: 'test#1496232938768',
-					client_account_name: 'test',
-					budget: {
-						type: 'camp2#1496232937417',
-						amount: 5000
+					"name": "Campaign #889",
+					"channelType": "Display",
+					"startDate": "2017-10-16T08:16:40.316Z",
+					"endDate": "2017-10-27T18:02:42.917Z",
+					"locations": {
+						"setting": "custom",
+						"targeted": [
+							70647924,
+							89070503,
+							85600469
+						],
+						"excluded": [
+							50554059,
+							33860590,
+							91302977,
+							39859507
+						]
 					},
-					status: 'Paused',
-					impr: 0,
-					clicks: 0,
-					ctr: 0,
-					avg_cpc: 0,
-					cost: 0
+					"languages": [
+						72502779,
+						68815447
+					],
+					"budget": {
+						"amount": 85952,
+						"deliveryMethod": "Accelerated"
+					},
+					"networkSetting": {
+						"targetSearchNetwork": false,
+						"targetContentNetwork": true
+					},
+					"bidStrategy": {
+						"type": "targetOutRankingShare",
+						"data": {}
+					},
+					"extensions": {
+						"sitelink": [
+							-69163326.96327144,
+							68828075.18708113,
+							-49131911.08142487,
+							27631602.618042454
+						],
+						"promotion": [
+							82171085.042175,
+							-37931969.74930031,
+							4456162.065973863
+						],
+						"app": [
+							-54755915.44152092,
+							13742316.172068492
+						]
+					},
+					"goals": {
+						"enabled": true
+					}
 				},
 				{
-					name: 'test1#1496232938822',
-					client_account_name: 'test',
-					budget: {
-						type: 'camp2#1496232937417',
-						amount: 5000
+					"name": "Campaign #15",
+					"channelType": "Display",
+					"startDate": "2018-07-13T07:42:24.475Z",
+					"endDate": "2017-11-11T01:16:13.869Z",
+					"locations": {
+						"setting": "custom",
+						"targeted": [
+							31652609
+						],
+						"excluded": [
+							12814881,
+							58496299
+						]
 					},
-					status: 'Eligible',
-					impr: 0,
-					clicks: 0,
-					ctr: 0,
-					avg_cpc: 0,
-					cost: 0
+					"languages": [
+						71428107,
+						25434266,
+						80421246
+					],
+					"budget": {
+						"amount": 23658,
+						"deliveryMethod": "Standard"
+					},
+					"networkSetting": {
+						"targetSearchNetwork": true,
+						"targetContentNetwork": true
+					},
+					"bidStrategy": {
+						"type": "maximizeCliks",
+						"data": {}
+					},
+					"extensions": {},
+					"goals": {
+						"enabled": true
+					}
 				}
 			],
 			totalbudget: 0
@@ -284,7 +380,7 @@ export default {
 		background-color: #f2f2f2 !important;
 		font-weight: bold;
 	}
-
+ 
 	.checkbox label:after {
 			content: '';
 			display: table;
@@ -311,7 +407,7 @@ export default {
 	}
 
 	.checkbox label input[type="checkbox"] {
-			display: none;
+			 display: none; 
 	}
 
 	.checkbox label input[type="checkbox"] + .cr > .cr-icon {
@@ -327,8 +423,14 @@ export default {
 
 	.checkbox label input[type="checkbox"]:disabled + .cr {
 			opacity: .5;
-	}
+	} 
 
 	/*-------------- table style end -------------------*/
-</style>
 
+	.table .fa-pencil {
+		display: none;
+	}
+	.table tr:hover .fa-pencil {
+		display: inline-block;
+	}
+</style>

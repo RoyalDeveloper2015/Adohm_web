@@ -4,10 +4,14 @@ import moment from 'moment'
 
 function getDataStructure() {
 	return {
+		items: [],
 		item: {
+			_id: null,
 			name: null,
 			channelType: null,
-			// website: null,
+			businessWebsite: null,
+			country: null,
+			phoneNumber: null,
 			startDate: null,
 			endDate: null,
 			locations: {
@@ -29,16 +33,15 @@ function getDataStructure() {
 				type: 'targetCPA',
 				data: { cpa: null }
 			},
-			siteLinkExtension: [
-			],
-			callOutExtension: {
-			},
-			callExtensions: [
-			],
-			structuredSnippetExtensions: {
-				accountLevelCallOut: "accountLevelCallOut",
-				campaignLevelCallOutExtension: [
-				]
+			extensions: {
+				sitelink: [],
+				callout: [],
+				call: [],
+				structuredSnippet: [],
+				review: [],
+				message: [],
+				promotion: [],
+				app: []
 			},
 			adRotation: "Rotate Evenly",
 			adSchedule: [
@@ -95,18 +98,20 @@ const getters = {
 
 const mutations = {
 	clear: state => state.item = getDataStructure(),
-	setAdvertisingChannelType: (state, type) => state.item.advertisingChannelType = type
+	setAdvertisingChannelType: (state, type) => state.item.advertisingChannelType = type,
+	addItem: (state, item) => state.items.push(item)
 };
 
 const actions = {
 	save(context, payload) {
 		var item = utils.clone(context.state.item);
-		var bidStrategy = item.bidStrategy;
-		item.bidStrategy = {[bidStrategy.type]: bidStrategy.data};
-		item.startDate = moment(item.startDate).format('YYYYMMDD');
-		item.endDate = moment(item.endDate).format('YYYYMMDD');
-		delete item.goals;
-		return request.post('/add_searchcampaign', item)
+		context.commit('addItem', item);
+		// var bidStrategy = item.bidStrategy;
+		// item.bidStrategy = {[bidStrategy.type]: bidStrategy.data};
+		// item.startDate = moment(item.startDate).format('YYYYMMDD');
+		// item.endDate = moment(item.endDate).format('YYYYMMDD');
+		// delete item.goals;
+		// return request.post('/add_searchcampaign', item)
 	},
 	getAll(context) {
 		return new Promise((resolve, reject) => {

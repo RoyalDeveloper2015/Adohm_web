@@ -70,15 +70,15 @@
 				<div class="items-area">
 					<div>						
 						<span class="left-span"><i class="fa fa-link left-icon" aria-hidden="true"></i></span>
-						<input id="url" type="url" name="url" class="bottom-line-input width-40" placeholder="Your business website">											 
+						<input id="url" type="url" v-model="item.businessWebsite" class="bottom-line-input width-40" placeholder="Your business website">											 
 					</div>
 					<div class="margin-top-10">Enter a URL to see keyword ideas when you set up your ad groups.</div>
 					<div class="row mt-20" v-show="isCall">						
 						<div class="col-xs-4"> 
-							<select class="form-control"> </select>
+							<select v-model="item.country" class="form-control"> </select>
 						</div>
 						<div class="col-xs-8">
-							<input type="phone" class="bottom-line-input width-40" placeholder="Phone number">
+							<input type="phone" v-model="item.phoneNumber" class="bottom-line-input width-40" placeholder="Phone number">
 							<div class="margin-top-10">Example: ‪(201) 555-0123‬</div>
 						</div>
 					</div>

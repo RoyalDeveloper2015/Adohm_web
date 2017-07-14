@@ -17,23 +17,26 @@
 						</router-link>
 					</li>
 					<li><hr /></li>
+					
+					<template v-if="menuEnabled('Campaigns')">  
+						<li class="item" :class="{activemenu: $route.name == 'SearchCampaign'}">
+							<router-link class="item-link" :class="{deactivelink: $route.name == 'SearchCampaign'}"
+								to="/search/campaigns">
+								<span>Campaigns</span>
+							</router-link>
+						</li>
+					</template>
 
-					<li class="item" :class="{activemenu: $route.name == 'SearchCampaign'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'SearchCampaign'}"
-							to="/search/campaigns">
-							<span>Campaigns</span>
-						</router-link>
-					</li>
-					<li><hr /></li>
+					<template v-if="menuEnabled('AdGroups')">  
+						<li class="item" :class="{activemenu: $route.name == 'AdGroups'}">
+							<router-link class="item-link" :class="{deactivelink: $route.name == 'AdGroups'}"
+								to="/search/adgroups">
+								<span>Ad Groups</span>
+							</router-link>
+						</li>
+						<li><hr/></li>
+					</template>
 
-					<li class="item" :class="{activemenu: $route.name == 'AdGroups'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'AdGroups'}"
-							to="/search/adgroups">
-							<span>Ad Groups</span>
-						</router-link>
-					</li>
-					<li><hr/></li>					
-			
 					<li class="item" :class="{activemenu: $route.name == 'Ads'}">
 						<router-link class="item-link" :class="{deactivelink: $route.name == 'Ads'}"
 							to="/search/ads">
@@ -42,15 +45,24 @@
 					</li>
 					<li><hr/></li>
 
-					<li class="item" :class="{activemenu: $route.name == 'DynamicAdTargets'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'DynamicAdTargets'}"
-							to="/search/dynamicAdTargets">
-							<span>Dynamic Ad Targets</span>
+					<li class="item" :class="{activemenu: $route.name == 'Keywords'}">
+						<router-link class="item-link" :class="{deactivelink: $route.name == 'Keywords'}"
+							to="/search/keywords">
+							<span>Keywords</span>
 						</router-link>
 					</li>
-					<li><hr/></li>
+					
+					<template v-if="menuEnabled('DynamicAdTargets')">  
+						<li class="item" :class="{activemenu: $route.name == 'DynamicAdTargets'}">
+							<router-link class="item-link" :class="{deactivelink: $route.name == 'DynamicAdTargets'}"
+								to="/search/dynamicAdTargets">
+								<span>Dynamic Ad Targets</span>
+							</router-link>
+						</li>
+					</template>
 
 					<li class="item">Audiences</li>
+
 					<li class="item" :class="{activemenu: $route.name == 'Demographics'}">
 						<router-link class="item-link" :class="{deactivelink: $route.name == 'Demographics'}"
 							to="/search/demographics">
@@ -59,27 +71,30 @@
 					</li>
 					<li><hr /></li>
 
-					<li class="item" :class="{activemenu: $route.name == 'Settings'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'Settings'}"
-							to="/search/campaigns/settings">
-							<span>Settings</span>
-						</router-link>
-					</li>
-					<li><hr /></li>
+						<li class="item" :class="{activemenu: $route.name == 'Settings'}">
+							<router-link class="item-link" :class="{deactivelink: $route.name == 'Settings'}"
+								to="/search/campaigns/settings">
+								<span>Settings</span>
+							</router-link>
+						</li>
 
-					<li class="item" :class="{activemenu: $route.name == 'Locations'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'Locations'}"
-							to="/search/locations">
-							<span>Locations</span>
-						</router-link>
-					</li>
-					<li class="item" :class="{activemenu: $route.name == 'AdSchedule'}">
-						<router-link class="item-link" :class="{deactivelink: $route.name == 'AdSchedule'}"
-							to="/search/adschedules">
-							<span>Ad schedules</span>
-						</router-link>
-					</li>
-					<li><hr /></li>
+					<template v-if="menuEnabled('Locations')">  
+						<li class="item" :class="{activemenu: $route.name == 'Locations'}">
+							<router-link class="item-link" :class="{deactivelink: $route.name == 'Locations'}"
+								to="/search/locations">
+								<span>Locations</span>
+							</router-link>
+						</li>
+					</template>
+
+					<template v-if="menuEnabled('AdSchedule')">  
+						<li class="item" :class="{activemenu: $route.name == 'AdSchedule'}">
+							<router-link class="item-link" :class="{deactivelink: $route.name == 'AdSchedule'}"
+								to="/search/adschedules">
+								<span>Ad schedules</span>
+							</router-link>
+						</li>
+					</template>
 
 					<li class="item" :class="{activemenu: $route.name == 'Devices'}">
 						<router-link class="item-link" :class="{deactivelink: $route.name == 'Devices'}"
@@ -87,7 +102,6 @@
 							<span>Devices</span>
 						</router-link>
 					</li>
-					<li><hr /></li>
 
 					<li class="item" :class="{activemenu: $route.name == 'AdvancedBidAdjustment'}">
 						<router-link class="item-link" :class="{deactivelink: $route.name == 'AdvancedBidAdjustment'}"
@@ -95,6 +109,8 @@
 							<span>Advanced Bid Adjustment</span>
 						</router-link>
 					</li>
+					<li><hr /></li>
+
 					<li class="item" :class="{activemenu: $route.name == 'ChangeHisory'}">
 						<router-link class="item-link" :class="{deactivelink: $route.name == 'ChangeHisory'}"
 							to="/search/changeHistory">
@@ -109,7 +125,20 @@
 </template>
 <script>
 	export default {
-		name: 'search'
+		name: 'search',
+		data: () => ({
+			disabledMenus: {
+				campaign: ['Campaigns', 'Videos', 'DynamicAdTargets', 'Topics', 'Placements'],
+				adgroup: ['Campaigns', 'Videos', 'DynamicAdTargets', 'Topics', 'Placements', 'AdGroups', 'Locations', 'AdSchedule']
+			}
+		}),
+		methods: {
+			menuEnabled(name) {
+				if(this.$route.query.campaign_id && this.disabledMenus.campaign.includes(name)) return false; 
+				if(this.$route.query.adgroup_id && this.disabledMenus.adgroup.includes(name)) return false; 
+				return true
+			}
+		}
 	}
 </script>
 <style type="text/css">

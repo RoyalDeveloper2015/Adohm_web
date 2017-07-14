@@ -5,6 +5,7 @@ function getDataStructure() {
 		adType: 'textAd',
 		item: {},
 		textAd: {
+			id: null,
 			campaignId: null,
 			adGroupId: null,
 			finalUrl: null,
@@ -17,6 +18,7 @@ function getDataStructure() {
 			description: null
 		},
 		callOnlyAd: {
+			id: null,
 			campaignId: null,
 			adGroupId: null,
 			bussinessName: null,

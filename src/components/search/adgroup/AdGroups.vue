@@ -1,5 +1,5 @@
 <template>
-	<div class="search-campaign">
+	<div class="search-adgroup">
 		<nav class="navbar bg-white box-shadow sub-nav">
 			<ul class="nav subnav active-bottom">AdGroups</ul>
 			<ul class="nav subnav"> 
@@ -50,7 +50,7 @@
 					<tr>
 						<td></td>
 						<td></td>
-						<td>Total-all but removed campaigns</td>
+						<td>Total-all but removed adgroups</td>
 						<td></td>
 						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>0.00</td>
 						<td></td>
@@ -76,7 +76,7 @@
 					<tr>
 						<th></th>
 						<th></th>
-						<th>Total-all campaigns</th>
+						<th>Total-all adgroups</th>
 						<th></th>
 						<th class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{totalbudget}}/day</th>
 						<th></th>
@@ -88,26 +88,35 @@
 					</tr>
 				</tfoot>
 				<tbody>				
-					<tr class="content-row"v-for="campaign in campaigns">
+					<tr class="content-row" v-for="adgroup in adgroups">
 						<td>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
+							<input type="checkbox" value=""> 
+						</td>
+						<td>
+							<div class="btn-group">
+								<div class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-circle green" v-if="adgroup.status==='Eligible'"></i>
+									<i class="fa fa-pause red" v-else></i>
+									<span class="caret"></span>
+								</div>
+								<ul class="dropdown-menu">
+									<li><a><i class="fa fa-circle green"></i>Enable</a></li>
+									<li><a><i class="fa fa-circle gray"></i>Pause</a></li>
+								</ul>
 							</div>
 						</td>
-						<td><i class="fa fa-circle green" v-if="campaign.status==='Eligible'"></i>
-								<i class="fa fa-pause red" v-else></i></td>
-						<td>{{campaign.name}}</td>
-						<td>{{campaign.client_account_name}}</td>
-						<td class="amount">{{campaign.budget.type}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.budget.amount}}/day</td>
-						<td>{{campaign.status}}</td>
-						<td class="amount">{{campaign.impr}}</td>
-						<td class="amount">{{campaign.clicks}}</td>
-						<td class="amount">{{campaign.ctr}}%</td>
-						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.avg_cpc}}</td>
-						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.cost}}</td>
+						<td>
+							<router-link :to="'/search/ads/?adgroup_id=' + adgroup._id"> {{adgroup.name}} </router-link> &nbsp;
+							<span class="fa fa-pencil"></span>
+						</td>
+						<td>{{adgroup.client_account_name}}</td>
+						<td class="amount">{{adgroup.budget.type}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.budget.amount}}/day</td>
+						<td>{{adgroup.status}}</td>
+						<td class="amount">{{adgroup.impr}}</td>
+						<td class="amount">{{adgroup.clicks}}</td>
+						<td class="amount">{{adgroup.ctr}}%</td>
+						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.avg_cpc}}</td>
+						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.cost}}</td>
 					</tr>						 
 				</tbody>
 			</table>
@@ -127,9 +136,10 @@ export default {
 	name: 'searchCampaign',
 	data: function () {
 		return {
-			campaigns: [
+			adgroups: [
 				{
-					name: 'trial campaign',
+					_id: 1,
+					name: 'trial adgroup',
 					client_account_name: 'test',
 					budget: {
 						type: '',
@@ -143,6 +153,7 @@ export default {
 					cost: 0
 				},
 				{
+					_id: 2,
 					name: 'test#1496232938768',
 					client_account_name: 'test',
 					budget: {
@@ -157,6 +168,7 @@ export default {
 					cost: 0
 				},
 				{
+					_id: 3,
 					name: 'test1#1496232938822',
 					client_account_name: 'test',
 					budget: {
@@ -175,23 +187,23 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions('adwords/campaign', ['getAll'])
+		...mapActions('adwords/adgroup', ['getAll'])
 	},
 	mounted: function () {
-		this.$nextTick(function () {
-			$('#example').DataTable({
-				'paging': false
-			})
-		});
-		this.getAll().then(campaigns => {
-			Vue.set(this, 'campaigns', campaigns);
+		// this.$nextTick(function () {
+		// 	$('#example').DataTable({
+		// 		'paging': false
+		// 	})
+		// });
+		this.getAll().then(adgroups => {
+			Vue.set(this, 'adgroups', adgroups);
 		});
 	},
 	watch: {
-		campaigns: {
-			handler(campaigns) {
-				for (let i = 0; i < campaigns.length; i++) {
-					this.totalbudget = this.totalbudget + campaigns[i].budget.amount
+		adgroups: {
+			handler(adgroups) {
+				for (let i = 0; i < adgroups.length; i++) {
+					this.totalbudget = this.totalbudget + adgroups[i].budget.amount
 				}
 			}
 		}
@@ -200,7 +212,7 @@ export default {
 </script>
 <style lang="css">
 
-	.search-campaign {
+	.search-adgroup {
 		display: inline-block;
 		width: 100%;
 		z-index: 2;		

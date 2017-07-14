@@ -27,12 +27,7 @@
 				<thead>
 					<tr>
 						<th>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
-							</div>
+							<input type="checkbox" value="">
 						</th>
 						<th><i class="fa fa-circle black"></i></th>
 						<th>Keyword</th>
@@ -93,12 +88,7 @@
 				<tbody>				
 					<tr class="content-row"v-for="campaign in campaigns">
 						<td>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
-							</div>
+							<input type="checkbox" value="">
 						</td>
 						<td><i class="fa fa-circle green" v-if="campaign.status==='Eligible'"></i>
 								<i class="fa fa-pause red" v-else></i></td>
