@@ -5,24 +5,24 @@ import moment from 'moment'
 function getDataStructure() {
 	return {
 		items: [],
+		id: null,
 		item: {
-			_id: null,
-			name: null,
-			channelType: null,
-			businessWebsite: null,
-			country: null,
-			phoneNumber: null,
-			startDate: null,
-			endDate: null,
+			campaignName: "Campaign " + Math.random(),
+			channelType: "Search",
+			// businessWebsite: null,
+			// country: null,
+			// phoneNumber: null,
+			startDate: '2017-08-20',
+			endDate: '2017-08-30',
 			locations: {
-				setting: null,
-				targeted: [],
-				excluded: []
+				setting: "Home",
+				targeted: {countryids:[]},
+				excluded: {countryids:[]}
 			},
-			languages: [],
-			budget: {
-				amount: null,
-				sharedLibrary: null,
+			languages: ['English'],
+			amount: {
+				budget: 1200,
+				// sharedLibrary: null,
 				deliveryMethod: 'Standard'
 			},
 			networkSetting:{	
@@ -30,26 +30,25 @@ function getDataStructure() {
 				targetContentNetwork: true
 			},
 			bidStrategy: {
-				type: 'targetCPA',
-				data: { cpa: null }
+				type: 'manualCPC',
+				data: { enableEnhancedCPC: true }
 			},
-			extensions: {
-				sitelink: [],
-				callout: [],
-				call: [],
-				structuredSnippet: [],
-				review: [],
-				message: [],
-				promotion: [],
-				app: []
-			},
-			adRotation: "Rotate Evenly",
-			adSchedule: [
-			],
-			locationOptions: {
-				target: null,
-				exclude: null
-			},
+			// extensions: {
+			// 	sitelink: [],
+			// 	callout: [],
+			// 	call: [],
+			// 	structuredSnippet: [],
+			// 	review: [],
+			// 	message: [],
+			// 	promotion: [],
+			// 	app: []
+			// },
+			// adRotation: null,
+			// adSchedule: [],
+			// locationOptions: {
+			// 	target: null,
+			// 	exclude: null
+			// },
 			goals: {
 				enabled: false,
 				influenceConsiderations: [],
@@ -93,30 +92,42 @@ function getDataStructure() {
 const state = getDataStructure();
 
 const getters = {
-	item: state => state.item
+	item: state => state.item,
+	id: state => state.id
 };
 
 const mutations = {
 	clear: state => state.item = getDataStructure(),
 	setAdvertisingChannelType: (state, type) => state.item.advertisingChannelType = type,
-	addItem: (state, item) => state.items.push(item)
+	addItem: (state, item) => state.items.push(item),
+	setItems: (state, items) => state.items = items,
+	setId: (state, id) => state.id = id
 };
 
 const actions = {
-	save(context, payload) {
-		var item = utils.clone(context.state.item);
-		context.commit('addItem', item);
-		// var bidStrategy = item.bidStrategy;
-		// item.bidStrategy = {[bidStrategy.type]: bidStrategy.data};
-		// item.startDate = moment(item.startDate).format('YYYYMMDD');
-		// item.endDate = moment(item.endDate).format('YYYYMMDD');
-		// delete item.goals;
-		// return request.post('/add_searchcampaign', item)
+	save({state, commit}, payload) {
+		return new Promise((resolve, reject) => {
+
+			var item = utils.clone(state.item);
+			// context.commit('addItem', item);
+			var bidStrategy = item.bidStrategy;
+			item.bidStrategy = {[bidStrategy.type]: bidStrategy.data};
+			item.startDate = moment(item.startDate).format('YYYYMMDD');
+			item.endDate = moment(item.endDate).format('YYYYMMDD');
+			delete item.goals;
+			request.post('/add_searchcampaign', item).then(({data}) => {
+				debugger
+				if(data.success) {
+					commit('setId',data.result);
+					resolve(true);
+				} else reject("Failed to create campaign");
+			}).catch(reject);
+		})
 	},
 	getAll(context) {
 		return new Promise((resolve, reject) => {
 			request.get('/get_campaigns').then(({data}) => {
-				resolve(data);
+				context.commit('setItems', data);
 			}).catch(reject);
 		});
 	}

@@ -28,8 +28,8 @@ export default {
 	namespaced: true,
 	modules: {
 		campaign: campaign,
-		adgroup,
-		ad
+		adgroup: adgroup,
+		ad: ad
 	},
 	state,
 	getters,

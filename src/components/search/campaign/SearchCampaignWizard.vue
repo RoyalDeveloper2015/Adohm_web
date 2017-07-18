@@ -6,9 +6,9 @@
 			@on-loading="state => loading = state">
           <tab-content title="Select Campain Settings" route="/search/addcampaign" :before-change="saveCampaign">
           </tab-content>
-          <tab-content title="Set up ad groups" route="/search/addcampaign/adgroup">
+          <tab-content title="Set up ad groups" route="/search/addcampaign/adgroup" :before-change="saveAdGroup">
           </tab-content>
-          <tab-content title="Create ads" route="/search/addcampaign/ads">
+          <tab-content title="Create ads" route="/search/addcampaign/ads" :before-change="saveAd">
           </tab-content>
           <transition name="fade" mode="out-in">
             <router-view></router-view>
@@ -22,7 +22,7 @@
 <script>
   import Vue from 'vue'
   import {FormWizard, TabContent} from 'vue-form-wizard'
-  import {mapActions} from 'vuex'
+  import {mapActions, mapState} from 'vuex'
 
   Vue.use(FormWizard)
   export default {
@@ -36,11 +36,21 @@
 	}),
 	methods: {
 		saveCampaign() {
-			return new Promise((resolve, reject) => {
-				this.$store.dispatch('adwords/campaign/save').then(resolve).catch(reject);
-			});
+			return this.$store.dispatch('adwords/campaign/save');
+		},
+		saveAdGroup() {
+			return this.$store.dispatch('adwords/adgroup/save', this.campaignId);
+		},
+		saveAd() {
+			this.$store.dispatch('adwords/ad/save', this.adGroupId).then(success => {
+				this.$route.push('/search/campaigns');
+			})
 		}
 		// ...mapActions('adwords/campaign', ['save'])
+	},
+	computed: {
+		...mapState('adwords/adgroup', {adGroupId: 'id'}),
+		...mapState('adwords/campaign', {campaignId: 'id'})
 	}
   }
 </script>

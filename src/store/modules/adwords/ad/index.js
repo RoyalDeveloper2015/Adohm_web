@@ -1,33 +1,36 @@
-import {request} from '@/config/default/request'
-
+import {request} from '@/config/adwords/request'
+import {utils} from '@/components/Mixins'
 function getDataStructure() {
 	return {
-		adType: 'textAd',
+		adType: 'text',
 		item: {},
-		textAd: {
-			id: null,
-			campaignId: null,
+		id: null,
+		text: {
 			adGroupId: null,
-			finalUrl: null,
-			headline1: null,
+			adGroupName: null,
+			finalUrl: 'http://adohm.com',
+			headline1: 'Headline',
 			headline2: null,
 			displayPath: {
 				path1: null,
 				path2: null
 			},
-			description: null
+			description: 'description'
 		},
-		callOnlyAd: {
+		callOnly: {
 			id: null,
 			campaignId: null,
 			adGroupId: null,
 			bussinessName: null,
-			countryCode: null,
+			country: null,
 			phoneNumber: null,
 			description1: null,
 			description2: null,
 			displayUrl: null,
-			verificationUrl: null
+			verificationUrl: null,
+			trackCalls: true,
+			countConversions: true,
+			conversionId: null
 		},
 		details: {
 
@@ -40,18 +43,27 @@ const state = getDataStructure();
 const getters = {
 	item: state => state.item,
 	adType: state => state.adType,
-	textAd: state => state.textAd,
-	callOnlyAd: state => state.callOnlyAd
+	text: state => state.text,
+	callOnly: state => state.callOnly
 };
 
 const mutations = {
 	clear: state => state.item = getDataStructure(),
-	setupAdParams: state => state.item = state[state.adType]
+	setupAdParams: state => state.item = state[state.adType],
+	adType: (state, value) => state.adType = value
 };
 
 const actions = {
-	save(context) {
-
+	save({state}, adGroupId) {
+		return new Promise((resolve, reject) => {
+			var item = utils.clone(state.item);
+			item.adGroupId = adGroupId
+			request.post('/add_textads', item).then(({data}) => {
+				if(data.success) {
+					resolve(true);
+				} else reject();
+			}).catch(reject);
+		})
 	}
 };
 

@@ -29,8 +29,8 @@
 					<li class="has-children">
 						<a href="#"><i class="fa fa-map-signs"></i> <span>Visual Campaigns</span> <i class="fa fa-angle-right arrow"></i></a>
 						<ul class="child-nav">
-							<li><a href="color-primary.html"><i class="fa fa-bank"></i> <span>Overview</span></a></li>
-							<li><a href="color-success.html"><i class="fa fa-check"></i> <span>Campaigns</span></a></li>
+							<li><router-link to="/"><i class="fa fa-bank"></i> <span>Overview</span></router-link></li>
+							<li><router-link to="/taboola/campaigns"><i class="fa fa-check"></i> <span>Campaigns</span></router-link></li>
 						</ul>
 					</li>
 

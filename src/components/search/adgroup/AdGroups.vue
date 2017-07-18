@@ -24,12 +24,7 @@
 				<thead>
 					<tr>
 						<th>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
-							</div>
+							<input type="checkbox" value="">
 						</th>
 						<th><i class="fa fa-circle black"></i></th>
 						<th>AdGroup</th>
@@ -88,7 +83,7 @@
 					</tr>
 				</tfoot>
 				<tbody>				
-					<tr class="content-row" v-for="adgroup in adgroups">
+					<tr class="content-row" v-for="adgroup in items">
 						<td>
 							<input type="checkbox" value=""> 
 						</td>
@@ -106,15 +101,18 @@
 							</div>
 						</td>
 						<td>
-							<router-link :to="'/search/ads/?adgroup_id=' + adgroup._id"> {{adgroup.name}} </router-link> &nbsp;
+							<router-link :to="'/search/ads/?adgroup_id=' + adgroup.id"> {{adgroup.name}} </router-link> &nbsp;
 							<span class="fa fa-pencil"></span>
 						</td>
-						<td>{{adgroup.client_account_name}}</td>
-						<td class="amount">{{adgroup.budget.type}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.budget.amount}}/day</td>
+						<td></td>
+						<td class="amount">/day</td>
 						<td>{{adgroup.status}}</td>
 						<td class="amount">{{adgroup.impr}}</td>
 						<td class="amount">{{adgroup.clicks}}</td>
 						<td class="amount">{{adgroup.ctr}}%</td>
+						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.avg_cpc}}</td>
+						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.avg_cpc}}</td>
+						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.avg_cpc}}</td>
 						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.avg_cpc}}</td>
 						<td class="amount"><i class="fa fa-inr" aria-hidden="true"></i>{{adgroup.cost}}</td>
 					</tr>						 
@@ -127,7 +125,7 @@
 
 <script>
 	import $ from 'jquery'
-	import {mapActions} from 'vuex'
+	import {mapActions, mapState} from 'vuex'
 
 	require('datatables.net')
 	require('datatables.net-bs')
@@ -189,15 +187,17 @@ export default {
 	methods: {
 		...mapActions('adwords/adgroup', ['getAll'])
 	},
+	computed: {
+		...mapState('adwords/adgroup', ['items'])
+	},
 	mounted: function () {
 		// this.$nextTick(function () {
 		// 	$('#example').DataTable({
 		// 		'paging': false
 		// 	})
 		// });
-		this.getAll().then(adgroups => {
-			Vue.set(this, 'adgroups', adgroups);
-		});
+		var campaign_id = this.$route.query.campaign_id;
+		if(campaign_id) this.getAll(campaign_id);
 	},
 	watch: {
 		adgroups: {

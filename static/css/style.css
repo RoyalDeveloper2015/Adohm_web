@@ -235,6 +235,7 @@ tr.selected td {
 label.no-style {
 	display: inline-block;
 	font-weight: normal;
+	margin-right: 10px;
 }
 
 .bottom-line {

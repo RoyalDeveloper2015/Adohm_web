@@ -9,8 +9,8 @@ import store from './store'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-// store.dispatch('session/load').then(init).catch(init);
-init();
+store.dispatch('session/load').then(init).catch(init);
+// init();
 function init() {
 	new Vue({
 		el: '#app',

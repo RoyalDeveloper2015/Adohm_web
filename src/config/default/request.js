@@ -8,7 +8,7 @@ var request = axios.create({
   withCredentials: true
 });
 
-export {
+export  {
 	baseURL,
 	request
 }

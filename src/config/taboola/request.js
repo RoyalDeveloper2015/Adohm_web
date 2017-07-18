@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import appConfig from '../default/app'
 
-var baseURL = 'http://192.168.1.140:8082/new_test_adword/rest'
+var baseURL = 'https://backstage.taboola.com/backstage/api/1.0/'
 
 var request = axios.create({
   baseURL

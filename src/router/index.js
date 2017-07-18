@@ -14,68 +14,75 @@ import SocialCampaignEditor from '../components/pages/social/CampaignEditor'
 import FacebookReporting from '../components/pages/social/facebook/Reporting'
 import Account from '../components/pages/Account'
 
+
+import Taboola from './taboola'
 import Search from '../components/search/Search'
 
 Vue.use(Router)
 
+
+var routes = [
+	{
+		path: '/',
+		name: 'MainPage',
+		component: MainPage
+	},
+	{
+		path: '/campaign',
+		name: 'CampaignList',
+		component: CampaignList
+	},
+	{
+		path: '/campaign/add',
+		name: 'AddCampaign',
+		component: AddCampaign
+	},
+	{
+		path: '/advertisers',
+		component: Advertisers
+	},
+	{
+		path: '/user/account',
+		component: Account
+	},
+	{
+		path: '/users',
+		component: Users
+	},
+	{
+		path: '/user/settings',
+		component: UserSettings
+	},
+	{
+		path: '/social/performance',
+		component: Performance
+	},
+	{
+		path: '/social/overview/',
+		component: Overview
+	},
+	{
+		path: '/social/campaigns/create',
+		component: SocialCampaignEditor
+	},
+	{
+		path: '/social/campaigns/:id',
+		component: SocialCampaignEditor
+	},
+	{
+		path: '/social/facebook/reporting/',
+		component: FacebookReporting
+	},
+	{
+		path: '/search',
+		name: 'Search',
+		component: Search,
+		children: searchRoutes
+	}
+]
+
+routes = routes.concat(Taboola);
+
 export default new Router({
-	routes: [
-		{
-			path: '/',
-			name: 'MainPage',
-			component: MainPage
-		},
-		{
-			path: '/campaign',
-			name: 'CampaignList',
-			component: CampaignList
-		},
-		{
-			path: '/campaign/add',
-			name: 'AddCampaign',
-			component: AddCampaign
-		},
-		{
-			path: '/advertisers',
-			component: Advertisers
-		},
-		{
-			path: '/user/account',
-			component: Account
-		},
-		{
-			path: '/users',
-			component: Users
-		},
-		{
-			path: '/user/settings',
-			component: UserSettings
-		},
-		{
-			path: '/social/performance',
-			component: Performance
-		},
-		{
-			path: '/social/overview/',
-			component: Overview
-		},
-		{
-			path: '/social/campaigns/create',
-			component: SocialCampaignEditor
-		},
-		{
-			path: '/social/campaigns/:id',
-			component: SocialCampaignEditor
-		},
-		{
-			path: '/social/facebook/reporting/',
-			component: FacebookReporting
-		},
-		{
-			path: '/search',
-			name: 'Search',
-			component: Search,
-			children: searchRoutes
-		}
-	]
+	routes
 })

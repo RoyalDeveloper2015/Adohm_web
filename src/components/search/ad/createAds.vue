@@ -7,16 +7,20 @@
         <div>Ad group:<b>test</b></div>
         <p>Keywords:<b>hourses for sale</b></p>
       </div >
-      <div class="row">
-        <div class="col-sm-3">
-        	<button v-on:click="showNewAd =! showNewAd" class="btn btn-default form-control" style="height: 150px; font-size: large; color: #4285f4"><span class="fa fa-plus-circle"></span>  NEW AD </button>
-        </div>
-      </div>
     </div>
 	<div class="row mt-10">
 		<div class="col-xs-4">
-		    <add-new-component v-if="showNewAd" @save="onAddNew" @cancel="onCancelNew"></add-new-component>
+		    <add-new-component v-if="showNewAd" @save="onAddNew" @cancel="onCancelNew" :key="$route.query.type"></add-new-component>
 		</div>
+	</div>
+	<div>
+	<a class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
+		<i class="fa fa-plus"></i> New Ad
+		<ul class="dropdown-menu">
+			<li> <router-link to="/search/ads/new?type=text"><span class="fa fa-plus"></span> Text Ad</router-link> </li>
+			<li> <router-link to="/search/ads/new?type=callOnly"><span class="fa fa-plus"></span> Call only Ad</router-link> </li>
+		</ul> 
+	</a>
 	</div>
     <div class="panel mt-20 p-20">
       <div class="">
@@ -56,12 +60,13 @@
     name: 'createAds',
     data: function () {
       return {
-        showNewAd: false
+        showNewAd: true
       }
     },
     components: {
       'add-new-component': newAdComponent
-    },
+	},
+
     methods: {
       onAddNew: function () {
         this.showNewAd = false

@@ -46,12 +46,12 @@
     name: 'setupAdGroupForm',
     data: function () {
       return {
-        items: []
+
       }
     },
     methods: {
       addNewGroup: function () {
-        this.items.push(utils.clone(this.item))
+        this.items.push(Object.assign(utils.clone(this.item), {campaignID: this.campaignId, campaignName: this.campaign.campaignName}))
       },
 	  save(idx) {
 		  this.$store.dispatch('adwords/adgroup/save', this.items[idx]);
@@ -61,7 +61,8 @@
 		this.addNewGroup();
 	},
 	computed: {
-		...mapState('adwords/adgroup', ['item'])
+		...mapState('adwords/campaign', {campaignId: 'id', campaign: 'item'}),
+		...mapState('adwords/adgroup', ['item', 'items'])
 	},
     components: {
       'ad-group-element': adGroupElement

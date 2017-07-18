@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="trans-1">
-						<input v-model="item.name" type="text" class="bottom-line-input width-100" placeholder="Campaign name">
+						<input v-model="item.campaignName" type="text" class="bottom-line-input width-100" placeholder="Campaign name">
 					</div>
 				</div>
 				<div class="col-md-6 right">
@@ -223,7 +223,7 @@
 						<div><span>Enter a daily budget</span></div>					
 						<div class="margin-top-10">						
 							<span class="left-span"><i class="fa fa-inr left-icon" aria-hidden="true"></i></span>
-							<input v-model="item.budget.amount" type="number" min="0" class="bottom-line-input width-40">								 
+							<input v-model="item.amount.budget" type="number" min="0" class="bottom-line-input width-40">								 
 						</div>
 						<div class="margin-top-20"><span class="cursor blue">Apply from Shared library</span></div>
 						<div class="margin-top-20">
@@ -232,13 +232,13 @@
 							<div class="trans-7 margin-top-20">
 								<div>
 									<label class="no-style margin-left-10">
-										<input v-model="item.budget.deliveryMethod" value="standard" type="radio" name="daily-bid-mode">
+										<input v-model="item.amount.deliveryMethod" value="standard" type="radio" name="daily-bid-mode">
 										Standard
 									</label>
 								</div>
 								<div class="margin-top-20">
 									<label class="no-style margin-left-10">
-										<input v-model="item.budget.deliveryMethod" value="accelerated" type="radio" name="daily-bid-mode">
+										<input v-model="item.amount.deliveryMethod" value="accelerated" type="radio" name="daily-bid-mode">
 										Accelerated
 									</label>
 								</div>

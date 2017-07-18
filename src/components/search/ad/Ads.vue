@@ -20,18 +20,19 @@
 				<span>0</span><hr/>
 			</div>
 		</div>
-		<router-link to="/search/ads/new"><a class="round-button"><i class="fa fa-plus"></i></a></router-link>
+		<a class="round-button dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-plus"></i>
+			<ul class="dropdown-menu">
+				<li> <router-link to="/search/ads/new?type=text"><span class="fa fa-plus"></span> Text Ad</router-link> </li>
+				<li> <router-link to="/search/ads/new?type=callOnly"><span class="fa fa-plus"></span> Call only Ad</router-link> </li>
+			</ul> 
+		</a>
 		<div class="content-table">
 			<table id="example" class="display table table-striped table-bordered" cellspacing="0">
 				<thead>
 					<tr>
 						<th>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
-							</div>
+							<input type="checkbox" value="">
 						</th>
 						<th><i class="fa fa-circle black"></i></th>
 						<th>AdGroup</th>
@@ -90,14 +91,9 @@
 					</tr>
 				</tfoot>
 				<tbody>				
-					<tr class="content-row"v-for="campaign in campaigns">
+					<tr class="content-row"v-for="campaign in items">
 						<td>
-							<div class="checkbox radio-margin">
-								<label>
-									<input type="checkbox" value="">
-									<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-								</label>
-							</div>
+							<input type="checkbox" value="">
 						</td>
 						<td><i class="fa fa-circle green" v-if="campaign.status==='Eligible'"></i>
 								<i class="fa fa-pause red" v-else></i></td>
@@ -136,17 +132,17 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions('adwords/campaign', ['getAll'])
+		...mapActions('adwords/campaign', ['getAll', 'items'])
 	},
 	mounted: function () {
-		this.$nextTick(function () {
-			$('#example').DataTable({
-				'paging': false
-			})
-		});
-		this.getAll().then(campaigns => {
-			Vue.set(this, 'campaigns', campaigns);
-		});
+		// this.$nextTick(function () {
+		// 	$('#example').DataTable({
+		// 		'paging': false
+		// 	})
+		// });
+		// this.getAll().then(campaigns => {
+		// 	Vue.set(this, 'campaigns', campaigns);
+		// });
 	},
 	watch: {
 		campaigns: {

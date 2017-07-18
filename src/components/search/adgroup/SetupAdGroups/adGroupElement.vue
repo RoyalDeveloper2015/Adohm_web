@@ -3,7 +3,7 @@
     <div class="form-group">
       <div class="col-sm-7 col-md-7">
         <label for="group-name" class="control-label">Ad group name</label>
-        <input type="text" id="group-name" v-model="item.name" class="form-control">
+        <input type="text" id="group-name" v-model="item.adGroupName" class="form-control">
       </div>
     </div>
     <div class="form-group">
@@ -11,7 +11,7 @@
         <label for="default-bid" class="control-label">Default bid
           <i class="fa fa-question-circle-o"></i>
         </label>
-        <input type="text" id="default-bid" v-model="item.defaultBid" class="form-control">
+        <input type="text" id="default-bid" v-model="item.defaultbid" class="form-control">
       </div>
     </div>
     <div class="form-group col-md-12 col-sm-12">

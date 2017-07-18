@@ -80,7 +80,7 @@
 					</tr>
 				</tfoot>
 				<tbody>				
-					<tr class="content-row" v-for="campaign in campaigns">
+					<tr class="content-row" v-for="campaign in items">
 						<td>
 							<input type="checkbox" value=""> 
 						</td>
@@ -98,11 +98,11 @@
 							</div>
 						</td>
 						<td>
-							<router-link :to="'/search/adgroups/?campaign_id=' + campaign._id"> {{campaign.name}} </router-link> &nbsp;
+							<router-link :to="'/search/adgroups/?campaign_id=' + campaign.id"> {{campaign.name}} </router-link> &nbsp;
 							<span class="fa fa-pencil"></span>
 						</td>
 						<td>{{campaign.client_account_name}}</td>
-						<td class="amount">{{campaign.budget.deliveryMethod}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.budget.amount}}/day</td>
+						 <td class="amount">{{campaign.budgetdeliveryMethod}}<br /><i class="fa fa-inr" aria-hidden="true"></i>{{campaign.budgetamount}}/day</td> 
 						<td>{{campaign.status}}</td>
 						<td class="amount">{{campaign.impr}}</td>
 						<td class="amount">{{campaign.clicks}}</td>
@@ -119,7 +119,7 @@
 
 <script>
 	import $ from 'jquery'
-	import {mapActions} from 'vuex'
+	import {mapActions, mapState} from 'vuex'
 
 	require('datatables.net')
 	require('datatables.net-bs')
@@ -277,7 +277,7 @@ export default {
 		// 	})
 		// });
 		this.getAll().then(campaigns => {
-			Vue.set(this, 'campaigns', campaigns);
+			// Vue.set(this, 'campaigns', campaigns);
 		});
 	},
 	watch: {
@@ -288,6 +288,9 @@ export default {
 				}
 			}
 		}
+	},
+	computed: {
+		...mapState('adwords/campaign', ['items'])
 	}
 }
 </script>
