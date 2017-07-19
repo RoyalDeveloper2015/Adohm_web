@@ -11,6 +11,8 @@ import Ads from '../components/search/ad/Ads'
 import AdGroups from '../components/search/adgroup/AdGroups'
 import AdGroupWizard from '../components/search/adgroup/AddAdGroupWizard'
 import Keywords from '../components/search/keyword/Keywords'
+import NegativeKeywords from '../components/search/keyword/NegativeKeywords'
+import AddNegativeKeyword from '../components/search/keyword/AddNegativeKeyword'
 import Demographics from '../components/search/demographics/Demographics'
 // import Settings from '../components/search/settings/Settings'
 
@@ -75,6 +77,16 @@ export default [
 		path: 'keywords',
 		component: Keywords,
 		name: 'Keywords',
+	},
+	{
+		path: 'keywords/negative',
+		component: NegativeKeywords,
+		name: 'NegativeKeywords',
+	},
+	{
+		path: 'keywords/negative/add',
+		component: AddNegativeKeyword,
+		name: 'AddNegativeKeyword',
 	},
 	{
 		path: 'keywords/:type',

@@ -10,26 +10,26 @@
 			</div>
 		</div>
 		<div class="panel-body" v-if="adType == 'text'">
-			<div >
-				<input v-model="item.finalUrl" class="form-control" type="url" placeholder="Final URL">
+			<div>
+				<input v-model="text.finalUrl" class="form-control" type="text" placeholder="Final URL">
 			</div>
 			<div >
-				<input v-model="item.headline1" class="form-control" type="text" placeholder="Headline 1">
+				<input v-model="text.headline1" class="form-control" type="text" placeholder="Headline 1">
 			</div>
 			<div class="pull-right"><span>0/30</span></div>
 			<div class="form-group">
-				<input v-model="item.headline2" class="form-control" type="text" placeholder="Headline 2">
+				<input v-model="text.headline2" class="form-control" type="text" placeholder="Headline 2">
 			</div>
 			<div class="row pr-15"><span class="pull-right">0/30</span></div>
 			<div><span>Display path <i class="fa fa-question-circle-o"></i></span></div>
 			<div style="display:inline-flex;">
 				<span style="line-height:30px">www.example.com/</span>
-				<div><input	v-model="item.displayPath.path1" class="form-control" maxlength="15" placeholder="Path 1"></div>
+				<div><input	v-model="text.displayPath.path1" class="form-control" maxlength="15" placeholder="Path 1"></div>
 				<span style="line-height:30px">/</span>
-				<div><input v-model="item.displayPath.path2" class="form-control" maxlength="15" placeholder="Path 2"></div>
+				<div><input v-model="text.displayPath.path2" class="form-control" maxlength="15" placeholder="Path 2"></div>
 			</div>
 			<div class="mt-10" style="display:inline-flex; width:100%;">
-				<textarea v-model="item.description" class="form-control" type="text" placeholder="Description" maxlength="80"></textarea>
+				<textarea v-model="text.description" class="form-control" type="text" placeholder="Description" maxlength="80"></textarea>
 			</div>
 			<div class="row ml-n mr-n" v-on:click="showUrlOption()">
 				<i class="fa" v-bind:class="flg_urlOption ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
@@ -39,45 +39,45 @@
 		</div>
 		<div class="panel-body" v-if="adType == 'callOnly'">
 			<div class="form-group">
-				<input v-model="item.businessName" class="form-control" type="url" placeholder="Final URL">
+				<input v-model="callOnly.businessName" class="form-control" type="text" placeholder="Business name">
 			</div>
 			<div class="row">
 				<div class="col-xs-6">
-					<select v-model="item.country" class="form-control">
-						<option> India </option>
+					<select v-model="callOnly.countryCode" class="form-control">
+						<option value="IN"> India </option>
 					</select>
 				</div>
 				<div class="col-xs-6">
-					<input v-model="item.phoneNumber" class="form-control" type="text" placeholder="Phone number">
+					<input v-model="callOnly.phoneNumber" class="form-control" type="text" placeholder="Phone number">
 				</div>
 			</div>
 			<div>
-				<input type="text" v-model="item.description1" class="form-control" placeholder="Description 1">
+				<input type="text" v-model="callOnly.description1" class="form-control" placeholder="Description 1">
 			</div>
 			<div>
-				<input type="text" v-model="item.description2" class="form-control" placeholder="Description 2">
+				<input type="text" v-model="callOnly.description2" class="form-control" placeholder="Description 2">
 			</div>
 			<div>
-				<input type="text" v-model="item.displayUrl" class="form-control" placeholder="Display URL">
+				<input type="text" v-model="callOnly.displayUrl" class="form-control" placeholder="Display URL">
 			</div>
 			<div>
-				<input type="text" v-model="item.verificationUrl" class="form-control" placeholder="Verification URL">
+				<input type="text" v-model="callOnly.verificationUrl" class="form-control" placeholder="Verification URL">
 			</div>
 			<div>
 				<label> Call reporting </label>
-				<label class="no-style"> <input type="radio" name="trackCalls" v-model="item.trackCalls" :value="true"> On </label>
-				<label class="no-style"> <input type="radio" name="trackCalls" v-model="item.trackCalls" :value="false"> Off </label>
+				<label class="no-style"> <input type="radio" name="trackCalls" v-model="callOnly.callreporting" :value="true"> On </label>
+				<label class="no-style"> <input type="radio" name="trackCalls" v-model="callOnly.callreporting" :value="false"> Off </label>
 			</div>
-			<div v-if="item.trackCalls">
+			<!-- <div v-if="callOnly.callreporting">
 				<label> Report conversions </label>
-				<label class="no-style"> <input type="checkbox" v-model="item.countConversions" :value="true"> Count conversions as </label> 
-				<select :disabled="!item.countConversions">
+				<label class="no-style"> <input type="checkbox" v-model="callOnly.callconversion" :value="true"> Count conversions as </label> 
+				<select :disabled="!callOnly.callconversion">
 					<option> Select one </option>
 				</select>
-			</div>
+			</div> -->
 		</div>
 		<div class="panel-footer">
-			<button class="btn btn-link"> DONE </button>
+			<button class="btn btn-link">  DONE </button>
 			<button type="button" class="btn btn-link" @click="cancel()"> CANCEL </button>
 		</div>
 	</form>
@@ -95,13 +95,13 @@
 		},
 		data: function () {
 			return {
-				flg_urlOption: false,
-				adType: 'text'
+				flg_urlOption: false
 			}
 		},
-		beforeMount() {
+		mounted() {
 			var adType = this.$route.query.type || 'text';
-			Vue.set(this, 'adType', adType)
+			debugger
+			this.setAdType(adType)
 		},
 		methods: {
 			showUrlOption: function () {
@@ -109,24 +109,17 @@
 				console.log(this.flg_urlOption)
 			},
 			save() {
-				this.$emit('save')
+				this.$store.dispatch('adwords/ad/save').then(result => {
+
+				})
 			},
 			cancel: function () {
 				this.$emit('cancel')
 			},
-			...mapMutations('adwords/ad', ['setupAdParams'])
+			...mapMutations('adwords/ad', ['setAdType'])
 		},
 		computed: {
-			...mapState('adwords/ad', ['item'])
-		},
-		watch: {
-			adType: {
-				immediate: true,
-				handler(type) {
-					this.$store.commit('adwords/ad/adType', type);
-					this.setupAdParams();
-				}
-			}
+			...mapState('adwords/ad', ['text', 'callOnly', 'adType'])
 		}
 	}
 </script>

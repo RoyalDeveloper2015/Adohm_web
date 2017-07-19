@@ -208,6 +208,140 @@
 	.deactivelink {
 		color: #ffffff !important;
 	}
+
+/** Moved **/
+
+	.search-campaign {
+		display: inline-block;
+		width: 100%;
+		z-index: 2;		
+	}
+	.subnav {
+		margin: 30px 20px 0px 20px;
+		padding: 0px 20px 4px 20px;
+		display: inline-block;
+	}
+	.subnav:hover {
+		border-bottom-style: solid;
+		border-bottom-width: 3px;
+		border-bottom-color: #3498db;
+	}
+	.active-bottom {
+		border-bottom-style: solid;
+		border-bottom-width: 3px;
+		border-bottom-color: #3498db;
+	}
+	.round-button {
+		display:block;
+		width:50px;
+		height:50px;
+		line-height:50px;
+		border-radius: 50%;
+		color:#ffffff;
+		text-align:center;
+		text-decoration:none;
+		background: #3498FC;
+		box-shadow: 0 0 3px gray;
+		margin-left: 20px;
+	}
+	.round-button:hover {
+			background: #ffffff;
+			color: #3498FC;
+	}
+	.line-group {
+		margin: 40px 0px 40px 40px;
+	}
+	.line-item {
+		margin: 40px 0px 40px 0px;
+		vertical-align: center;
+		width: 95%;
+		text-align: right;
+	}
+	.line-item hr {
+		display: inline-block;
+		width: 95%;
+		border: 0;
+		border-top: 1px solid #ccc;
+		padding: 0;
+		margin: 5px 0px 5px 10px;
+	} 
+
+	/*---------- table style start ---------- */
+	.content-table {
+		padding: 0px 20px 0px 20px;
+	}
+	.table-custom tr {
+		border: 2px solid rgba(0,0,0,0.04);
+	}
+	.top-row {
+		background-color: rgba(0,0,0,0.04) !important;
+	}
+	.amount {
+		text-align: right;
+	}
+	tbody {
+		background-color: #f9f9f9;
+	}
+	.green {
+		color: #0db70d;
+	}
+	thead i {
+		color: rgba(0,0,0,0.5) !important;
+	}
+	tfoot {
+		background-color: rgba(0,0,0,0.04) !important;
+	}
+	table .fa-circle, .fa-pause {
+		font-size: xx-small !important;
+	}
+	tfoot td {
+		background-color: #f2f2f2 !important;
+		font-weight: bold;
+	}
+
+	.checkbox label:after {
+			content: '';
+			display: table;
+			clear: both;
+	}
+
+	.checkbox .cr {
+			position: relative;
+			display: inline-block;
+			border: 1px solid #a9a9a9;
+			border-radius: .25em;
+			width: 1.3em;
+			height: 1.3em;
+			float: left;
+			margin-right: .5em;
+	}
+
+	.checkbox .cr .cr-icon {
+			position: absolute;
+			font-size: .8em;
+			line-height: 0;
+			top: 50%;
+			left: 20%;
+	}
+
+	.checkbox label input[type="checkbox"] {
+			display: none;
+	}
+
+	.checkbox label input[type="checkbox"] + .cr > .cr-icon {
+			transform: scale(3) rotateZ(-20deg);
+			opacity: 0;
+			transition: all .3s ease-in;
+	}
+
+	.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon {
+			transform: scale(1) rotateZ(0deg);
+			opacity: 1;
+	}
+
+	.checkbox label input[type="checkbox"]:disabled + .cr {
+			opacity: .5;
+	}
 </style>
 
 	

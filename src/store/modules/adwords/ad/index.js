@@ -1,16 +1,16 @@
 import {request} from '@/config/adwords/request'
 import {utils} from '@/components/Mixins'
+import Vue from 'vue'
 function getDataStructure() {
 	return {
 		adType: 'text',
-		item: {},
 		id: null,
 		text: {
 			adGroupId: null,
 			adGroupName: null,
-			finalUrl: 'http://adohm.com',
-			headline1: 'Headline',
-			headline2: null,
+			finalUrl: 'adohm.com',
+			headline1: 'Headline 1',
+			headline2: 'Headline 2',
 			displayPath: {
 				path1: null,
 				path2: null
@@ -18,19 +18,18 @@ function getDataStructure() {
 			description: 'description'
 		},
 		callOnly: {
-			id: null,
-			campaignId: null,
+			// campaignId: null,
 			adGroupId: null,
-			bussinessName: null,
-			country: null,
-			phoneNumber: null,
-			description1: null,
-			description2: null,
-			displayUrl: null,
-			verificationUrl: null,
-			trackCalls: true,
-			countConversions: true,
-			conversionId: null
+			businessName: 'Adohm',
+			countryCode: 'IN',
+			phoneNumber: '9686153659',
+			description1: 'Description 1',
+			description2: 'Description 2',
+			displayUrl: 'adohm.com',
+			verificationUrl: 'http://adohm.com',
+			callreporting: true,
+			// callconversion: true,
+			// conversionId: null
 		},
 		details: {
 
@@ -41,24 +40,23 @@ function getDataStructure() {
 const state = getDataStructure();
 
 const getters = {
-	item: state => state.item,
 	adType: state => state.adType,
 	text: state => state.text,
 	callOnly: state => state.callOnly
 };
 
 const mutations = {
-	clear: state => state.item = getDataStructure(),
-	setupAdParams: state => state.item = state[state.adType],
-	adType: (state, value) => state.adType = value
+	clear: state => state = getDataStructure(),
+	setAdType: (state, value) => state.adType = value,
+	setAdGroupId: (state, value) => state.text.adGroupId = state.callOnly.adGroupId = value
 };
 
 const actions = {
-	save({state}, adGroupId) {
+	save({state, rootState}, adGroupId) {
 		return new Promise((resolve, reject) => {
-			var item = utils.clone(state.item);
-			item.adGroupId = adGroupId
-			request.post('/add_textads', item).then(({data}) => {
+			var item = utils.clone(state[state.adType]);
+			let adType = state.adType.toLowerCase();
+			request.post(`/add_${adType}ads`, item).then(({data}) => {
 				if(data.success) {
 					resolve(true);
 				} else reject();

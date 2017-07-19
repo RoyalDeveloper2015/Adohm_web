@@ -4,12 +4,17 @@ function getDataStructure() {
 	return {
 		id: null,
 		item: {
-			advertiserId: null,
-			adGroupName: "Adgroup " + Math.random(),
-			campaignID: null,
+			type: null,
+			adGroupId: null,
+			adGroupName: null,
+			campaignId: null,
 			campaignName: null,
-			defaultbid: 10,
-			keywords: "keyword1\nkeyword2"
+			keywords: [],
+			isList: true,
+			listIds: [],
+			newList: false,
+			newListName: null,
+			existingId: null
 		},
 		items: [],
 		details: {
@@ -27,26 +32,27 @@ const getters = {
 const mutations = {
 	clear: state => state.item = getDataStructure(),
 	setItems: (state, items) => state.items = items,
-	setId: (state, id) => state.id = id
 };
 
 const actions = {
 	save({state, commit}, campaignId) {
 		return new Promise((resolve, reject) => {
-			var adgroup = clone(state.items[0]);
-			adgroup.keywords = adgroup.keywords && adgroup.keywords.split('\n') || [];
-			adgroup.campaignID = campaignId
-			request.post('/add_adgroup', adgroup).then(({data}) => {
+			var item = clone(state.item);
+			item.keywords = item.keywords && item.keywords.split('\n');
+			item.type = item.type && item.type[0].toUpperCase() + item.type.substr(1);
+			request.post('/add_negativekeywords', item).then(({data}) => {
 				if(data.success) {
-					commit('setId', data.result);
 					resolve(true)
 				} else reject()
 			});
 		})
 	},
 	getAll({state, commit}, campaign_id) {
-		request.get('/get_adgroup/' + campaign_id).then(({data}) => {
-			commit('setItems', data)
+		return new Promise((resolve, reject) => {
+			request.get('/get_negativekeywords' + campaign_id).then(({data}) => {
+				commit('setItems', data);
+				resolve(data);
+			}).catch(reject)
 		})
 	} 
 };

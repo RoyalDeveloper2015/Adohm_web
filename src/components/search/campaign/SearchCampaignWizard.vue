@@ -34,6 +34,11 @@
 	data: () => ({
 		loading: false
 	}),
+	computed: {
+		...mapState('adwords/adgroup', {adGroupId: 'id'}),
+		...mapState('adwords/campaign', {campaignId: 'id'}),
+		...mapState('adwords/ad', ['text', 'callOnly', 'adType'])
+	},
 	methods: {
 		saveCampaign() {
 			return this.$store.dispatch('adwords/campaign/save');
@@ -42,15 +47,17 @@
 			return this.$store.dispatch('adwords/adgroup/save', this.campaignId);
 		},
 		saveAd() {
+			Vue.set(this[this.adType], 'adGroupId', this.adGroupId);
 			this.$store.dispatch('adwords/ad/save', this.adGroupId).then(success => {
 				this.$route.push('/search/campaigns');
 			})
 		}
 		// ...mapActions('adwords/campaign', ['save'])
 	},
-	computed: {
-		...mapState('adwords/adgroup', {adGroupId: 'id'}),
-		...mapState('adwords/campaign', {campaignId: 'id'})
+	watch: {
+		adGroupId() { 
+			console.log("AdGroupId changed")
+		}
 	}
   }
 </script>

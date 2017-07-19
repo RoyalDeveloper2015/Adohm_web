@@ -4,11 +4,11 @@
     <p>For each ad group, we recoomend you create at least three ads that closely relate to the theme of your keywords</p>
     <div class="panel p-20 mb-n">
       <div class="">
-        <div>Ad group:<b>test</b></div>
+        <div>Ad group: <add-to-list type="adgroup" @selected="setAddTo"></add-to-list> </div>
         <p>Keywords:<b>hourses for sale</b></p>
       </div >
     </div>
-	<div class="row mt-10">
+	<div class="row mt-10" v-for="">
 		<div class="col-xs-4">
 		    <add-new-component v-if="showNewAd" @save="onAddNew" @cancel="onCancelNew" :key="$route.query.type"></add-new-component>
 		</div>
@@ -56,6 +56,10 @@
 
 <script>
   import newAdComponent from './CreateAds/newAdComponent.vue'
+  import AddToList from '../components/AddToList'
+  import Vue from 'vue'
+  import {mapState} from 'vuex'
+
   export default {
     name: 'createAds',
     data: function () {
@@ -64,16 +68,23 @@
       }
     },
     components: {
-      'add-new-component': newAdComponent
+	  'add-new-component': newAdComponent,
+	  AddToList
 	},
-
+	computed: {
+		...mapState('adwords/ad', ['text', 'callOnly', 'adType'])
+	},
     methods: {
       onAddNew: function () {
         this.showNewAd = false
       },
       onCancelNew: function () {
         this.showNewAd = false
-      }
+	  },
+	  setAddTo(addto) {
+		//   this.$store.commit('adwords/ad/setAdGroupId', addto.adgroup.id)
+		Vue.set(this[this.adType], 'adGroupId', addto.adgroup.id);
+	  }
     }
   }
 </script>
