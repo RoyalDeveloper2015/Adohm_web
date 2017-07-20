@@ -1,44 +1,40 @@
 <template>
 <div>
-	<div class="radio radio-primary" style="white-space:warp;word-break:break-word">
-		<input type="radio" id="r_account" value="account" v-model="val">
-		<label for="r_account">Use account level callout extension</label>
-	</div>
-	<div class="radio radio-primary" style="white-space:warp;word-break:break-word">
-		<input type="radio" id="r_create" value="create" v-model="val">
-		<label for="r_create">Select or create campaign level extension</label>
-	</div>
-	<list-component v-if="listView"></list-component>
+	<label class="no-style">
+		<input type="radio" value="account" v-model="useAccount" :value="true">
+		Use account level callout extension
+	</label>
+	<label class="no-style">
+		<input type="radio" value="create" v-model="useAccount" :value="false">
+		Select or create campaign level extension
+	</label>
+	<list-manager v-if="!useAccount" :provider="getList" editor="CalloutExtension"></list-manager>
 </div>
 </template>
 
 <script>
 	import list from './ListComponent.vue'
+
+	import ListManager from '@/components/search/components/ListManager'
+	import {request} from '@/config/adwords/request';
+
+
 	export default {
 		name: 'CalloutExtension',
-		data: function () {
-			return {
-				val: '',
-				listView: false
-			}
-		},
-		methods: {
-			expand (tar1, tar2) {
-				$('.' + tar1).slideToggle()
-				$('.' + tar2).toggleClass('rotate')
-			}
-		},
-		watch: {
-			val: function (currentVal) {
-				if (currentVal === 'create') {
-					this.listView = true
-				} else {
-					this.listView = false
-				}
-			}
-		},
 		components: {
-			'list-component': list
+			ListManager
+		},
+		data: () => ({
+			useAccount: true
+		}),
+		methods: {
+			getList() {
+				return new Promise((resolve, reject) => {
+					request.get('/get_extension/callout').then(({data}) => {
+						resolve(data);
+					})
+				});
+			}
 		}
 	}
 </script>

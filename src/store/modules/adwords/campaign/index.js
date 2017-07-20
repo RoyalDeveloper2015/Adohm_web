@@ -43,12 +43,12 @@ function getDataStructure() {
 			// 	promotion: [],
 			// 	app: []
 			// },
-			// adRotation: null,
-			// adSchedule: [],
-			// locationOptions: {
-			// 	target: null,
-			// 	exclude: null
-			// },
+			adRotation: null,
+			adSchedule: [],
+			locationOptions: {
+				target: null,
+				exclude: null
+			},
 			goals: {
 				enabled: false,
 				influenceConsiderations: [],

@@ -9,7 +9,7 @@ function getDataStructure() {
 			adGroupName: null,
 			campaignId: null,
 			campaignName: null,
-			keywords: [],
+			keywords: null,
 			isList: true,
 			listIds: [],
 			newList: false,

@@ -1,64 +1,7 @@
 <template>
 <div>
 	<p class="my-gray"> Select or create campaign level snippet extensions </p>
-	<div class="row ml-n mr-n bg-white">
-		<div class="panel panel-default mb-n" >
-			<div class="panel-body p-n">
-				<table class="table table-bordered mb-n" v-show="!flgNewStructure">
-					<tbody >
-						<tr>
-							<td class="p-n">
-								<div class="" style="position:relative">
-									<input type="text" class="form-control mb-n my-border-radius-n outline-no" placeholder="search" v-model="fString">
-									<span class="fa fa-search form-control-feedback border-radius-n" style="line-height:34px"> </span>
-								</div>
-							</td>
-							<td class="pt-n pb-n">
-								<div>
-									<span style="line-height:34px;">None Selected</span>
-									<button class="btn btn-link pull-right" v-on:click="clearAll">CLEAR ALL</button>
-								</div>
-							</td>
-							<td class="pl-n pr-n bg-gray" rowspan="4" style="vertical-align:middle;text-align:center">
-								<span>PREVIEW</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="p-n" >
-								<div class="col-sm-12">
-									<div class="checkbox checkbox-primary">
-										<input id="checkbox1" class="styled" type="checkbox" v-on:click="selectAll">
-										<label for="checkbox1">3 structured snippet extensions</label>
-									</div>
-								</div>
-							</td>
-							<td rowspan="2">
-								<div class="col-sm-12 pr-n">
-									<li v-for="item in snippetArray" v-show="item.flag">{{item.title}}</li>
-								</div>
-							</td>
-						</tr>
-						<tr	>
-							<td class="p-n" width="50%" height="80%">
-								<div class="col-sm-12 pr-n">
-									<check-box v-for="(item, index) in fArray" v-show="!item.flag" @onChange="onChangeItem" v-bind:title="item.title" v-bind:flag="item.flag" v-bind:id="index" ></check-box>
-								</div>
-							</td>
-
-						</tr>
-						<tr>
-							<td class="p-n bg-gray" colspan="2">
-								<button class="btn btn-link" v-on:click="onNewSnippet">
-									<i class="fa fa-plus-circle"></i> NEW STRUCTURED EXTENSION
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<new-snippet @save="addNewSnippet" @cancel="closeSnippet" v-if="flgNewStructure"></new-snippet>
-			</div>
-		</div>
-	</div>
+	<list-manager editor="SnippetExtension" :provider="getList"></list-manager>
 </div>
 </template>
 
@@ -66,8 +9,16 @@
 	import checkbox from '../General/checkboxComponent.vue'
 	import CreateSnippet from './newSnippetComponent.vue'
 	import Vue from 'vue'
+	import ListManager from '@/components/search/components/ListManager'
+	import {request} from '@/config/adwords/request';
+
 	export default {
 		name: 'SelectSnippet',
+		components: {
+			'check-box': checkbox,
+			'new-snippet': CreateSnippet,
+			ListManager
+		},
 		data: function () {
 			return {
 				flgNewStructure: false,
@@ -143,6 +94,13 @@
 			}
 		},
 		methods: {
+			getList() {
+				return new Promise((resolve, reject) => {
+					request.get('/get_extension/sitelink').then(({data}) => {
+						resolve(data);
+					})
+				});
+			},
 			onNewSnippet: function () {
 				this.flgNewStructure = true
 			},
@@ -167,10 +125,6 @@
 					Vue.set(this.snippetArray, i, {title: this.snippetArray[i].title, flag: false})
 				}
 			}
-		},
-		components: {
-			'check-box': checkbox,
-			'new-snippet': CreateSnippet
 		}
 	}
 </script>

@@ -373,13 +373,13 @@
 		<extension-view v-if="extensionEnabled('sitelink-extension')" extension="sitelink-extension" label="Site link extensions"></extension-view> 
 		<extension-view v-if="extensionEnabled('callout-extension')" extension="callout-extension" label="Callout extensions"></extension-view>
 		<extension-view v-if="extensionEnabled('call-extension')" extension="call-extension" label="Call extensions"></extension-view> 
-		<extension-view v-if="extensionEnabled('app-extension')" extension="app-extension" label="App extensions"></extension-view> 
+		<!-- <extension-view v-if="extensionEnabled('app-extension')" extension="app-extension" label="App extensions"></extension-view>  -->
 		<extension-view extension="ad-schedule" label="Ad schedule"></extension-view>
 		<extension-view extension="ad-rotation" label="Ad rotation"></extension-view> 
-		<extension-view v-if="extensionEnabled('message-extension')" extension="message-extension" label="Messages extension"></extension-view>
-		<extension-view v-if="extensionEnabled('review-extension')" extension="review-extension" label="Review extension"></extension-view>
+		<!-- <extension-view v-if="extensionEnabled('message-extension')" extension="message-extension" label="Messages extension"></extension-view> -->
+		<!-- <extension-view v-if="extensionEnabled('review-extension')" extension="review-extension" label="Review extension"></extension-view> -->
 		<extension-view v-if="extensionEnabled('snippet-extension')" extension="snippet-extension" label="Snippet extension"></extension-view> 
-		<extension-view v-if="extensionEnabled('promotion-extension')" extension="promotion-extension" label="Promotion extension"></extension-view>
+		<!-- <extension-view v-if="extensionEnabled('promotion-extension')" extension="promotion-extension" label="Promotion extension"></extension-view> -->
 		<extension-view extension="location-options" label="Location options"></extension-view>
 		<extension-view extension="campaign-url-options" label="Campaign URL options"></extension-view>
 

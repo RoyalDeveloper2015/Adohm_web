@@ -31,18 +31,32 @@
 						</div>
 						<div class="row" v-if="item.newList"> 
 							<div class="col-xs-6">
-								<input type="text" class="form-control" placeholder="Enter list name" v-model="item.listName">
+								<input type="text" id="listName" class="form-control" placeholder="Enter list name" v-model="item.listName">
 							</div>
 							<div class="col-xs-6">
-								<select></select> 
+								<!-- <multi-select v-model="item.existingId" :options="keywords" label="sharedsetName" track-by="sharedsetId"
+								@search-change="query => search({
+									url: baseURL + '/get_negativeKeyword',
+									listTarget: [$data, 'keywords'],
+									listSource: ''
+								})"> -->
+								<select id="existingList" class="form-control" v-model="item.existingId">
+									 <option v-for="keyword in keywords" :key="keyword.id" :value="keyword.id">
+										{{keyword.name}}
+									</option>
+								</select> 
+								<!-- </multi-select>  -->
 							</div>
 						</div>
 					</div>
 				</template>
 
 				<template v-else="item.isList">
-					<list-manager :provider="getKeywordLists" v-model="item.listIds">
-					</list-manager>
+					<label> Add to </label>
+					<add-to-list type="campaign" @selected="setAddTo"></add-to-list>
+					<label> Select lists </label>
+					<list-manager :provider="getKeywordLists" v-model="item.listIds"></list-manager>
+					
 				</template>
 
 				<div> 
@@ -59,17 +73,25 @@ import {mapState} from 'vuex'
 import AddToList from '../components/AddToList'
 import ListManager from '../components/ListManager'
 import Vue from 'vue'
-import {request} from '@/config/default/request'
+import {request, baseURL} from '@/config/adwords/request'
+import MultiSelect from 'vue-multiselect'
+import {vUtils} from '@/components/Mixins'
+
 export default {
+	name: 'AddNegativeKeywords',
 	data: () => ({
+		keywords: [],
+		baseURL
 	}),
+	mixins: [vUtils],
 	components: {
 		AddToList,
-		ListManager
+		ListManager,
+		MultiSelect
 	},
 	methods: {
 		setAddTo(addto) {
-			if(this.addto == 'campaign') {
+			if(this.addto == 'campaign' || this.item.isList) {
 				Vue.set(this.item, 'campaignId', addto.campaign.id);
 				Vue.set(this.item, 'campaignName', addto.campaign.name);
 			} else {
@@ -87,14 +109,22 @@ export default {
 		},
 		getKeywordLists(search) {
 			return new Promise((resolve, reject) => {
-				request.get('/api/campaigns').then(({data}) => {
-					resolve(data.result.map(el => {
-						el.id = el._id;
+				request.get('/get_negativeKeyword').then(({data}) => {
+					resolve(data.map(el => {
+						el.id = el.sharedsetId;
+						el.name = el.sharedsetName;
 						return el;
 					}))
 				})
 			})
-		}
+		},
+	},
+	mounted() {
+		this.getKeywordLists().then(keywords => {
+			Vue.set(this, 'keywords', keywords);
+		});
+
+
 	},
 	computed: {
 		...mapState('adwords/keywords', ['item']),
