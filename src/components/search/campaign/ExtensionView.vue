@@ -6,7 +6,7 @@
 			</div>
 			<div class="col-md-8">
 				<div v-if="!collapsed">
-					<component :is="extension"></component>
+					<component :is="extension" :value.sync="data"></component>
 				</div>
 			</div>
 			<div class="col-md-1 right">
@@ -29,6 +29,7 @@
 	import CampaignUrlOptions from './CampaignUrlOptions/component'
 	import AdSchedule from './AdSchedule/component'
 	import AdRotation from './AdRotation/component'
+	import Vue from 'vue'
 	
 export default {
 	components: {
@@ -45,11 +46,22 @@ export default {
 		LocationOptions,
 		CampaignUrlOptions
 	},
-	props: ['label', 'extension'],
+	props: ['label', 'extension', 'value'],
 	data: () => ({
-		collapsed: false
+		collapsed: false,
+		data: {}
 	}),
-	methods: {
-  	}
+	mounted() {
+		Vue.set(this, 'data', this.value)
+	},
+	watch: {
+		data: {
+			deep: true,
+			handler() {
+				this.$emit('input', this.data);
+				this.$emit('update:value', this.data);
+			}
+		}
+	}
 }
 </script>

@@ -19,7 +19,7 @@ function getDataStructure() {
 				targeted: {countryids:[]},
 				excluded: {countryids:[]}
 			},
-			languages: ['English'],
+			languages: [],
 			amount: {
 				budget: 1200,
 				// sharedLibrary: null,
@@ -33,16 +33,19 @@ function getDataStructure() {
 				type: 'manualCPC',
 				data: { enableEnhancedCPC: true }
 			},
-			// extensions: {
-			// 	sitelink: [],
-			// 	callout: [],
-			// 	call: [],
-			// 	structuredSnippet: [],
-			// 	review: [],
-			// 	message: [],
-			// 	promotion: [],
-			// 	app: []
-			// },
+			extensions: {
+				sitelink: [],
+				callout: {
+					accountLevelCallOut: true,
+					campaignLevelCallOutExtension: []
+				},
+				call: [],
+				structuredSnippet: [],
+				review: [],
+				message: [],
+				promotion: [],
+				app: []
+			},
 			adRotation: null,
 			adSchedule: [],
 			locationOptions: {
